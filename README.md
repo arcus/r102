@@ -1,27 +1,23 @@
-# r102
+# R 102: MasteRing Fundamentals in R
+
 Materials, code, and slides for R 102 level trainings
 
+This is the GitHub repository for the workshop series called R 102: MasteRing Fundamentals in R, given at the Children's Hospital of Philadelphia (CHOP) by Arcus Education and the CHOP R User Group.
 
-# Intro to R for Clinical Data
-
-This is the GitHub repository for the workshop called Introduction to R for Clinical Data, given at the Children's Hospital of Philadelphia (CHOP) by Arcus Education and the CHOP R User Group.  
-
-This repository contains the files you need to be able to complete the exercises in the workshop.  
+This repository contains the files you need to be able to complete the exercises in each of the workshop sessions.  
 Exercises for you to complete are in the [exercises](exercises) folder, and working solutions files are found in [solutions](solutions).
 
-This workshop is aimed at people who have never used R or RStudio and is appropriate for brand new beginners.  
-In it, you'll learn the basics of R, RStudio / Posit, and Quarto / R Markdown.  
-You'll work with fabricated clinical data and learn to ingest, visualize, reshape, and communicate findings, all using the R language.  
+This series is aimed a people who have had a little exposure to the R programming language before, but are still beginners. 
+If you've attended a previous [Intro to R for Clinical Data Workshop](https://arcus.github.io/intro-to-r-for-clinical-data/), for example, then these workshops will hopefully be the perfect next step!
 
-Not interested in clinical data?  
-If you work with any kind of tabular (table-shaped, with rows and columns) data, like data in spreadsheets, you might find this workshop useful.  
+If you're brand new to R, you're still welcome to attend but you may find it harder to follow along actively with the code. 
 
-This workshop is free and does not require any paid software.  
+This workshop series is free and does not require any paid software.  
 You will need a computer and a robust internet connection, however.
 
-## Before the Workshop
+## Before your first workshop session
 
-Before the workshop, please do the following.  
+Before attending a workshop session, please do the following.  
 
 **Necessary**:
 
@@ -36,7 +32,7 @@ Before the workshop, please do the following.
 * Consider installing [R](https://cloud.r-project.org/) and [RStudio Desktop](https://rstudio.com/products/rstudio/download/) on your computer, so you can hit the ground running after the workshop finishes!
 * If you haven't already, and you're a CHOP or Penn employee, please consider [joining CHOP's R User Group](http://bit.ly/chopRusers).
 
-On the day of the workshop, we suggest the following:
+On the day of your workshop, we suggest the following:
 
 * If available to you, use two monitors (or another two-screen setup such as a laptop and a tablet or two laptops).
 * Follow along in the [slides](slides.link), if you like.
@@ -45,7 +41,7 @@ On the day of the workshop, we suggest the following:
 
 ### Use Posit.cloud
 
-The easiest way to do the workshop exercises is to create a free account at <https://posit.cloud> and then go to [our workshop project](https://posit.cloud/content/6121691) and make your own permanent copy of this project so you can make changes and work with it later.
+The easiest way to do the workshop exercises is to create a free account at <https://posit.cloud> and then go to [our workshop project](project.link) and make your own permanent copy of this project so you can make changes and work with it later.
 
 Alternately, in Posit Cloud you can also add a new project and select "New Project from Git Repository" and enter the url of this repository, namely <https://github.com/arcus/r102>.
 
@@ -78,3 +74,11 @@ All of the material in this GitHub repository is copyrighted under the [Creative
 We encourage you to reuse it and adapt it for your own teaching as you like!
 
 ## Acknowledgements
+
+Material for some of these sessions was adapted from [DART data science learning modules](https://arcus.github.io/education_modules/educators), a project developed by the Arcus Data Education team at CHOP. 
+In particular, the following modules were adapted for workshop sessions: 
+
+- [Missing Values in R](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_missing_values/r_missing_values.md)
+- [Summary Statistics in R](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_summary_stats/r_summary_stats.md)
+
+Three cheers for remixing and reusing open education materials! 
