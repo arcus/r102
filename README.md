@@ -26,7 +26,7 @@ Before the workshop, please do the following.
 **Necessary**:
 
 * Create a free [Posit.cloud](https://posit.cloud) account.  We will use this as our training environment and you will have continued access to your code and materials after the workshop, through your account at Posit.cloud.
-* Please review our [Code of Conduct](conduct.md).
+* Please review our [Code of Conduct](https://github.com/arcus/intro-to-r-for-clinical-data/blob/main/conduct.md).
 
 **Highly Recommended**:
 
