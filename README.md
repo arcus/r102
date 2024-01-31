@@ -3,13 +3,24 @@ This is the GitHub repository for the workshop series called R 102: MasteRing Fu
 This repository contains the files you need to be able to complete the exercises in each of the workshop sessions.  
 Exercises for you to complete are in the [exercises](exercises) folder, and working solutions files are found in [solutions](solutions).
 
-This series is aimed a people who have had a little exposure to the R programming language before, but are still beginners. 
+## About this workshop series
+
+This series is aimed at people who have had a little exposure to the R programming language before, but are still beginners. 
 If you've attended a previous [Intro to R for Clinical Data Workshop](https://arcus.github.io/intro-to-r-for-clinical-data/), for example, then these workshops will hopefully be the perfect next step!
 
 If you're brand new to R, you're still welcome to attend but you may find it harder to follow along actively with the code. 
 
 This workshop series is free and does not require any paid software.  
 You will need a computer and a robust internet connection, however.
+
+## Workshop sessions
+
+**You're welcome to attend the whole series, or just pick the dates/topics that work best for you.** Material in later sessions will not require you to have been at earlier sessions.
+
+- [Register to attend **Missing Values in R**]() 2024-03-04 12pm-1pm ET
+- [Register to attend **Summary Statistics in R**]() 2024-04-08 12pm-1pm ET
+- [Register to attend **tidyr basics**]() 2024-05-06 12pm-1pm ET
+- [Register to attend **Factors and data types**]() 2024-06-03 12pm-1pm ET
 
 ## Before your first workshop session
 
@@ -61,7 +72,7 @@ install.packages(c(
 
 ## Slides
 
-[Slides](slides.link) of the teaching presentation that accompany the workshop are available and you are welcome to follow along or refer back to them at a later date.  
+[Slides](slides.link) of the teaching presentation that accompany each of the workshop sessions are available and you are welcome to follow along or refer back to them at a later date.  
 The source code for these slides is included in the directory [quarto_slides](quarto_slides) in this repository.
 
 ## License
