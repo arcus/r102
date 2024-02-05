@@ -1,10 +1,11 @@
-This is the GitHub repository for the workshop series called R 102: MasteRing Fundamentals in R, given at the Children's Hospital of Philadelphia (CHOP) by Arcus Education and the CHOP R User Group.
+This is the GitHub repository for the workshop series called **R 102: MasteRing Fundamentals in R**, given at the Children's Hospital of Philadelphia (CHOP) by Arcus Education and the CHOP R User Group.
 
 This repository contains the files you need to be able to complete the exercises in each of the workshop sessions.  
 Exercises for you to complete are in the [exercises](exercises) folder, and working solutions files are found in [solutions](solutions).
 
 ## About this workshop series
 
+Welcome to R102! 
 This series is aimed at people who have had a little exposure to the R programming language before, but are still beginners. 
 If you've attended a previous [Intro to R for Clinical Data Workshop](https://arcus.github.io/intro-to-r-for-clinical-data/), for example, then these workshops will hopefully be the perfect next step!
 
@@ -18,25 +19,21 @@ You will need a computer and a robust internet connection, however.
 **You're welcome to attend the whole series, or just pick the dates/topics that work best for you.** Material in later sessions will not require you to have been at earlier sessions.
 
 - **Missing Values in R**
-  * [Register to attend](): 2024-03-04 12pm-1pm ET
+  * [Register to attend](https://teams.microsoft.com/registration/FiQRprAHpUGbsdFGtXXJdQ,uIwOiPVTlUiTJrTDzq5e1Q,IfSIW2Y11kKPvvTeD2EpwQ,xuRZUSL4UkyROatH7XsJ8g,x8c8Ja8GEkyDoGJspKZNjg,W8aeQT2kMkKSFI8vd_RUBg?mode=read&tenantId=a6112416-07b0-41a5-9bb1-d146b575c975): 2024-03-04 12pm-1pm ET
   * Follow along with the [slides]()
   * Try the [online tutorial version available at DART](https://bit.ly/DART_r_missing_values)
-  * Check out the [repo with the practice code and solutions]()
 - **Summary Statistics in R**
-  * [Register to attend]():  2024-04-08 12pm-1pm ET
+  * [Register to attend](https://teams.microsoft.com/registration/FiQRprAHpUGbsdFGtXXJdQ,uIwOiPVTlUiTJrTDzq5e1Q,IfSIW2Y11kKPvvTeD2EpwQ,J2-W6rXVFEeVWEmOaSlLBw,V6XSer9ObUyCMED3e0emDw,1bieyV9zhE-VlqWjSxZilg?mode=read&tenantId=a6112416-07b0-41a5-9bb1-d146b575c975):  2024-04-08 12pm-1pm ET
   * Follow along with the [slides](https://rosemhartman.quarto.pub/summary_stats_in_r/)
   * Try the [online tutorial version available at DART](https://bit.ly/DART_r_summary_stats)
-  * Check out the [repo with the practice code and solutions](https://github.com/arcus/education_r_environment/tree/main/r_summary_stats)
-- **tidyr basics**
-  * [Register to attend](): 2024-05-06 12pm-1pm ET
+- **Reshaping Data with tidyr**
+  * [Register to attend](https://teams.microsoft.com/registration/FiQRprAHpUGbsdFGtXXJdQ,uIwOiPVTlUiTJrTDzq5e1Q,IfSIW2Y11kKPvvTeD2EpwQ,F1HJaZpv40a4LuwAVSI1Xw,1LNEqZg3fUGK0G70vwxyhA,4djpuW5va0KOxuJ_FPb9kA?mode=read&tenantId=a6112416-07b0-41a5-9bb1-d146b575c975): 2024-05-06 12pm-1pm ET
   * Follow along with the [slides]()
-  * Try the [online tutorial version available at DART]()
-  * Check out the [repo with the practice code and solutions]()
-- **Factors and data types**
-  * [Register to attend](): 2024-06-03 12pm-1pm ET
+- **Data Types and Visualizations**
+  * [Register to attend](https://teams.microsoft.com/registration/FiQRprAHpUGbsdFGtXXJdQ,uIwOiPVTlUiTJrTDzq5e1Q,IfSIW2Y11kKPvvTeD2EpwQ,FIGYUuoXWUW2I7DEjPRR7w,4key0N65Q06UMFyyfAHEuA,P-L0WLx-NkygNs1ugIEIvg?mode=read&tenantId=a6112416-07b0-41a5-9bb1-d146b575c975): 2024-06-03 12pm-1pm ET
   * Follow along with the [slides]()
-  * Try the [online tutorial version available at DART]()
-  * Check out the [repo with the practice code and solutions]()
+
+For all of the talks, you can [work hands on with the code and see solutions in our Posit.cloud project](https://posit.cloud/content/7522885)
 
 ## Before your first workshop session
 
@@ -51,7 +48,6 @@ Before attending a workshop session, please do the following.
 
 * Install or update the [Google Chrome browser](https://www.google.com/chrome/) on the computer you'll use.  We highly recommend you use Chrome to access our workshop training environment.
 * Download and install the latest version of [Teams](https://www.microsoft.com/en-us/microsoft-teams/download-app) (you may also choose to join in a browser).
-* To help us better understand our learners, please complete the [pre-course survey](survey.link). We appreciate it!
 * Consider installing [R](https://cloud.r-project.org/) and [RStudio Desktop](https://rstudio.com/products/rstudio/download/) on your computer, so you can hit the ground running after the workshop finishes!
 * If you haven't already, and you're a CHOP or Penn employee, please consider [joining CHOP's R User Group](http://bit.ly/chopRusers).
 
@@ -64,7 +60,7 @@ On the day of your workshop, we suggest the following:
 
 ### Use Posit.cloud
 
-The easiest way to do the workshop exercises is to create a free account at <https://posit.cloud> and then go to [our workshop project](project.link) and make your own permanent copy of this project so you can make changes and work with it later.
+The easiest way to do the workshop exercises is to create a free account at <https://posit.cloud> and then go to [our workshop project](https://posit.cloud/content/7522885) and make your own permanent copy of this project so you can make changes and work with it later.
 
 Alternately, in Posit Cloud you can also add a new project and select "New Project from Git Repository" and enter the url of this repository, namely <https://github.com/arcus/r102>.
 
@@ -82,7 +78,9 @@ The files here depend on several R libraries, which you can install using the fo
 ```r
 install.packages(c(
   "tidyverse",
-  "rmarkdown"
+  "rmarkdown",
+  "medicaldata",
+  "gtsummary"
 ))
 ```
 
