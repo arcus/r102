@@ -17,10 +17,26 @@ You will need a computer and a robust internet connection, however.
 
 **You're welcome to attend the whole series, or just pick the dates/topics that work best for you.** Material in later sessions will not require you to have been at earlier sessions.
 
-- [Register to attend **Missing Values in R**]() 2024-03-04 12pm-1pm ET
-- [Register to attend **Summary Statistics in R**]() 2024-04-08 12pm-1pm ET
-- [Register to attend **tidyr basics**]() 2024-05-06 12pm-1pm ET
-- [Register to attend **Factors and data types**]() 2024-06-03 12pm-1pm ET
+- **Missing Values in R**
+  * [Register to attend](): 2024-03-04 12pm-1pm ET
+  * Follow along with the [slides]()
+  * Try the [online tutorial version available at DART]()
+  * Check out the [repo with the practice code and solutions]()
+- **Summary Statistics in R**
+  * [Register to attend]():  2024-04-08 12pm-1pm ET
+  * Follow along with the [slides](https://rosemhartman.quarto.pub/summary_stats_in_r/)
+  * Try the [online tutorial version available at DART](https://bit.ly/DART_r_summary_stats)
+  * Check out the [repo with the practice code and solutions](https://github.com/arcus/education_r_environment/tree/main/r_summary_stats)
+- **tidyr basics**
+  * [Register to attend](): 2024-05-06 12pm-1pm ET
+  * Follow along with the [slides]()
+  * Try the [online tutorial version available at DART]()
+  * Check out the [repo with the practice code and solutions]()
+- **Factors and data types**
+  * [Register to attend](): 2024-06-03 12pm-1pm ET
+  * Follow along with the [slides]()
+  * Try the [online tutorial version available at DART]()
+  * Check out the [repo with the practice code and solutions]()
 
 ## Before your first workshop session
 
@@ -86,6 +102,6 @@ Material for some of these sessions was adapted from [DART data science learning
 In particular, the following modules were adapted for workshop sessions: 
 
 - [Missing Values in R](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_missing_values/r_missing_values.md)
-- [Summary Statistics in R](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_summary_stats/r_summary_stats.md)
+- [Summary Statistics in R](https://bit.ly/DART_r_summary_stats)
 
 Three cheers for remixing and reusing open education materials! 
