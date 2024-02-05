@@ -1,7 +1,7 @@
 This is the GitHub repository for the workshop series called **R 102: MasteRing Fundamentals in R**, given at the Children's Hospital of Philadelphia (CHOP) by Arcus Education and the CHOP R User Group.
 
 This repository contains the files you need to be able to complete the exercises in each of the workshop sessions.  
-Exercises for you to complete are in the [exercises](exercises) folder, and working solutions files are found in [solutions](solutions).
+Exercises for you to complete are in the [exercises](https://github.com/arcus/r102/tree/main/exercises) folder, and working solutions files are found in [solutions](https://github.com/arcus/r102/tree/main/solutions).
 
 ## About this workshop series
 
