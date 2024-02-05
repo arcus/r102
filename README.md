@@ -20,7 +20,7 @@ You will need a computer and a robust internet connection, however.
 - **Missing Values in R**
   * [Register to attend](): 2024-03-04 12pm-1pm ET
   * Follow along with the [slides]()
-  * Try the [online tutorial version available at DART]()
+  * Try the [online tutorial version available at DART](https://bit.ly/DART_r_missing_values)
   * Check out the [repo with the practice code and solutions]()
 - **Summary Statistics in R**
   * [Register to attend]():  2024-04-08 12pm-1pm ET
@@ -101,7 +101,7 @@ We encourage you to reuse it and adapt it for your own teaching as you like!
 Material for some of these sessions was adapted from [DART data science learning modules](https://arcus.github.io/education_modules/educators), a project developed by the Arcus Data Education team at CHOP. 
 In particular, the following modules were adapted for workshop sessions: 
 
-- [Missing Values in R](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_missing_values/r_missing_values.md)
+- [Missing Values in R](https://bit.ly/DART_r_missing_values)
 - [Summary Statistics in R](https://bit.ly/DART_r_summary_stats)
 
 Three cheers for remixing and reusing open education materials! 
