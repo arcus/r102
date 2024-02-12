@@ -103,3 +103,7 @@ In particular, the following modules were adapted for workshop sessions:
 - [Summary Statistics in R](https://bit.ly/DART_r_summary_stats)
 
 Three cheers for remixing and reusing open education materials! 
+
+## Enroll 
+
+<iframe src="https://teams.microsoft.com/registration/FiQRprAHpUGbsdFGtXXJdQ,uIwOiPVTlUiTJrTDzq5e1Q,IfSIW2Y11kKPvvTeD2EpwQ,xuRZUSL4UkyROatH7XsJ8g,x8c8Ja8GEkyDoGJspKZNjg,W8aeQT2kMkKSFI8vd_RUBg?mode=read&tenantId=a6112416-07b0-41a5-9bb1-d146b575c975" style="width: 500px; height: 130px; border: 0px"></iframe>
