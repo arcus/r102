@@ -23,7 +23,7 @@ Use this form to [register to attend one or more workshop sessions](https://redc
 
 - **Missing Values in R**
   * Date: 2024-03-04 12pm-1pm ET
-  * Follow along with the [slides]()
+  * Follow along with the slides (link coming soon)
   * Try the [online tutorial version available at DART](https://bit.ly/DART_r_missing_values)
 - **Summary Statistics in R**
   * Date:  2024-04-08 12pm-1pm ET
@@ -31,12 +31,12 @@ Use this form to [register to attend one or more workshop sessions](https://redc
   * Try the [online tutorial version available at DART](https://bit.ly/DART_r_summary_stats)
 - **Reshaping Data with tidyr**
   * Date: 2024-05-06 12pm-1pm ET
-  * Follow along with the [slides]()
+  * Follow along with the slides (link coming soon)
 - **Data Types and Visualizations**
   * Date: 2024-06-03 12pm-1pm ET
-  * Follow along with the [slides]()
+  * Follow along with the slides (link coming soon)
 
-For all of the talks, you can [work hands on with the code and see solutions in our Posit.cloud project](https://posit.cloud/content/7522885)
+For all of the talks, you can [work hands-on with the code and see solutions in our Posit.cloud project](https://posit.cloud/content/7522885)
 
 ## Before your first workshop session
 
@@ -57,7 +57,7 @@ Before attending a workshop session, please do the following.
 On the day of your workshop, we suggest the following:
 
 * If available to you, use two monitors (or another two-screen setup such as a laptop and a tablet or two laptops).
-* Follow along in the [slides](slides.link), if you like.
+* Follow along in the slides (link coming soon), if you like.
 
 ## Where to do the exercises
 
@@ -89,8 +89,8 @@ install.packages(c(
 
 ## Slides
 
-[Slides](slides.link) of the teaching presentation that accompany each of the workshop sessions are available and you are welcome to follow along or refer back to them at a later date.  
-The source code for these slides is included in the directory [quarto_slides](quarto_slides) in this repository.
+Slides (link coming soon) of the teaching presentation that accompany each of the workshop sessions are available and you are welcome to follow along or refer back to them at a later date.  
+The source code for these slides is included in the directory [quarto_slides](https://github.com/arcus/r102/tree/main/quarto_slides) in this repository.
 
 ## License
 
