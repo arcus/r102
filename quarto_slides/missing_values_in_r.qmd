@@ -1,0 +1,1019 @@
+---
+title: "Missing Values <br> in R"
+author: "Rose Hartman"
+institute: "Arcus Education, DBHi"
+date: "2024-03-04"
+embed-resources: true
+execute:
+  echo: true
+format: 
+  chopr-revealjs
+---
+
+-   Use keyboard arrow keys to
+    -   advance ( → ) and
+    -   go back ( ← )
+-   Type "s" to see speaker notes
+-   Type "?" to see other keyboard shortcuts
+
+```{r echo = FALSE}
+library(countdown)
+```
+
+## Join the CHOP R User Group
+
+::: {.columns .v-center-container}
+::: {.column width="50%"}
+![](media/chopr.png){fig-alt="CHOPR hex sticker logo" width="100%"}
+:::
+
+::: {.column width="50%"}
+- Friendly help troubleshooting your R code
+- Announcements for upcoming talks, workshops, and conferences
+:::
+:::
+
+Link to join: [https://bit.ly/chopRusers](https://bit.ly/chopRusers)
+
+::: notes
+Just a few announcements before we get started. 
+For anyone here today that isn't already part of the CHOP R User group, I strongly encourage you to join (it is also open to Penn folks). The CHOP R User group has more than 500 members from all departments. This is great place to network with other R users, get help with coding problems, and learn about new packages, webinars, and conferences. We also have semi-regular meetings and workshops, like this one. 
+
+:::
+
+## Come to R Office Hours!
+
+- Set up a meeting to get live help with your R code from our most experienced useRs
+- Office hours appointments can be one-on-one or open to the community
+
+Link to calendar: [https://bit.ly/chopROfficeHours](https://bit.ly/chopROfficeHours)
+
+::: aside
+We're looking for more volunteers to lead appointments! Get in touch: hartmanr1@chop.edu
+:::
+
+::: notes
+We have regular office hours appointments available to get R help. 
+We're offering two kinds of appointments: one-on-one, if you want individual help, or open appointments that are more of a community conversation about whatever R questions people bring up that day. The open appointments can be particularly valuable to attend if you want to hear other people's questions about R but maybe don't have a project of your own that you're troubleshooting at the moment. 
+We set up a calendar online where you can book an appointment. 
+[click] And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
+:::
+
+## Coming soon! 
+
+This is the first talk in a new series called **R102: MasteRing the Fundamentals** 
+
+<br>
+
+Learn more about this new series, including dates and titles for each session: 
+<br>
+[https://arcus.github.io/r102/](https://arcus.github.io/r102/)
+
+And sign up now to reserve your spot!
+<br>
+[https://redcap.link/R102_Signup](https://redcap.link/R102_Signup)
+
+
+::: notes
+This is a new series of workshops intended as a continuation of the popular Intro to R for Clinical Data workshop we offer a few times a year. 
+We're designing these talks with beginners in mind, so if you're trying to figure out how to get started with R, or how to start applying it in your own work, these talks are for you!
+::: 
+
+# Missing Values in R
+
+::: notes
+Okay! So this talk is a quick dip into some 102-level R. In other words, if you've had a little exposure to R before, such as through an Intro to R for Clinical Data workshop, this is hopefully the right level for you now. 
+If you're completely brand new to R, first of all: Welcome! You may find it tricky to actively follow along with the code today since I'm going to skim over some of the initial steps, but go ahead and give it a try, or just listen and watch if that feels more like the right speed. 
+
+Our topic is missing values in R, one of the major stumbling blocks folks typically encounter when they start trying to use R to analyze data "in the wild". 
+Real data are messy, and missingness is one of the main kinds of mess you'll have to deal with!
+
+Please feel very free to stop me with questions, either by unmuting or in the chat – I've left plenty of extra time in the talk, so there's space for us to stop and talk about things. 
+:::
+
+## What we're covering today
+
+::: {.incremental}
+* How to check the number and location of missing values in a dataframe
+* How to mark values as missing
+* How to use common arguments like `na.rm` and `na.action` to control how functions handle missingness
+* How to remove cases with missing values from a dataframe
+* NOT teaching statistical remedies for missingness, like imputation (but ask me about that later if you're curious!)
+:::
+
+## Why check for missingness?
+
+::: {.incremental}
+
+* Checking for missing data can help you know whether the data were read in correctly
+* Missingness will also impact your effective sample size
+* If your analysis will involve fixing missingness statistically, the first step is always **describing** the missingness
+
+:::
+
+::: notes
+
+Checking missing values can also help you check whether the data were read in correctly. 
+In many cases, you know beforehand whether there should be any missing values on particular variables in your data because you know about how the data were collected, etc.
+After you import the data into R, checking for missingness can give you a sense for whether the data were imported correctly.
+For example, if you were expecting some missingness on a given variable and you see none, it can give you a hint that the missing values in the raw data aren't being correctly interpreted by R.
+
+[CLICK]
+When you have missing values, the sample size that you can actually use for your analysis is often reduced.
+For example, if you collect 100 samples, but 20 of them are missing at least some of the measurements, you might only have 80 complete samples you can analyze.
+
+[CLICK]
+If you have substantial missingness (a good rule of thumb is 5% or more of your data are missing), then you may need special statistical techniques to be able to analyze the data without introducing bias.
+Such techniques are outside the scope of this module, but there are lots of excellent papers on this, and tutorials available with instructions.
+
+Understanding the amount and type of missing data you have is crucial to conducting appropriate statistical analyses.
+Although techniques for analyzing and correcting for different missingness patterns is outside the scope of this module,
+one of the first steps in any of those techniques is checking how much missing data you have and on which variables, which we will cover here.
+:::
+
+## {{< fa book-open >}} Learn more
+
+For an excellent introduction to different types of missing data and how to handle them statistically, read Rubin's classic paper [Inference and Missing Data](http://math.wsu.edu/faculty/xchen/stat115/lectureNotes3/Rubin%20Inference%20and%20Missing%20Data.pdf).
+
+::: notes
+
+I've got a few of these "learn more" slides thrown in throughout the presentation. They include links to resources I like for learning more about the topics we're covering. I won't click through to any of these resources now, but you have access to the slides so feel free to go back and review these links later if you like!
+
+:::
+
+## What does "missing" look like <br> in R? 
+
+::: {.center-text}
+::: {.big-text}
+`NA`
+:::
+:::
+
+. . . 
+
+Rarely:
+
+* `NA_integer_`
+* `NA_real_`
+* `NA_complex_`
+* `NA_character_`
+
+::: notes
+Different statistical software mark missing values in different ways.
+In R, missing values are marked with `NA`, which is short for "Not Available".
+
+Technically, there are actually four additional kinds of `NA`, corresponding to different data types.
+
+For most practical purposes, you don't need to know anything about these different kinds of `NA`, though; they all just mean "missing", and you can usually use `NA` to refer to all of them.
+:::
+
+## For example
+
+Here's an example of what some data with missing values might look like when printed in R:
+
+| sensor\_id | PM2.5 | PM10 | O3 | NO2 |
+| ---- | --- | --- | --- | --- |
+| 0001 | 10 | 25 | 0.0 | 67 |
+| 0002 | 13 | 21 |  NA | 71 |
+| 0003 | 9  | NA |  NA | 64 |
+
+::: notes
+
+Note that the second and third rows have `NA` instead of numerical values for some of the measurements.
+The `NA` indicates a lack of any information for each of those cells; those values are missing.
+
+:::
+
+## {{< fa book-open >}} Learn more
+
+**What about `NULL` and `NaN`?**
+
+If you'd like to learn more, check out this [blog post explaining the difference between `NA` and `NULL`](https://www.r-bloggers.com/2010/04/r-na-vs-null/) and the [missing values chapter of R for Data Science (2e)](https://r4ds.hadley.nz/missing-values#nan).
+
+<br>
+
+If you're just beginning in R, you can safely ignore the differences between `NA`, `NaN`, and `NULL` for now. 
+
+::: notes
+
+If you've been using R for a while, you may have seen `NULL` or `NaN` in some cases instead of `NA` when things are missing.
+
+`NULL` and `NaN` work a lot like `NA` but they're also a bit different --- they doesn't stand in for missing data the way `NA` does. 
+Instead `NULL` shows up when you have an expression or function whose result is undefined (for example, a logical comparison whose result is neither `TRUE` nor `FALSE`), and `NaN` (short for "not a number") shows up when a calculation produces something other than a number, like the square root of -1.
+
+:::
+
+## How to check for missing values
+
+::: {.incremental}
+
+* Open the data in the Data Viewer and scan visually for `NA`s (to see examples of how to use `View()`, see this [tutorial on RStudio's data viewer](https://support.rstudio.com/hc/en-us/articles/205175388-Using-the-Data-Viewer-in-the-RStudio-IDE))
+* `summary()`
+* Many more options! For some handy visualizations of missingness, see the [`visdat` package](https://cran.r-project.org/web/packages/visdat/vignettes/using_visdat.html), and the [`missmap` function from the `Amelia` package](https://www.rdocumentation.org/packages/Amelia/versions/1.8.0/topics/missmap).
+
+:::
+
+::: notes
+
+One way to see missing data in R is to take a look at the full dataset, either by printing it in the console or using `View()` to see it opened like a spreadsheet.
+Then you can just scan visually for `NA` cells, as in the example table in the previous section.
+If your dataset is anything larger than a handful of rows and columns, though, you'll want a way to summarize that information without having to count everything by hand yourself.
+
+[CLICK] 
+There are many functions available to check for missing values in R, but one especially handy one is the `summary()` function.
+It gives you some basic summary information about each variable in your data (minimum and maximum values, etc.), and will also tell you how many missing values you have for each variable.
+Because it gives you summary statistics and missingness information at the same time, many people like to use it as a quick way to check their data as a start to their [exploratory data analysis](https://r4ds.had.co.nz/exploratory-data-analysis.html).
+
+:::
+
+## Working with missing values in R
+
+Two options:
+
+1. Work in the cloud: [https://posit.cloud/content/7522885](https://posit.cloud/content/7522885)
+2. Work on your computer: [https://github.com/arcus/r102](https://github.com/arcus/r102)
+
+::: notes
+
+Time to start coding! By far the best way to learn R is to practice, so work through this code yourself as you follow along.
+
+This link will take you to Posit Cloud, which gives you a way to work with the code right in your browser without having to install anything on your machine. You will need to create a free account if you don't already have one. I'll click that link now, and log in with a different account than the one I used to create it so you can see what it looks like. It will take a few minutes to load.
+
+You can also get all of the code for this talk directly from our GitHub and download it to work on your own machine. If you want to go this route, go to our GitHub repo and then find this green "Code" button. If click it you'll see you have several options, one of which is downloading a zip file -- click that and it will download all the files you need for this talk. Once it's done downloading, double click it to unzip the file. If you're comfortable using git, you can also clone the repo, or fork it if you'd like a personal copy. And if you don't know what cloning and forking are, no worries! Just use the zip file. 
+
+:::
+
+## The packages we'll be using today
+
+::: {.columns .v-center-container}
+::: {.column width="50%"}
+![](https://www.tidyverse.org/images/hex-tidyverse.png){fig-alt="tidyverse hex sticker logo."}
+:::
+::: {.column width="50%"}
+Learn more about the tidyverse packages on the [tidyverse website](https://www.tidyverse.org/)!
+:::
+:::
+
+::: notes
+First, we need to load the `tidyverse` packages, since we'll be using several functions that come in the `tidyverse`, as well as a built-in dataset that comes with `tidyverse`.
+
+I'll also pause here for a moment to invite anyone that is having trouble getting access to the code, either with that Posit Cloud link or by downloading the files, to let us know in the chat. If you have the code pulled up and ready to go, please click the thumbs up reaction in Teams to let me know you're ready. 
+:::
+
+## Load packages
+
+Only if needed:
+
+```{r eval=FALSE}
+install.packages("tidyverse")
+```
+
+<br>
+Each R session:
+
+```{r}
+library(tidyverse)
+```
+
+::: notes
+If you're running this on your own computer rather than in the cloud instance we set up, you may need to run `install.packages` first if you haven't ever used the `tidyverse` packages before. If you're working in the cloud, then it's already been installed for you.
+
+Either way, the library command here is written out for you in the first chunk of the file `missing_values_exercises.rmd`. Go ahead and open that file now, and click the green arrow to run that line.
+:::
+
+## The data
+
+In the console or in the exercises rmd file, run the following command:
+
+```{r echo=FALSE}
+msleep <- as.data.frame(msleep)
+```
+
+
+```{r}
+#| output-location: fragment
+head(msleep) 
+```
+
+
+::: notes
+This command is also written out for you in the `missing_values_exercises.rmd` file, in the next code chunk.
+
+Let's take a look at the data.
+
+You should see the first six rows of the msleep data frame, which look like this. 
+Note that this is one of the example datasets that comes built-in when you install the `tidyverse` package, so it's already available to you without you having to read it in or download anything.
+
+For those of you that have worked in R before, you know importing data is a whole thing, so we're definitely skipping over a potentially tricky bit by using built-in data, but we only have so much time today and I wanted to be able to put as much time as possible towards actually working with the missing values. So we're just merrily skipping past all the importing and tidying that would normally happen.
+:::
+
+## About these data
+
+To learn more about this dataset:
+
+```{r eval=FALSE}
+?msleep
+```
+
+. . .
+
+From the help documentation: 
+
+> This is an updated and expanded version of the mammals sleep dataset. Updated sleep times and weights were taken from V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007. 
+
+::: notes
+You can look up help documentation for built-in datasets, just like there's help documentation for functions. Cool, huh?
+:::
+
+## How to check for missing values
+
+```{r}
+#| output-location: fragment
+summary(msleep)
+```
+
+::: notes
+Notice the bottom row of the summary statistics for `sleep_rem`, `sleep_cycle` and `brainwt`. It gives the count of `NA` values for each variable. The other numeric variables (`sleep_total`, `awake`, and `bodywt`) don't show anything for the `NA` count, which means they have no missing values.
+
+The `summary` command is most useful for numeric and factor variables. It doesn't show us anything useful for the character variables. We can get better output for those by converting them to factors, though.
+:::
+
+## Convert to factor
+
+We could convert those variables to factors with a `mutate` command for each of the rows we want to convert, like this:
+
+```{r}
+msleep_clean <- msleep |>
+  mutate(name = as.factor(name),
+         genus = as.factor(genus),
+         vore = as.factor(vore),
+         order = as.factor(order),
+         conservation = as.factor(conservation))
+```
+
+## Convert to factor
+
+But in cases like this where we want to convert several variables all in the same way, we can do it faster with the `across` command:
+
+```{r}
+#| code-line-numbers: "|3|4|"
+msleep_clean <- msleep |>
+  mutate(across(
+    where(is.character), 
+    as.factor))
+```
+
+::: notes
+Let's break that down. We're using the `across` command to do the same thing across several columns. 
+
+[CLICK] The first argument of `across` needs to tell it which columns to use. Here, we're telling it which columns to use with `where(is.character)` --- that will check each column against the test `is.character` and return `TRUE` if the column is of type character and `FALSE` if it's anything else. `where(is.character)` will therefore give us a list of all of the columns that are character columns. 
+[CLICK] The second argument of `across` is what you want done to those columns. Here, we're saying we want it to apply the function `as.factor`. 
+[CLICK] So taken together, this `mutate` command will pick all the columns from the data that are of type character and convert them to factor. Handy!
+
+Note that either way of converting these columns (either individually, or all at once using the `across` function) will result in the same clean dataframe.
+:::
+
+## {{< fa book-open >}} Learn more
+
+A few things from the above code that you might want to look into further:
+
+- Pipes! See the [2nd edition R4DS section on pipes](https://r4ds.hadley.nz/data-transform.html#sec-the-pipe)
+- If you're curious, a [comparison of the new (`|>`) and old (`%>%`) pipes](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/)
+- More about `mutate` and data transformation in general in [R4DS section on mutate](https://r4ds.hadley.nz/data-transform.html#sec-mutate)
+- More about `across` in the [tidyverse "colwise" vignette](https://dplyr.tidyverse.org/articles/colwise.html)
+
+## {{< fa circle-question >}} Troubleshooting
+
+If you make a mistake modifying the data, how can you undo it?
+
+If this were a dataset we read in from an external file (like a .csv), you could just read it in again to get a fresh copy. 
+But how do you get a fresh copy of a built-in dataset? 
+
+. . .
+
+To reset the data to its original state, run `rm(msleep)` in the console. This will delete your current version of the data from R's environment, and you'll just be left with the original clean copy from the `ggplot2` package.
+
+::: notes
+In this case, the `mutate` commands we ran saved to a new R object, called `msleep_clean`, so they didn't actually overwrite `msleep` at all. But if you did make some changes to `msleep` and you wanted to undo them, it's good to know how!
+:::
+
+## Summary again
+
+Now let's try `summary` again to see if we get more informative results for those first few columns:
+
+```{r}
+#| output-location: fragment
+summary(msleep_clean)
+```
+
+::: notes
+Note that this time we're running it on the new `msleep_clean` dataframe with those cleaned up factor variables.
+:::
+
+## Filtering with `NA`s
+
+Let's use `filter` to take a look at just the rows that have missing values for the brainwt variable.
+
+```{r}
+#| output-location: fragment
+filter(msleep_clean, brainwt == NA)
+```
+
+::: notes
+[CLICK] That doesn't work!
+
+In fact, if you're following along in RStudio, you may even have noticed a little yellow warning triangle appear at the left side of your screen, next to the line number with that code. If you hover your mouse over the warning sign, you'll see a message that says "use 'is.na' to check whether an expression evaluates to NA" --- that's because this is a very common mistake. Most people try `== NA` and `!= NA` to test whether something is or isn't missing, respectively, before they realize R won't allow that.
+:::
+
+## Filtering with `NA`s
+
+So, let's try again to filter the data to just show rows where we have missing values for `brainwt`:
+
+```{r}
+#| output-location: fragment
+filter(msleep_clean, is.na(brainwt))
+```
+
+::: notes
+Instead, to test whether something is missing, we have to use the `is.na()` function. You can negate the function with `!`, so `!is.na()` tests whether something is NOT missing (i.e. if there is present data there).
+:::
+
+## {{< fa rocket >}} Coding Challenge 1
+
+<br>
+
+**Your turn!**
+
+<br>
+
+Look in the `missing_values_exercises.rmd` file to find your first coding challenge. 
+
+
+```{r echo=FALSE}
+countdown(minutes = 2, seconds = 00)
+```
+
+::: notes
+We'll just work on this for a couple minutes and if you don't finish during that time, no sweat, just pause wherever you are and we'll take a look at the solutions together. 
+
+I'll put a little comment in the chat now, and when you're finished working on this coding challenge, thumbs up that comment to let me know you're ready to move on.
+
+I also want to create another opportunity here for anyone that's having trouble getting access to the files, or having trouble loading the Posit cloud project, to drop and note in the chat so we can help!
+:::
+
+
+## Assigning values to missing
+
+You may need to assign values to `NA` as part of data cleaning.
+
+::: notes
+When you're working with data, as part of your data exploration, you may notice values for some variables that you know are impossible or extremely unlikely.
+
+For example, imagine you have a dataset called `df` with a variable called `rating`.
+You know it's on a scale from 1-5, so respondents weren't able to rate it as anything outside of those options.
+And yet, when you read in the data you see there are a handful of -99 scores for this variable.
+Depending on the data collection mechanism, these may be the result of typos during data entry or a systematic way of marking invalid or missing responses.
+
+Either way, you don't want to treat those -99 scores as actual responses to the question (imagine how they would distort the estimate of the mean for that variable!); instead, you can mark them missing so they'll be excluded from analysis.
+:::
+
+## Assigning values to missing
+
+Here's some code to assign the -99 values in our pretend dataset to missing:
+
+```{r eval=FALSE}
+#| code-line-numbers: "|1|2|3|4|"
+df <- mutate(df, 
+             rating = ifelse(
+               rating == -99, 
+               NA, 
+               rating
+               ))
+```
+
+::: notes
+Let's break that down.
+
+[CLICK]
+We're using a `mutate` command to change ("mutate") a variable (a column of data), and we're setting what the new value of this column should be by using a special conditional function, 
+[CLICK] the `ifelse` function.
+The `ifelse` command is what's called a ternary operator, and it has three parts:
+
+[CLICK] a conditional test
+[CLICK] a value to use if the test returns `TRUE`
+[CLICK] a value to use if the test returns `FALSE`
+
+Our `ifelse` statement begins with a conditional test, in this case `rating == -99`.
+:::
+
+## {{< fa circle-question >}} Troubleshooting
+
+Remember that the double equals sign is a comparison --- in the above code it's **asking** whether `rating` is equal to -99, while a single equals sign is a "setter", and it will try to **make** `rating` equal to -99.  
+
+## Assigning values to missing
+
+Here's some code to assign the -99 values in our pretend dataset to missing:
+
+```{r eval=FALSE}
+#| code-line-numbers: "|1|2|3|4|"
+df <- mutate(df, 
+             rating = ifelse(rating == -99, 
+                             NA, 
+                             rating))
+```
+
+::: notes
+For each value in `rating`, it will run the test and return either `TRUE` or `FALSE`.
+If it returns `TRUE`, then it assigns the next argument, in this case `NA`, which will mark that value missing.
+
+If it returns `FALSE`, then it assigns the last argument, in this case `rating`, which will leave the value untouched.
+
+So for any `rating` values that equal -99, we're asking it to replace them with `NA`, otherwise leave them as they were.
+:::
+
+## {{< fa rocket >}} Coding Challenge 2
+
+<br>
+
+**Your turn!**
+
+<br>
+
+Go back to the `missing_values_exercises.rmd` file to find your second coding challenge. 
+
+```{r echo=FALSE}
+countdown(minutes = 2, seconds = 00)
+```
+
+## {{< fa book-open >}} Learn more
+
+For more on `mutate` and `ifelse`, see the [R Basics: Data Transformation sections on `mutate`](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#the-mutate%28%29-function) and [logical operators](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#logical-operators), and the [`ifelse` section in the free online book Advanced R](https://adv-r.hadley.nz/control-flow.html#vectorised-if).
+
+
+## {{< fa circle-question >}} Troubleshooting
+
+**Are `ifelse` and `if_else` the same thing?**
+
+Almost, but not quite!
+
+. . .
+
+<br>
+This runs fine:
+
+```{r eval=FALSE}
+msleep_clean <- mutate(msleep_clean, 
+                       sleep_total = ifelse(sleep_total > 18, 
+                                            NA, 
+                                            sleep_total))
+```
+
+But this generates an error:
+
+```{r eval=FALSE}
+msleep_clean <- mutate(msleep_clean, 
+                       sleep_total = if_else(sleep_total > 18, 
+                                             NA, 
+                                             sleep_total))
+```
+
+. . . 
+
+This works :)
+
+```{r eval=FALSE}
+msleep_clean <- mutate(msleep_clean, 
+                       sleep_total = if_else(sleep_total > 18, 
+                                             NA_real_, 
+                                             sleep_total))
+```
+
+::: notes
+The function `ifelse` with no underscore is part of base R, and `if_else` is part of the dplyr package. They are very similar and do almost exactly the same thing, but the reason the dplyr developers bothered to write a new `if_else` fuction when the base `ifelse` was already available is because they wanted to make it *stricter*. 
+[CLICK]
+
+In general, stricter is better with functions. A function built with rigid requirements can be irritating because it throws errors more often, but it's actually much more dangerous to have loose functions quietly doing unexpected things than to have strict ones throwing errors. 
+So what's happening in this particular case is that `if_else` has a requirement `ifelse` doesn't, which is that whatever you put in for the "if TRUE" part of the operator has to be of the same type as whatever you put in for the "if FALSE" part. That's a reasonable requirement, because the output of either of these if else functions is a single vector that will have "if TRUE" values wherever the test returns TRUE and "if FALSE" values wherever the test returns FALSE. 
+Remember when I told you there were secretly different kinds of `NA` under the hood, for the different data types in R, but that it would almost never come up and you wouldn't have to worry about that? So this is unfortunately one of the rare times when it does come up. Sorry! 
+
+Just plain `NA` like we have here is assumed to be the `NA` for logical vectors unless you specify otherwise. So when `if_else` checks the "if TRUE" and "if FALSE" arguments to see if they're the same data type, it thinks your `NA` is for a logical vector and then it see that the values from `sleep_total` are numeric, and that's why it refuses to run. It thinks you're trying to mix apples and oranges. If you explicitly tell it you want numeric `NA`s, then it will run just fine. [CLICK]
+:::
+
+## A note about removing outliers
+
+These are all perfectly reasonable situations in which to mark values as missing: 
+
+* Extremely unlikely outliers
+* Values that are logically impossible
+* Values that you know are meant to mark missing or invalid responses
+
+::: notes
+These are all perfectly reasonable situations in which to mark values as missing.
+:::
+
+## A note about removing outliers
+
+Be very cautious of removing outliers that might be valid data, though!
+To learn more, read [The Extent and Consequences of P-Hacking in Science](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002106).
+
+. . .
+
+<br>
+
+If you want to learn more about p-hacking and how to avoid it, reach out! :) hartmanr1@chop.edu
+
+::: notes
+Note, however that you should be cautious when excluding observations in general.
+Dropping outliers can become problematic when you might be excluding valid data (i.e. not typos or impossible values).
+This is an especially important problem when you decide whether or not to drop outliers after checking the results of your analysis both ways, because that can lead to unintentional bias in your results.
+The process of running your statistical tests, identifying outliers, then running the tests again with outliers removed is a very common but very problematic procedure. 
+As a matter of fact, I was taught to do exactly that when I was in grad school, and some of you may have been taught that, too. 
+But it biases your results and contributes to the replicability crisis, so it's no longer considered acceptable practice.
+:::
+
+## Working around missing values
+
+What happens when you try to do things (statistical tests, visualizations, etc.) with missing values?
+
+::: notes
+Most real datasets have some missing values, and it's likely you'll want to be able to generate plots, run statistical analyses, etc. on those data, so how to work around the missing values is an important question.
+:::
+
+## Two basic options for how functions handle missingess
+
+::: {.incremental}
+* Run the function just on whatever data aren't missing (["listwise deletion" or "complete case analysis"](https://www.theanalysisfactor.com/when-listwise-deletion-works))
+* Throw an error 
+:::
+
+::: notes
+In general, there are two basic options: Skip over missing stuff and just run the calculations on whatever data are available (this is sometimes called "listwise deletion" or "complete case analysis"), or stop everything and throw an error if there are missing values in the calculations.
+:::
+
+## More complex functions mean more options for missingness
+
+We'll talk about missing values in the following example functions:
+
+::: {.incremental}
+- `mean`, which calculates the [mean or average](https://www.khanacademy.org/math/cc-sixth-grade-math/cc-6th-data-statistics/mean-and-median/v/statistics-intro-mean-median-and-mode?modal=1) of a set of numbers
+- `prcomp`, which runs a [Principal Components Analysis (PCA)](https://www.theanalysisfactor.com/tips-principal-component-analysis/)
+- `geom_point`, from the [ggplot2 data visualization package](https://ggplot2.tidyverse.org/index.html), which is used to create [scatterplots](https://ggplot2.tidyverse.org/reference/geom_point.html)
+- `cor`, which is used to generate a [correlation matrix](https://www.displayr.com/what-is-a-correlation-matrix/)
+:::
+
+::: notes
+As you move to more complex functions, though, the options for handling missingness can become more complex as well.
+Today we'll walk through several R functions with different kinds of options for handling missingness. In particular, we'll talk about the following functions:
+:::
+
+## {{< fa heart >}} A little encouragement...
+
+**Are these functions new to you? No problem!**
+
+You don't need to understand the underlying statistics for any of these functions to work through the R code and learn from the missingness examples.
+
+::: notes
+So if you haven't made a correlation matrix before, or you've never heard of principal components analysis, no worries! That's probably the case for most of the folks here today, so know you're in good company.
+We're not going to talk about what these tests are for or what they mean, we're just using them as examples to see different ways of handling missing values.
+
+If you want to learn more about these functions and what they do, click through the links above for explanations and tutorials.
+:::
+
+## `na.rm`
+
+Many functions in R have an argument `na.rm` with options `TRUE` or `FALSE`.
+
+For example, check out the help documentation for `mean`:
+
+```{r eval=FALSE}
+?mean
+```
+
+. . .
+
+<br>
+Under **Arguments**, you'll see the description for `na.rm` is
+
+> a logical value indicating whether NA values should be stripped before the computation proceeds.
+
+::: notes
+In other words, do you want to exclude missing observations and just do the calculation based on the available data? The default value is `na.rm = FALSE`, which means "no, don't exclude missing values".
+:::
+
+## `na.rm`
+
+Let's try that with the `brainwt` variable: 
+
+```{r}
+#| output-location: fragment
+mean(msleep_clean$brainwt)
+```
+. . .
+
+<br>
+
+```{r}
+#| output-location: fragment
+mean(msleep_clean$brainwt, na.rm = TRUE)
+```
+
+::: notes
+[CLICK]
+There are some missing values in `brainwt`, so right now R is trying to take the mean of several numbers and a handful of `NA`s --- there's no way to get an average for something that's not there, so the result is `NA`.
+
+Try modifying the code to change the behavior to `na.rm = TRUE` [CLICK]
+
+[CLICK] Now we get a value! That's the average of the available data, ignoring the missing ones.
+
+You'll see `na.rm` as an argument for many functions in R, often with the default set to `FALSE`, as it is for `mean`.
+:::
+
+## `na.action`
+
+For more complex statistical functions, there's often an `na.action` argument instead of `na.rm`.
+
+Let's take a look at the help documentation for `prcomp`:
+
+```{r}
+?prcomp
+```
+
+. . .
+
+> `na.action`	
+a function which indicates what should happen when the data contain NAs. The default is set by the na.action setting of options, and is na.fail if that is unset. The ‘factory-fresh’ default is na.omit.
+
+::: notes
+We'll start with the function `prcomp`, which is used to run Principal Components Analysis (PCA). For the purposes of this example, it's perfectly fine if you haven't run a PCA before, or even if you've never heard of it --- we'll just be using it as an example to explore how R handles missing values in statistical analyses.
+
+Like many R functions, `prcomp` has an argument called `na.action` which controls what happens when the function encounters missing values. The possible options are usually `na.fail`, `na.omit`, and `na.exclude`. We can see from the help documentation that, unless you've changed some of your settings in R, the default option for `na.action` will be `na.omit`.
+:::
+
+## `na.action`
+
+If we run `prcomp` without specifying anything for `na.action`, it will use this default behavior:
+
+```{r}
+#| output-location: fragment
+prcomp(~ sleep_total + sleep_rem + sleep_cycle + awake + brainwt + bodywt, 
+       data = msleep_clean)
+```
+
+::: notes
+Like I said, we're not actually talking about these functions as statistical tests, so we'll just skip merrily past all the standard deviations and rotations and whathaveyou.
+
+One important thing to notice here, though: Nothing in the output tells you that `prcomp` excluded rows with missing values from the analysis. That is how many functions in R work, and it's one reason why it's important to look at the help documentation for functions you're using, so you can see what the function's default behavior for handling missingness is. Without checking the help documentation, you might (wrongly) think that this PCA output was based on all of the observations in your data, not just the complete cases.
+:::
+
+## `na.action`
+
+Let's run `prcomp()` with `na.fail` for the `na.action` instead:
+
+```{r eval=FALSE}
+prcomp(~ sleep_total + sleep_rem + sleep_cycle + awake + brainwt + bodywt, 
+       data = msleep_clean, 
+       na.action = na.fail)
+```
+
+. . . 
+
+```
+Error in na.fail.default(list(sleep_total = c(12.1, 17, 14.4, 14.9, 4,  : 
+  missing values in object
+```  
+
+::: notes
+You should now see an error that includes the message "missing values in object". Some people prefer to use `na.fail` for most functions, because they want to see an error message whenever they have missing values rather than R just silently dropping them.
+:::
+
+## Missing values warnings
+
+Some R functions will show a warning by default when they remove cases with missing values. For example, let's use `ggplot` to create a scatterplot of `bodywt` and `brainwt`:
+
+```{r eval=FALSE}
+ggplot(msleep_clean, aes(x=bodywt, y=brainwt)) +
+  geom_point()
+```
+
+. . .
+
+>Warning message:
+>Removed 27 rows containing missing values (geom_point). 
+
+![](media/geom_point_example.png){fig-alt="Scatterplot with bodywt on the x-axis and brainwt on the y-axis." width="60%"}
+
+
+::: notes
+It produces the scatterplot we asked for, but you'll also see a warning saying "Removed 27 rows containing missing values (geom_point)" to remind you that it's ignoring any observations that are missing for either of the two variables we're plotting. (Note that this warning will appear above the plot in the "R Console" box just below the code chunk rather than on the plot itself. If you run the ggplot code in the console instead of running it as a chunk in the rmd document, then the plot itself will appear in the Plots pane and the warning will print in the console.)
+:::
+
+## Other arguments for handling missingness
+
+Let's take a look at the help documentation for `cor`:
+
+```{r eval=FALSE}
+?cor
+```
+
+. . . 
+
+> `na.rm`	
+> logical. Should missing values be removed?
+>
+> `use`	
+> an optional character string giving a method for computing covariances in the presence of missing values. This must be (an abbreviation of) one of the strings "everything", "all.obs", "complete.obs", "na.or.complete", or "pairwise.complete.obs".
+
+::: notes
+Some functions have more complicated options for how to handle missingness. For example, if you want to get correlations (or covariances) for several variables in your data, you have several options.
+
+There are two arguments related to missing values: `na.rm` and `use`. You can scroll down to the **Details** section to read more about how they work. 
+
+Note: The differences between the options is subtle, so don't stress if it feels like you don't understand what they all mean. In most cases, people want either `use = "everything"` or `use = "pairwise.complete.obs"` when they generate a correlation or covariance matrix, so those are the two most important options to focus on. Importantly, the default value for `use` is "everything".
+:::
+
+## Other arguments for handling missingness
+
+Let's look at a correlation matrix using the `msleep_clean` data:
+
+```{r}
+#| output-location: fragment
+cor(select(msleep_clean, sleep_total:bodywt))
+```
+
+::: notes
+Since we didn't supply anything for the `use` argument, it will be its default value, which is "everything". That returns an `NA` for any correlation where there were missing values on either of the two variables being compared.
+:::
+
+## Other arguments for handling missingness
+
+Let's try again, but this time change the behavior to calculate correlations for all pairwise complete observations:
+
+```{r}
+#| output-location: fragment
+cor(select(msleep_clean, sleep_total:bodywt), 
+    use = "pairwise.complete.obs")
+```
+
+::: notes
+Now we're seeing a correlation reported for every pair of variables, regardless of whether there were missing values present. For each pair of variables, `cor` is calculating the correlation between those two variables on whatever observations it can; that means it might use all of the cases to compute some correlations and just some observations for others. 
+:::
+
+## {{< fa rocket >}} Check your understanding!
+
+<br>
+
+**True or False**: The output from R functions usually tells you how missing data were handled.
+
+::: notes
+False! 
+Although some functions, like `geom_point`, provide a warning when dropping missing values, many functions in R do not. We saw an example of this with the `prcomp` function.
+:::
+
+## {{< fa rocket >}} Check your understanding!
+
+<br>
+
+If you want R to skip over missing values and give you the results based only on the available data, which argument might you use?
+
+* `na.rm = TRUE`
+* `na.rm = FALSE`
+
+::: notes
+`na.rm = TRUE`!
+For functions that have an `na.rm` argument, like `mean()` does, setting `na.rm = TRUE` will give you the result ignoring missing values.
+The default setting for most of these functions is `na.rm = FALSE`, which will return `NA` as the result whenever there are missing values present.
+:::
+
+
+## Filtering out missing values
+
+Sometimes you want to create a new version of your data that excludes cases with missing values.
+This can be especially important if you want to make sure you're using a consistent dataset across several related analyses.
+
+::: notes
+For example, let's say you ran a study on the relationship between cortisol levels and time spent on a challenging task.
+In addition to measuring cortisol and how long participants spent on the task, you also collected a set of demographic variables and background information like age, education level, and socio-economic status.
+
+Because the main focus of your analysis is on cortisol, you want to exclude any participants who have missing cortisol values (perhaps because of problems with the saliva sample they provided), even from parts of the analysis that don't use the cortisol data directly.
+For example, you may begin your analysis by describing your participants with summary statistics on their demographic information (e.g. what is the median age in this sample?). If some of those participants have missing cortisol values, you want them excluded from the demographic summaries as well. The most straightforward way to do this is to save a new version of your data that only includes the observations you want in your final analysis, and to use that for all of your calculations.
+:::
+
+## Filtering out missing values
+
+There are a few different options for removing rows with missing values in R:
+
+- `na.omit()`
+- `filter()` with `is.na()`
+
+
+## Filtering out missing values
+
+If you want a version of your data with no missing values in it, you can use `na.omit` to remove any rows with missing values.
+
+```{r}
+msleep_nomissing <- na.omit(msleep_clean)
+```
+
+. . .
+
+<br>
+
+How many rows were in the original data?
+
+```{r}
+nrow(msleep_clean) 
+```
+
+. . .
+
+How many *complete* rows are in the data?
+
+```{r}
+nrow(msleep_nomissing)
+```
+
+::: notes
+`na.omit` removes rows with missing values on **any** variable. 
+To illustrate, save a new version of our dataframe called `msleep_nomissing`, which will have all observations with missing values removed. 
+How many rows are in the original data? And how many are left if we limit it to just rows with no missingness?
+:::
+
+## Filtering out missing values
+
+If we want to create a version of the data that doesn't have any missing values for `brainwt` (but allows missing values for other variables), we can do that with `filter`:
+
+```{r}
+msleep_nomissing_brainwt <- filter(msleep_clean, !is.na(brainwt))
+```
+
+::: notes
+You might prefer to just pick which variable(s) you want complete data for, and only remove rows that have missing values in those key variables (potentially leaving rows that are missing on other variables).
+:::
+
+
+## {{< fa rocket >}} Check your understanding!
+
+<br>
+
+Consider the following code. Do you think it will run without an error?
+
+```{r}
+#| output-location: fragment
+model_data <- msleep_clean |> 
+  select(sleep_total, brainwt) |> 
+  na.omit()
+
+lm(sleep_total ~ brainwt, 
+   data = model_data,
+   na.action = na.fail)
+```
+
+::: notes
+Take your time with this one. I'll give you a couple minutes to think it through, then we'll discuss. And here's a tip: You can try running this code yourself if you want to test it!
+
+This was a tricky one! Let's step through it together.
+
+There's two main pieces to the code here. The first piece saves a dataframe called `model_data`, and then the second piece runs the `lm()` function. If you've never used `lm()` before, I hope you didn't let that trip you up! Even if you have no idea what the `lm()` function is doing, you can notice it has an `na.action` argument, just like we looked at for `prcomp()`. 
+
+So if we look at the bit with `lm()`, it looks like `lm()` is doing something with the `sleep_total` and `brainwt` variables, and it says `data = model_data`, so that suggests it's working with that dataframe. 
+Then we see it has `na.action = na.fail`. That means the function should throw and error and not run if there are missing values present. When we tried that with `prcomp()` we did get an error right away, because there were missing values in the data. Are there missing values in the data here?
+
+To answer that, let's look back at that first bit of code. It starts with the `msleep_clean` dataframe and puts it through a couple steps with pipes. The first step is the `select()` function. We haven't talked about that much today; `select()` takes a dataframe and pulls out just the columns you list, dropping any others. So here it will take the `msleep_clean` dataframe and then keep just the `sleep_total` and `brainwt` columns. 
+Then there's another pipe sending that two-column dataframe to the `na.omit()` function. 
+As we talked about, `na.omit()` removes any rows that have missing data on any variables. So in this case, what we'll be left with at the end is a dataframe that has just the columns `sleep_total` and `brainwt`, and only the observations that had no missing values on either of those. 
+So there will be no missing values at all in that `model_data` dataframe. If there were missing values, we would expect the `lm()` function to throw an error since it has `na.action = na.fail`, but here we know there will be no missing values at all so this should run with no errors. 
+
+[CLICK]
+And indeed it does!
+:::
+
+## What we covered
+
+::: {.incremental}
+- Using `summary()` to quickly check a dataframe for missing values
+- Filtering using `is.na()` to test for missingness
+- Assigning values to `NA` using `ifelse` or `if_else`
+- The `na.rm` argument
+- The `na.action` argument
+- Using `na.omit()` to remove all rows with missingness
+- a bunch of extras throughout on data transformations and data cleaning
+:::
+
+::: notes
+That's a lot! 
+So don't expect to remember everything --- you have the slides and all the example code to go back to. My goal for you all is for you to come away with a general impression of how to work with missing values in R, and to be forewarned about some of the "gotchas" you might encounter. And now you have a resource to come back to if, for example, you find yourself wrestling with `na.action` options and you want some clear examples to refresh your memory.  
+:::
+
+# Additional resources
+
+There are many excellent tutorials online about missing data in R. Many of them cover a lot of the same information presented here, but you may find a different perspective helpful to consolidate your learning. Here are a couple good ones:
+
+- [R 4 Data Science](https://r4ds.hadley.nz/missing-values)
+- [Just Enough R](https://benwhalley.github.io/just-enough-r/missingvalues.html)
+- [The Epidemiologist R Handbook](https://epirhandbook.com/en/missing-data.html)
+
+For more powerful analysis of missing data in R, checkout the [`Amelia` package](https://gking.harvard.edu/amelia) and the [`mice` package](https://amices.org/mice/).
+
+# Practice opportunity
+
+Want to go through this material again? It's posted as [an interactive tutorial online](https://bit.ly/DART_r_missing_values) as part of [DART (Data and Analytics for Research Training)](https://arcus.github.io/education_modules/)!
