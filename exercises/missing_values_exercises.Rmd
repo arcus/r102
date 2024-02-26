@@ -29,11 +29,7 @@ To learn more about this dataset:
 summary(msleep)
 ```
 
-Notice the bottom row of the summary statistics for `sleep_rem`, `sleep_cycle` and `brainwt`. It gives the count of `NA` values for each variable. The other numeric variables (`sleep_total`, `awake`, and `bodywt`) don't show anything for the `NA` count, which means they have no missing values.
-
-The `summary` command is most useful for numeric and factor variables. It doesn't show us anything useful for the character variables. We can get better output for those by converting them to factors, though.
-
-We could do this with a `mutate` command for each of the rows we want to convert, like this:
+## Convert to factor, two options
 
 ```{r}
 msleep_clean <- msleep %>%
@@ -44,59 +40,47 @@ msleep_clean <- msleep %>%
          conservation = as.factor(conservation))
 ```
 
-But in cases like this where we want to convert several variables all in the same way, we can do it faster with the `across` command:
 
 ```{r}
 msleep_clean <- msleep %>%
   mutate(across(where(is.character), as.factor))
 ```
 
-Let's break that down. We're using the `across` command to do the same thing across several columns. The first argument of `across` needs to tell it which columns to use. Here, we're telling it which columns to use with `where(is.character)` --- that will check each column against the test `is.character` and return `TRUE` if the column is of type character and `FALSE` if it's anything else. `where(is.character)` will therefore give us a list of all of the columns that are character columns. The second argument of `across` is what you want done to those columns. Here, we're saying we want it to apply the function `as.factor`. So taken together, this `mutate` command will pick all the columns from the data that are of type character and convert them to factor. Handy!
-
-Note that either way of converting these columns (either individually, or all at once using the `across` function) will result in the same clean dataframe.
-
-To learn more about `across` see its help documentation:
-
-```{r}
-?across
-```
-
-Now let's try `summary` again to see if we get more informative results for those first few columns:
-
-```{r}
-summary(msleep_clean)
-```
-
+## Filtering with `NA`
 
 Let's use `filter` to take a look at just the rows that have missing values for the brainwt variable.
 
 ```{r}
+# This doesn't work!
 filter(msleep_clean, brainwt == NA)
 ```
 
-That doesn't work!
-
-In fact, you may even have noticed a little warning sign appear at the left side of your screen, next to the line number with that code. If you hover your mouse over the warning sign, you'll see a message that says "use 'is.na' to check whether an expression evaluates to NA" --- that's because this is a very common mistake. Most people try `== NA` and `!= NA` to test whether something is or isn't missing, respectively, before they realize R won't allow that.
-
-Instead, to test whether something is missing, we have to use the `is.na()` function. You can negate the function with `!`, so `!is.na()` tests whether something is NOT missing (i.e. if there is present data there).
-
-So, let's try again to filter the data to just show rows where we have missing values for `brainwt`:
 
 ```{r}
 filter(msleep_clean, is.na(brainwt))
 ```
 
-Now fill in the partial code below to filter the data to just look at rows that **aren't** missing for `brainwt`. (Remember if you get stuck, you can always look at the solutions file.)
+
+
+## CODING CHALLENGE 1!
+
+Now fill in the partial code below to filter the data to just look at rows that **aren't** missing for `brainwt`. 
 
 ```{r}
 filter(msleep_clean,    )
 ```
 
+When you're done, put a "thumbs up" on the note in the chat to let us know you're ready to move forward. :)
 
-**RETURN TO THE MODULE NOW** Read the overview of the next section before continuing on with this code.
+----------------------------------------------------------
 
 
-## Assigning values to missing
+
+
+
+
+
+## CODING CHALLENGE 2!
 
 Let's pretend you know that these data were only recorded over an 18 hour period, so it would have been impossible to have a total sleep time of greater than 18. And yet, when we look at the data, we see there are a few animals with `sleep_total` over 18:
 
@@ -110,24 +94,31 @@ filter(msleep_clean, sleep_total > 18)
 
 These must be typos or some other kind of error, so you want to exclude them from your analysis.
 
-One option would be to filter these rows out of the data completely, so these animals are completely excluded from analysis. But perhaps you think the other data recorded for these animals is correct, you just think the `sleep_total` values are wrong. If you remove just those suspicious values, then you can keep the rest of the data for those rows intact in case you need it.
-
 Fill in this code to mark values for `sleep_total` that are over 18 as missing (remember you can look at the solutions file if you get stuck!):
 
 ```{r}
 msleep_clean <- mutate(msleep_clean, sleep_total = ifelse(   ,    ,   ))
 ```
 
-To check that it worked, let's look at the updated summary stats for `sleep_total`:
+To check that it worked, take a look at the updated summary stats for `sleep_total`:
 
 ```{r}
 summary(msleep_clean$sleep_total)
 ```
 
-You should see that the Max value is now under 18, and you should see some NAs. Great!
+You should see that the Max value is now under 18, and you should see some NAs.
 
 
-**RETURN TO THE MODULE NOW** Read the overview of the next section before continuing on with this code.
+When you're done, put a "thumbs up" on the note in the chat to let us know you're ready to move forward. :)
+
+----------------------------------------------------------
+
+
+
+
+
+
+
 
 
 ## Working around missing values
@@ -190,7 +181,7 @@ One important thing to notice here: Nothing in the output tells you that `prcomp
 Modify this code to run it with `na.fail` for the `na.action` instead:
 
 ```{r}
-prcomp(~ sleep_total + sleep_rem + sleep_cycle + awake + brainwt + bodywt, data = msleep_clean, na.action =    )
+prcomp(~ sleep_total + sleep_rem + sleep_cycle + awake + brainwt + bodywt, data = msleep_clean, na.action = na.fail)
 ```
 
 You should now see an error that includes the message "missing values in object". Some people prefer to use `na.fail` for most functions, because they want to see an error message whenever they have missing values rather than R just silently dropping them.
@@ -236,7 +227,6 @@ So, if you want to, you can just write `use = "pairwise"` or even just `use = "p
 
 
 **RETURN TO THE MODULE NOW** Read the overview of the next section before continuing on with this code.
-
 
 ## Filtering out missing values
 
