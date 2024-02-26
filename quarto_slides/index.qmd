@@ -1,26 +1,15 @@
 ---
 format: 
-  revealjs:
-    theme: [serif, custom.scss]
-    scrollable: true
-    logo: media/chopr.png
-    footer: Arcus Education / Children's Hospital of Philadelphia (CHOP) R User Group
-    css: styles.css
+  chopr-revealjs
 ---
 
-## Introduction to R for Clinical Data {.smaller}
+## R102: MasteRing the Fundamentals in R
 
 Presented by: Arcus Education / Children's Hospital of Philadelphia (CHOP) R User Group
 
 Slide decks (click on any title):
 
-
-* [Welcome](https://joy-payton-chop.quarto.pub/intro-to-r-for-clinical-data-2023/welcome) 8:30-9:15
-* [Part 1: Introduction](https://joy-payton-chop.quarto.pub/intro-to-r-for-clinical-data-2023/introduction) 9:15 - 10:15
-* 15 min break
-* [Part 2: Visualize](https://joy-payton-chop.quarto.pub/intro-to-r-for-clinical-data-2023/visualize) 10:30-11:30
-* 45 min lunch break
-* [Part 3: Transform](https://joy-payton-chop.quarto.pub/intro-to-r-for-clinical-data-2023/transform) 12:15-1:15
-* [Part 4: Final Notes](https://joy-payton-chop.quarto.pub/intro-to-r-for-clinical-data-2023/final) 1:15-1:30
-
-* [Stuff we won't get to today: Dashboards](https://joy-payton-chop.quarto.pub/intro-to-r-for-clinical-data-2023/dashboards)
+* [Missing Values in R](), presented 2024-03-04
+* Summary Statistics in R (slides coming soon)
+* Reshaping Data with tidyr (slides coming soon)
+* Data Types and Visualizations (slides coming soon)
