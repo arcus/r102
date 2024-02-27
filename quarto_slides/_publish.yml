@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 5c23120c-2d19-41b9-aad7-db3f4755c0fe
+      url: 'https://rosemhartman.quarto.pub/slides'
