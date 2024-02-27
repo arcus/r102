@@ -1,2 +1,9 @@
 project:
   type: website
+  
+embed-resources: true
+execute:
+  echo: true
+format: 
+  chopr-revealjs  
+  

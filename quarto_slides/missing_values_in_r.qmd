@@ -3,11 +3,6 @@ title: "Missing Values <br> in R"
 author: "Rose Hartman"
 institute: "Arcus Education, DBHi"
 date: "2024-03-04"
-embed-resources: true
-execute:
-  echo: true
-format: 
-  chopr-revealjs
 ---
 
 -   Use keyboard arrow keys to

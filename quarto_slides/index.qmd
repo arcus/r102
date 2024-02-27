@@ -1,6 +1,5 @@
 ---
-format: 
-  chopr-revealjs
+title: "R102"
 ---
 
 ## R102: MasteRing the Fundamentals in R
