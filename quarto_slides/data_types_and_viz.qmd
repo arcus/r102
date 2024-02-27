@@ -1,0 +1,60 @@
+---
+title: "Data Types and Visualizations"
+author: "Update"
+institute: "Update"
+date: "2024-06-03"
+---
+
+-   Use keyboard arrow keys to
+    -   advance ( → ) and
+    -   go back ( ← )
+-   Type "s" to see speaker notes
+-   Type "?" to see other keyboard shortcuts
+
+```{r echo = FALSE}
+library(countdown)
+```
+
+## Join the CHOP R User Group
+
+
+::: {.columns .v-center-container}
+::: {.column width="50%"}
+![](media/chopr.png){fig-alt="CHOPR hex sticker logo" width="100%"}
+:::
+
+::: {.column width="50%"}
+- Friendly help troubleshooting your R code
+- Announcements for upcoming talks, workshops, and conferences
+:::
+:::
+
+Link to join: [https://bit.ly/chopRusers](https://bit.ly/chopRusers)
+
+::: notes
+Just a few announcements before we get started. 
+For anyone here today that isn't already part of the CHOP R User group, I strongly encourage you to join (it is also open to Penn folks). The CHOP R User group has more than 400 members from all departments. This is great place to network with other R users, get help with coding problems, and learn about new packages, webinars, and conferences. We also have semi-regular meetings and workshops, like this one. 
+
+:::
+
+## Come to R Office Hours!
+
+- Set up a meeting to get live help with your R code from our most experienced useRs
+- Office hours appointments can be one-on-one or open to the community
+
+Link to calendar: [https://bit.ly/chopROfficeHours](https://bit.ly/chopROfficeHours)
+
+::: aside
+We're looking for more volunteers to lead appointments! Get in touch: hartmanr1@chop.edu
+:::
+
+::: notes
+We have regular office hours appointments available to get R help. 
+We're offering two kinds of appointments: one-on-one, if you want individual help, or open appointments that are more of a community conversation about whatever R questions people bring up that day. The open appointments can be particularly valuable to attend if you want to hear other people's questions about R but maybe don't have a project of your own that you're troubleshooting at the moment. 
+We set up a calendar online where you can book an appointment. 
+[click] And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
+:::
+
+## These slides aren't done :)
+
+We'll update the content here as the workshop date gets closer. 

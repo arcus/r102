@@ -1,5 +1,5 @@
 ---
-title: "R102"
+title: "R102 MasteRing the Fundamentals in R"
 ---
 
 ## R102: MasteRing the Fundamentals in R
@@ -8,7 +8,9 @@ Presented by: Arcus Education / Children's Hospital of Philadelphia (CHOP) R Use
 
 Slide decks (click on any title):
 
-* [Missing Values in R](), presented 2024-03-04
-* Summary Statistics in R (slides coming soon)
-* Reshaping Data with tidyr (slides coming soon)
-* Data Types and Visualizations (slides coming soon)
+* [Missing Values in R](https://rosemhartman.quarto.pub/slides/missing_values_in_r.html#/title-slide), 2024-03-04
+* [Summary Statistics in R](https://rosemhartman.quarto.pub/slides/summary_stats_in_r.html#/title-slide), 2024-04-08 
+* [Reshaping Data with tidyr](https://rosemhartman.quarto.pub/slides/reshaping_data_with_tidyr.html#/title-slide), 2024-05-06
+* [Data Types and Visualizations](https://rosemhartman.quarto.pub/slides/data_types_and_viz.html#/title-slide), 2024-06-03
+
+Note that we will likely update slides for each session up until the presentation date! 
