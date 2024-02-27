@@ -1,7 +1,7 @@
 ---
 title: "Summary Statistics <br> in R"
-author: "Rose Hartman"
-institute: "Arcus Education, DBHi"
+author: "Update"
+institute: "Update"
 date: "2023-06-22"
 ---
 
