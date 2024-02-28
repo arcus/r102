@@ -4,6 +4,6 @@ project:
 embed-resources: true
 execute:
   echo: true
+  freeze: auto
 format: 
   chopr-revealjs  
-  
