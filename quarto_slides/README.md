@@ -19,6 +19,14 @@ That folder needs to be version controlled so it's available on github.
 When you render, it will save the results of all the executed code in the `_freeze` directory. 
 When you commit and push the changes you made to your .qmd file, be sure to add any changes to the `_freeze` directory as well. 
 
+**Do you want to make changes to the .qmd files in this repository, and have the updates publish to QuartoPub?** 
+It's all set up to work automatically! 
+You should be able to just make changes, run `quarto render` in the command line from the root directory of this repo, and then commit and push your changes to the `main` branch. 
+It will take several minutes, but you should see your changes reflected on QuartoPub soon.
+
+If you want to make edits but **not** have them immediately reflected on QuartoPub, then work on a branch. 
+When you merge the branch to `main`, that will trigger the action to update QuartoPub. 
+
 **Do you want to set up a similar system in another repo?** 
 You'll need to do the following: 
 
