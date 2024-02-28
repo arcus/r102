@@ -19,6 +19,16 @@ That folder needs to be version controlled so it's available on github.
 When you render, it will save the results of all the executed code in the `_freeze` directory. 
 When you commit and push the changes you made to your .qmd file, be sure to add any changes to the `_freeze` directory as well. 
 
+**Do you want to set up a similar system in another repo?** 
+You'll need to do the following: 
+
+- You can start by copying the contents of this repository, with the exception of the `_publish.yml` file. You can't just copy the `_publish.yml` file from this repo because it's pointing to my (Rose Hartman) QuartoPub account and you won't have authorization.
+- Successfully run `quarto publish` on your own computer first, to generate a `_publish.yml` file for your repo. 
+- You'll need to [save a QuartoPub auth token as a secret in your repository](https://quarto.org/docs/publishing/quarto-pub.html#quarto-pub-credentials)
+- Follow the rest of the instructions to [set up GitHub actions to publish to QuartoPub](https://quarto.org/docs/publishing/quarto-pub.html#github-action)
+
+Note that this repo also has a separate actions workflow running to publish the website to GitHub Pages. You don't need to also have a GH Pages website to automatically publish to QuartoPub; those are two independent things. 
+
 ## What's in that `_quarto.yml` file?
 
 The `_quarto.yml` file does the following:
