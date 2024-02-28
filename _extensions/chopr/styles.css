@@ -29,11 +29,11 @@ pre code{
   height: 85%;
 }
 
-
 .one-third {
   max-width: 33% !important;
   height: auto !important;
 }
+
 .two-thirds {
   max-width: 66% !important;
   height: auto !important;
@@ -52,6 +52,10 @@ pre code{
 
 .tiny-text {
   font-size: 0.4em;
+}
+
+.big-text {
+  font-size: 1.3em;
 }
 
 .reveal .slide-logo {
