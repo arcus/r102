@@ -1,6 +1,6 @@
 ## Load packages
 
-First, we need to load the `tidyverse` packages, since we'll be using example data and several functions that come in the `tidyverse`. If you're running this on your own computer rather than in the cloud instance we set up, you may need to run `install.packages("tidyverse")` first if you haven't ever used the tidyverse packages before.
+If you're running this on your own computer rather than in the cloud instance we set up, you may need to run `install.packages("tidyverse")` first if you haven't ever used the tidyverse packages before.
 
 ```{r}
 library(tidyverse)

@@ -48,10 +48,10 @@ We're looking for more volunteers to lead appointments! Get in touch: hartmanr1@
 :::
 
 ::: notes
-We have regular office hours appointments available to get R help. 
+We also have regular office hours appointments available to get R help. 
 We're offering two kinds of appointments: one-on-one, if you want individual help, or open appointments that are more of a community conversation about whatever R questions people bring up that day. The open appointments can be particularly valuable to attend if you want to hear other people's questions about R but maybe don't have a project of your own that you're troubleshooting at the moment. 
 We set up a calendar online where you can book an appointment. 
-[click] And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
+And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
 :::
 
 ## Coming soon! 
@@ -64,12 +64,8 @@ Learn more about this new series, including dates and titles for each session:
 <br>
 [https://arcus.github.io/r102/](https://arcus.github.io/r102/)
 
-And sign up now to reserve your spot!
-<br>
-[https://redcap.link/R102_Signup](https://redcap.link/R102_Signup)
-
-
 ::: notes
+Today's talk is the first in a new series called **R102: MasteRing the Fundamentals**.
 This is a new series of workshops intended as a continuation of the popular Intro to R for Clinical Data workshop we offer a few times a year. 
 We're designing these talks with beginners in mind, so if you're trying to figure out how to get started with R, or how to start applying it in your own work, these talks are for you!
 ::: 
@@ -107,32 +103,33 @@ Please feel very free to stop me with questions, either by unmuting or in the ch
 :::
 
 ::: notes
-
-Checking missing values can also help you check whether the data were read in correctly. 
+Okay, so why would you want to check for missingness?
+[CLICK]
+Checking missing values can help you check whether the data were read in correctly. 
 In many cases, you know beforehand whether there should be any missing values on particular variables in your data because you know about how the data were collected, etc.
 After you import the data into R, checking for missingness can give you a sense for whether the data were imported correctly.
 For example, if you were expecting some missingness on a given variable and you see none, it can give you a hint that the missing values in the raw data aren't being correctly interpreted by R.
 
 [CLICK]
+Missingness will also impact your effective sample size.
 When you have missing values, the sample size that you can actually use for your analysis is often reduced.
 For example, if you collect 100 samples, but 20 of them are missing at least some of the measurements, you might only have 80 complete samples you can analyze.
 
 [CLICK]
-If you have substantial missingness (a good rule of thumb is 5% or more of your data are missing), then you may need special statistical techniques to be able to analyze the data without introducing bias.
-Such techniques are outside the scope of this module, but there are lots of excellent papers on this, and tutorials available with instructions.
+And lastly, if your analysis will involve fixing missingness statistically, the first step is always **describing** the missingness
+If you have substantial missingness (a good rule of thumb is if 5% or more of your data are missing that would be considered substantial), then you may need special statistical techniques to be able to analyze the data without introducing bias.
+As I said, such techniques are outside the scope of this talk, unfortunately, but there are lots of excellent papers on this, and tutorials available with instructions.
 
-Understanding the amount and type of missing data you have is crucial to conducting appropriate statistical analyses.
-Although techniques for analyzing and correcting for different missingness patterns is outside the scope of this module,
-one of the first steps in any of those techniques is checking how much missing data you have and on which variables, which we will cover here.
 :::
 
 ## {{< fa book-open >}} Learn more
 
-For an excellent introduction to different types of missing data and how to handle them statistically, read Rubin's classic paper [Inference and Missing Data](http://math.wsu.edu/faculty/xchen/stat115/lectureNotes3/Rubin%20Inference%20and%20Missing%20Data.pdf).
+For an excellent introduction to different types of missing data and how to handle them statistically, read Rubin's classic paper [Inference and Missing Data](https://www.jstor.org/stable/2335739).
 
 ::: notes
 
 I've got a few of these "learn more" slides thrown in throughout the presentation. They include links to resources I like for learning more about the topics we're covering. I won't click through to any of these resources now, but you have access to the slides so feel free to go back and review these links later if you like!
+This link here is to one of my very favorite academic papers, Rubin 1976. 
 
 :::
 
@@ -173,7 +170,7 @@ Here's an example of what some data with missing values might look like when pri
 | 0003 | 9  | NA |  NA | 64 |
 
 ::: notes
-
+For example, here's a small table of made up data.
 Note that the second and third rows have `NA` instead of numerical values for some of the measurements.
 The `NA` indicates a lack of any information for each of those cells; those values are missing.
 
@@ -209,7 +206,7 @@ Instead `NULL` shows up when you have an expression or function whose result is 
 :::
 
 ::: notes
-
+[CLICK]
 One way to see missing data in R is to take a look at the full dataset, either by printing it in the console or using `View()` to see it opened like a spreadsheet.
 Then you can just scan visually for `NA` cells, as in the example table in the previous section.
 If your dataset is anything larger than a handful of rows and columns, though, you'll want a way to summarize that information without having to count everything by hand yourself.
@@ -218,6 +215,8 @@ If your dataset is anything larger than a handful of rows and columns, though, y
 There are many functions available to check for missing values in R, but one especially handy one is the `summary()` function.
 It gives you some basic summary information about each variable in your data (minimum and maximum values, etc.), and will also tell you how many missing values you have for each variable.
 Because it gives you summary statistics and missingness information at the same time, many people like to use it as a quick way to check their data as a start to their [exploratory data analysis](https://r4ds.had.co.nz/exploratory-data-analysis.html).
+
+[CLICK] There are also many more options for exploring your missing data! I like the `visdat` and `Amelia` packages in particular, but there are more. I think `summary()` is a great place to start, though, so that's what we'll focus on today.
 
 :::
 
@@ -230,7 +229,8 @@ Two options:
 
 ::: notes
 
-Time to start coding! By far the best way to learn R is to practice, so work through this code yourself as you follow along.
+Okay, enough preamble, it's time to start coding! 
+By far the best way to learn R is to practice, so work through this code yourself as you follow along.
 
 This link will take you to Posit Cloud, which gives you a way to work with the code right in your browser without having to install anything on your machine. You will need to create a free account if you don't already have one. I'll click that link now, and log in with a different account than the one I used to create it so you can see what it looks like. It will take a few minutes to load.
 
@@ -238,7 +238,7 @@ You can also get all of the code for this talk directly from our GitHub and down
 
 :::
 
-## The packages we'll be using today
+## {{< fa book-open >}} Learn more
 
 ::: {.columns .v-center-container}
 ::: {.column width="50%"}
@@ -270,10 +270,15 @@ Each R session:
 library(tidyverse)
 ```
 
+Open the file `missing_values_exercises.rmd` in the `exercises` folder.
+
 ::: notes
 If you're running this on your own computer rather than in the cloud instance we set up, you may need to run `install.packages` first if you haven't ever used the `tidyverse` packages before. If you're working in the cloud, then it's already been installed for you.
 
-Either way, the library command here is written out for you in the first chunk of the file `missing_values_exercises.rmd`. Go ahead and open that file now, and click the green arrow to run that line.
+Either way, the library command here is written out for you in the first chunk of the file `missing_values_exercises.rmd`. 
+I'll go ahead and open that file now in my posit cloud instance, and click the green arrow to run that line.
+
+And I'll pause again here to invite folks to let us know in the chat if you're running into problems. We've got a couple very friendly R experts on the call, so one of them can hop into a breakout room with you real quick to troubleshoot. 
 :::
 
 ## The data
@@ -281,6 +286,7 @@ Either way, the library command here is written out for you in the first chunk o
 In the console or in the exercises rmd file, run the following command:
 
 ```{r echo=FALSE}
+# converting this to a plain data frame here because the tibble formatting wasn't working well on the slides
 msleep <- as.data.frame(msleep)
 ```
 
@@ -328,6 +334,11 @@ summary(msleep)
 ```
 
 ::: notes
+So let's run the `summary()` function now, to see how many missing values we have for each of the variables in this data frame. 
+
+[CLICK]
+The first thing to notice here is that R is actually giving us different information for each variable depending on whether it's a character or numeric variable. The first few variables are character variables, and it doesn't try to print things like minimum and maximum for characters because it doesn't make sense to find the minimum of text. But look at the later variables, starting with `sleep_total`. 
+
 Notice the bottom row of the summary statistics for `sleep_rem`, `sleep_cycle` and `brainwt`. It gives the count of `NA` values for each variable. The other numeric variables (`sleep_total`, `awake`, and `bodywt`) don't show anything for the `NA` count, which means they have no missing values.
 
 The `summary` command is most useful for numeric and factor variables. It doesn't show us anything useful for the character variables. We can get better output for those by converting them to factors, though.
