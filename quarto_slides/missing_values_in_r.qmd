@@ -270,6 +270,8 @@ Each R session:
 library(tidyverse)
 ```
 
+<br>
+
 Open the file `missing_values_exercises.rmd` in the `exercises` folder.
 
 ::: notes
@@ -301,7 +303,7 @@ head(msleep)
 This command is also written out for you in the `missing_values_exercises.rmd` file, in the next code chunk.
 
 Let's take a look at the data.
-
+[CLICK]
 You should see the first six rows of the msleep data frame, which look like this. 
 Note that this is one of the example datasets that comes built-in when you install the `tidyverse` package, so it's already available to you without you having to read it in or download anything.
 
@@ -562,8 +564,13 @@ For more on `mutate` and `ifelse`, see the [R Basics: Data Transformation sectio
 
 Almost, but not quite!
 
-. . .
+<br>
 
+The function `ifelse` with no underscore is part of base R, and `if_else` is part of the dplyr package. They are very similar and do almost exactly the same thing, but the reason the dplyr developers bothered to write a new `if_else` fuction when the base `ifelse` was already available is because they wanted to make it *stricter*. 
+
+In general, stricter is better with functions. A function built with rigid requirements can be irritating because it throws errors more often, but it's actually much more dangerous to have loose functions quietly doing unexpected things than to have strict ones throwing errors. 
+
+So what's happening in this particular case is that `if_else` has a requirement `ifelse` doesn't, which is that whatever you put in for the "if TRUE" part of the operator has to be of the same type as whatever you put in for the "if FALSE" part. That's a reasonable requirement, because the output of either of these if else functions is a single vector that will have "if TRUE" values wherever the test returns TRUE and "if FALSE" values wherever the test returns FALSE. 
 <br>
 This runs fine:
 
@@ -583,7 +590,11 @@ msleep_clean <- mutate(msleep_clean,
                                              sleep_total))
 ```
 
-. . . 
+Remember when I told you there were secretly different kinds of `NA` under the hood, for the different data types in R, but that it would almost never come up and you wouldn't have to worry about that? So this is unfortunately one of the rare times when it does come up. Sorry! 
+
+Just plain `NA` like we have here is assumed to be the `NA` for logical vectors unless you specify otherwise. So when `if_else` checks the "if TRUE" and "if FALSE" arguments to see if they're the same data type, it thinks your `NA` is for a logical vector and then it see that the values from `sleep_total` are numeric, and that's why it refuses to run. It thinks you're trying to mix apples and oranges. If you explicitly tell it you want numeric `NA`s, then it will run just fine. 
+
+<br>
 
 This works :)
 
@@ -595,14 +606,11 @@ msleep_clean <- mutate(msleep_clean,
 ```
 
 ::: notes
-The function `ifelse` with no underscore is part of base R, and `if_else` is part of the dplyr package. They are very similar and do almost exactly the same thing, but the reason the dplyr developers bothered to write a new `if_else` fuction when the base `ifelse` was already available is because they wanted to make it *stricter*. 
-[CLICK]
 
-In general, stricter is better with functions. A function built with rigid requirements can be irritating because it throws errors more often, but it's actually much more dangerous to have loose functions quietly doing unexpected things than to have strict ones throwing errors. 
-So what's happening in this particular case is that `if_else` has a requirement `ifelse` doesn't, which is that whatever you put in for the "if TRUE" part of the operator has to be of the same type as whatever you put in for the "if FALSE" part. That's a reasonable requirement, because the output of either of these if else functions is a single vector that will have "if TRUE" values wherever the test returns TRUE and "if FALSE" values wherever the test returns FALSE. 
-Remember when I told you there were secretly different kinds of `NA` under the hood, for the different data types in R, but that it would almost never come up and you wouldn't have to worry about that? So this is unfortunately one of the rare times when it does come up. Sorry! 
+I'm not going to get into the weeds with this, but I just wanted to put in a slide here for anyone that might be curious: There are two different but very similar functions called `ifelse` and `if_else`, and although they are often interchangeable this code is actually one of the times they work differently.
 
-Just plain `NA` like we have here is assumed to be the `NA` for logical vectors unless you specify otherwise. So when `if_else` checks the "if TRUE" and "if FALSE" arguments to see if they're the same data type, it thinks your `NA` is for a logical vector and then it see that the values from `sleep_total` are numeric, and that's why it refuses to run. It thinks you're trying to mix apples and oranges. If you explicitly tell it you want numeric `NA`s, then it will run just fine. [CLICK]
+So if you're curious, come back and read this later. If you're not, don't bother. :)
+
 :::
 
 ## A note about removing outliers
@@ -613,13 +621,12 @@ These are all perfectly reasonable situations in which to mark values as missing
 * Values that are logically impossible
 * Values that you know are meant to mark missing or invalid responses
 
-::: notes
-These are all perfectly reasonable situations in which to mark values as missing.
-:::
-
 ## A note about removing outliers
 
 Be very cautious of removing outliers that might be valid data, though!
+
+<br>
+
 To learn more, read [The Extent and Consequences of P-Hacking in Science](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002106).
 
 . . .
@@ -653,7 +660,13 @@ Most real datasets have some missing values, and it's likely you'll want to be a
 :::
 
 ::: notes
-In general, there are two basic options: Skip over missing stuff and just run the calculations on whatever data are available (this is sometimes called "listwise deletion" or "complete case analysis"), or stop everything and throw an error if there are missing values in the calculations.
+In general, there are two basic options: 
+
+[CLICK] 
+Skip over missing stuff and just run the calculations on whatever data are available (this is sometimes called "listwise deletion" or "complete case analysis"), or 
+
+[CLICK]
+stop everything and throw an error if there are missing values in the calculations.
 :::
 
 ## More complex functions mean more options for missingness
@@ -703,6 +716,10 @@ Under **Arguments**, you'll see the description for `na.rm` is
 > a logical value indicating whether NA values should be stripped before the computation proceeds.
 
 ::: notes
+First, we'll look at the argument `na.rm`, which is available in many functions in R, including the `mean` function.
+We'll start by pulling up the help documentation for `mean` by running `?mean` in the console, or searching for it in the Help pane. 
+
+[CLICK]
 In other words, do you want to exclude missing observations and just do the calculation based on the available data? The default value is `na.rm = FALSE`, which means "no, don't exclude missing values".
 :::
 
@@ -724,20 +741,26 @@ mean(msleep_clean$brainwt, na.rm = TRUE)
 ```
 
 ::: notes
+We'll try running `mean` on the `brainwt` variable from our `msleep` data. 
+Remember that `brainwt` is one of the ones that **does** have some missing values. 
+And we won't specify anything for the `na.rm` argument initially, which means it will just use its default setting, which we know from the help documentation is `na.rm = FALSE`. 
+
 [CLICK]
 There are some missing values in `brainwt`, so right now R is trying to take the mean of several numbers and a handful of `NA`s --- there's no way to get an average for something that's not there, so the result is `NA`.
 
-Try modifying the code to change the behavior to `na.rm = TRUE` [CLICK]
+[CLICK] Try modifying the code to change the behavior to `na.rm = TRUE` 
 
 [CLICK] Now we get a value! That's the average of the available data, ignoring the missing ones.
 
-You'll see `na.rm` as an argument for many functions in R, often with the default set to `FALSE`, as it is for `mean`.
+You'll see `na.rm` as an argument for many functions in R, usually with the default set to `FALSE`, as it is for `mean`.
 :::
 
 ## `na.action`
 
 For more complex statistical functions, there's often an `na.action` argument instead of `na.rm`.
 
+. . .
+<br>
 Let's take a look at the help documentation for `prcomp`:
 
 ```{r}
@@ -746,13 +769,29 @@ Let's take a look at the help documentation for `prcomp`:
 
 . . .
 
-> `na.action`	
-a function which indicates what should happen when the data contain NAs. The default is set by the na.action setting of options, and is na.fail if that is unset. The ‘factory-fresh’ default is na.omit.
+Under **Arguments**, you'll see the description for `na.action` is
+
+> a function which indicates what should happen when the data contain NAs. The default is set by the na.action setting of options, and is na.fail if that is unset. The ‘factory-fresh’ default is na.omit.
 
 ::: notes
+For more complex statistical functions, there's often an `na.action` argument instead of `na.rm`.
+
 We'll start with the function `prcomp`, which is used to run Principal Components Analysis (PCA). For the purposes of this example, it's perfectly fine if you haven't run a PCA before, or even if you've never heard of it --- we'll just be using it as an example to explore how R handles missing values in statistical analyses.
 
-Like many R functions, `prcomp` has an argument called `na.action` which controls what happens when the function encounters missing values. The possible options are usually `na.fail`, `na.omit`, and `na.exclude`. We can see from the help documentation that, unless you've changed some of your settings in R, the default option for `na.action` will be `na.omit`.
+[CLICK]
+Like many R functions, `prcomp` has an argument called `na.action` which controls what happens when the function encounters missing values. The possible options are usually `na.fail`, `na.omit`, and `na.exclude`. 
+
+[CLICK]
+We can see from the help documentation that, unless you've changed some of your settings in R, the default option for `na.action` will be `na.omit`.
+
+The `na.action` argument is computationally a bit more complicated than `na.rm` which just can be TRUE or FALSE, but actually they actually work kind of similarly.
+
+The `na.fail` option for `na.action` is a lot like setting `na.rm = TRUE`, and it's usually the default, just like `na.rm = TRUE` usually is. 
+When you have `na.action = na.fail`, you'll get an error if you try to run the function on data with missingness. 
+
+The `na.omit` and `na.exclude` options both work a lot like `na.rm = FALSE`; they will skip over missing values and run the function just on whatever data are available. 
+The difference between `na.omit` and `na.exclude` is pretty subtle, and in my experience it only really matters if you're going to be using the resulting model objects in kind of advanced ways. 
+
 :::
 
 ## `na.action`
@@ -766,6 +805,9 @@ prcomp(~ sleep_total + sleep_rem + sleep_cycle + awake + brainwt + bodywt,
 ```
 
 ::: notes
+
+[CLICK]
+Here's the output of that command. 
 Like I said, we're not actually talking about these functions as statistical tests, so we'll just skip merrily past all the standard deviations and rotations and whathaveyou.
 
 One important thing to notice here, though: Nothing in the output tells you that `prcomp` excluded rows with missing values from the analysis. That is how many functions in R work, and it's one reason why it's important to look at the help documentation for functions you're using, so you can see what the function's default behavior for handling missingness is. Without checking the help documentation, you might (wrongly) think that this PCA output was based on all of the observations in your data, not just the complete cases.
@@ -843,10 +885,15 @@ Let's look at a correlation matrix using the `msleep_clean` data:
 
 ```{r}
 #| output-location: fragment
-cor(select(msleep_clean, sleep_total:bodywt))
+msleep_clean |> 
+  select(sleep_total, sleep_rem, sleep_cycle, awake, brainwt, bodywt) |> 
+  cor()
 ```
 
 ::: notes
+This code is going to start with the msleep_clean dataframe, select just the listed variables from it (which is all the numeric variables in this dataset), and then send that to the `cor()` function to create a correlation matrix of those variables. 
+
+[CLICK]
 Since we didn't supply anything for the `use` argument, it will be its default value, which is "everything". That returns an `NA` for any correlation where there were missing values on either of the two variables being compared.
 :::
 
@@ -856,11 +903,17 @@ Let's try again, but this time change the behavior to calculate correlations for
 
 ```{r}
 #| output-location: fragment
-cor(select(msleep_clean, sleep_total:bodywt), 
-    use = "pairwise.complete.obs")
+msleep_clean |> 
+  select(sleep_total, sleep_rem, sleep_cycle, awake, brainwt, bodywt) |> 
+  cor(use = "pairwise.complete.obs")
 ```
 
 ::: notes
+Let's try again, but this time change the behavior to calculate correlations for all pairwise complete observations. 
+To do that, we're going to add an argument to the cor() function so it doesn't just do its default behavior. 
+We'll add the argument `use = "pairwise.complete.obs"`.
+
+[CLICK]
 Now we're seeing a correlation reported for every pair of variables, regardless of whether there were missing values present. For each pair of variables, `cor` is calculating the correlation between those two variables on whatever observations it can; that means it might use all of the cases to compute some correlations and just some observations for others. 
 :::
 

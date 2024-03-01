@@ -33,7 +33,6 @@ r102 <- r102_raw |>
   
 
 # plots
-library(ggplot2)
 r102 |> 
   tidyr::pivot_longer(tidyselect::starts_with("select_workshops___"), names_to = "session", values_to = "registered") |> 
   # clean up
@@ -42,6 +41,7 @@ r102 |>
   dplyr::filter(registered == 1) |> 
   dplyr::count(session)
 
+library(ggplot2)
 r102 |> 
   tidyr::pivot_longer(missing_values:ggplot2, names_to = "skill", values_to = "rating") |> 
   ggplot(aes(y = rating, fill = skill)) + 
