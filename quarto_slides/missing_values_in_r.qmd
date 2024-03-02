@@ -441,9 +441,20 @@ As a reminder, `filter()` selects just the rows from a dataframe that return TRU
 filter(msleep, vore == "carni")
 ```
 
+::: notes
+`filter(msleep, vore == "carni")` takes the `msleep` dataframe and checks each row to see whether `vore` equals `"carni"` in that row. 
+Rows where that's true will be included in the output, and any rows where that's false get dropped. 
+
+[CLICK]
+The resulting dataframe has all carnivores.
+
+One tricky little thing I want to be sure to draw your attention to is the equals test. In R, if you want to test whether two things are the same, you need to use `==`. 
+Just a single `=` is used for setting values, not testing equality.
+:::
+
 ## {{< fa book-open >}} Learn more
 
-For more details about how `filter()` works, see our tutorial on [The `filter()` function](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#11).
+For more details about how `filter()` works, see the DART tutorial on data transformation, including [The `filter()` function](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#11).
 
 ![A symbolic dataframe of four rows with a header, with two rows selected (highlighted in a different color), is transformed into a new dataframe with just the two selected rows and a header.](https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/media/dplyr_filter.png)
 
@@ -457,6 +468,8 @@ filter(msleep, brainwt == NA)
 ```
 
 ::: notes
+Okay, so how might we write a command to filter for missing values? 
+
 [CLICK] That doesn't work!
 
 In fact, if you're following along in RStudio, you may even have noticed a little yellow warning triangle appear at the left side of your screen, next to the line number with that code. If you hover your mouse over the warning sign, you'll see a message that says "use 'is.na' to check whether an expression evaluates to NA" --- that's because this is a very common mistake. Most people try `== NA` and `!= NA` to test whether something is or isn't missing, respectively, before they realize R won't allow that.
