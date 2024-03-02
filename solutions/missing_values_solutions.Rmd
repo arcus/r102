@@ -25,41 +25,18 @@ To learn more about this dataset:
 summary(msleep)
 ```
 
-## Convert to factor, two options
-
-```{r}
-msleep_clean <- msleep %>%
-  mutate(name = as.factor(name),
-         genus = as.factor(genus),
-         vore = as.factor(vore),
-         order = as.factor(order),
-         conservation = as.factor(conservation))
-```
-
-
-```{r}
-msleep_clean <- msleep %>%
-  mutate(across(where(is.character), as.factor))
-```
-
-And now try running `summary()` again to see how it handles the factors better!
-
-```{r}
-summary(msleep)
-```
-
 ## Filtering with `NA`
 
 Let's use `filter()` to take a look at just the rows that have missing values for the `brainwt` variable.
 
 ```{r}
 # This doesn't work!
-filter(msleep_clean, brainwt == NA)
+filter(msleep, brainwt == NA)
 ```
 
 
 ```{r}
-filter(msleep_clean, is.na(brainwt))
+filter(msleep, is.na(brainwt))
 ```
 
 
@@ -70,7 +47,7 @@ filter(msleep_clean, is.na(brainwt))
 Now fill in the partial code below to filter the data to just look at rows that are **not** missing for `brainwt`. 
 
 ```{r}
-filter(msleep_clean, !is.na(brainwt))
+filter(msleep, !is.na(brainwt))
 ```
 
 When you're done, put a "thumbs up" on the note in the chat to let us know you're ready to move forward. :)
@@ -89,12 +66,12 @@ Let's pretend you know that these data were only recorded over an 18 hour period
 
 ```{r}
 # summary of the sleep_total variable
-summary(msleep_clean$sleep_total)
+summary(msleep$sleep_total)
 ```
 
 ```{r}
-# show just the rows of msleep_clean where sleep_total is greater than 18
-filter(msleep_clean, sleep_total > 18)
+# show just the rows of msleep where sleep_total is greater than 18
+filter(msleep, sleep_total > 18)
 ```
 
 These must be typos or some other kind of error, so you want to exclude them from your analysis.
@@ -102,17 +79,17 @@ These must be typos or some other kind of error, so you want to exclude them fro
 Fill in this code to mark values for `sleep_total` that are over 18 as missing (remember you can look at the solutions file if you get stuck!):
 
 ```{r}
-msleep_clean <- mutate(msleep_clean, 
-                       sleep_total = ifelse(sleep_total > 18, NA, sleep_total))
+msleep <- mutate(msleep, 
+                 sleep_total = ifelse(sleep_total > 18, NA, sleep_total))
 ```
 
 To check that it worked, take a look at the updated summary stats for `sleep_total`:
 
 ```{r}
-summary(msleep_clean$sleep_total)
+summary(msleep$sleep_total)
 ```
 
-You should see that the Max value is now under 18, and you should see some NAs.
+You should see that the Max value is now no greater than 18, and you should see some NAs.
 
 
 When you're done, put a "thumbs up" on the note in the chat to let us know you're ready to move forward. :)

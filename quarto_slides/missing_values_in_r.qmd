@@ -346,12 +346,25 @@ Notice the bottom row of the summary statistics for `sleep_rem`, `sleep_cycle` a
 The `summary` command is most useful for numeric and factor variables. It doesn't show us anything useful for the character variables. We can get better output for those by converting them to factors, though.
 :::
 
+## Come back to these slides later if you like :) 
+
+<br>
+Remember, if you're viewing these slides online, you can hit `s` on your keyboard to show the speaker notes. 
+
+::: notes
+In the interest of time, I'm going to skip past the next few slides, which step through how you can convert these variables to factors. 
+After converting them to factors, then `summary()` will show you the missing count for each one, just as it does for numeric variables. 
+
+But we don't actually need them converted to factors for anything else we're going to do in our exercises today, so we won't spend time on that now. 
+I did want to leave the slides in here, though, in case you want to return to look through that content later!
+:::
+
 ## Convert to factor
 
 We could convert those variables to factors with a `mutate` command for each of the rows we want to convert, like this:
 
 ```{r}
-msleep_clean <- msleep |>
+msleep <- msleep |>
   mutate(name = as.factor(name),
          genus = as.factor(genus),
          vore = as.factor(vore),
@@ -365,7 +378,7 @@ But in cases like this where we want to convert several variables all in the sam
 
 ```{r}
 #| code-line-numbers: "|3|4|"
-msleep_clean <- msleep |>
+msleep <- msleep |>
   mutate(across(
     where(is.character), 
     as.factor))
@@ -390,6 +403,19 @@ A few things from the above code that you might want to look into further:
 - More about `mutate` and data transformation in general in [R4DS section on mutate](https://r4ds.hadley.nz/data-transform.html#sec-mutate)
 - More about `across` in the [tidyverse "colwise" vignette](https://dplyr.tidyverse.org/articles/colwise.html)
 
+## Summary again
+
+Now let's try `summary` again to see if we get more informative results for those first few columns:
+
+```{r}
+#| output-location: fragment
+summary(msleep)
+```
+
+::: notes
+Note that this time we're running it on the new `msleep` dataframe with those cleaned up factor variables.
+:::
+
 ## {{< fa circle-question >}} Troubleshooting
 
 If you make a mistake modifying the data, how can you undo it?
@@ -402,21 +428,9 @@ But how do you get a fresh copy of a built-in dataset?
 To reset the data to its original state, run `rm(msleep)` in the console. This will delete your current version of the data from R's environment, and you'll just be left with the original clean copy from the `ggplot2` package.
 
 ::: notes
-In this case, the `mutate` commands we ran saved to a new R object, called `msleep_clean`, so they didn't actually overwrite `msleep` at all. But if you did make some changes to `msleep` and you wanted to undo them, it's good to know how!
+Remember: If you run `rm(msleep)` to reset the data, you'll need to re-run any changes you made to the data that you want to keep, like converting columns to factor above. 
 :::
 
-## Summary again
-
-Now let's try `summary` again to see if we get more informative results for those first few columns:
-
-```{r}
-#| output-location: fragment
-summary(msleep_clean)
-```
-
-::: notes
-Note that this time we're running it on the new `msleep_clean` dataframe with those cleaned up factor variables.
-:::
 
 ## Filtering with `NA`s
 
@@ -424,7 +438,7 @@ Let's use `filter` to take a look at just the rows that have missing values for 
 
 ```{r}
 #| output-location: fragment
-filter(msleep_clean, brainwt == NA)
+filter(msleep, brainwt == NA)
 ```
 
 ::: notes
@@ -439,7 +453,7 @@ So, let's try again to filter the data to just show rows where we have missing v
 
 ```{r}
 #| output-location: fragment
-filter(msleep_clean, is.na(brainwt))
+filter(msleep, is.na(brainwt))
 ```
 
 ::: notes
@@ -575,7 +589,7 @@ So what's happening in this particular case is that `if_else` has a requirement 
 This runs fine:
 
 ```{r eval=FALSE}
-msleep_clean <- mutate(msleep_clean, 
+msleep <- mutate(msleep, 
                        sleep_total = ifelse(sleep_total > 18, 
                                             NA, 
                                             sleep_total))
@@ -584,7 +598,7 @@ msleep_clean <- mutate(msleep_clean,
 But this generates an error:
 
 ```{r eval=FALSE}
-msleep_clean <- mutate(msleep_clean, 
+msleep <- mutate(msleep, 
                        sleep_total = if_else(sleep_total > 18, 
                                              NA, 
                                              sleep_total))
@@ -599,7 +613,7 @@ Just plain `NA` like we have here is assumed to be the `NA` for logical vectors 
 This works :)
 
 ```{r eval=FALSE}
-msleep_clean <- mutate(msleep_clean, 
+msleep <- mutate(msleep, 
                        sleep_total = if_else(sleep_total > 18, 
                                              NA_real_, 
                                              sleep_total))
@@ -729,7 +743,7 @@ Let's try that with the `brainwt` variable:
 
 ```{r}
 #| output-location: fragment
-mean(msleep_clean$brainwt)
+mean(msleep$brainwt)
 ```
 . . .
 
@@ -737,7 +751,7 @@ mean(msleep_clean$brainwt)
 
 ```{r}
 #| output-location: fragment
-mean(msleep_clean$brainwt, na.rm = TRUE)
+mean(msleep$brainwt, na.rm = TRUE)
 ```
 
 ::: notes
@@ -801,7 +815,7 @@ If we run `prcomp` without specifying anything for `na.action`, it will use this
 ```{r}
 #| output-location: fragment
 prcomp(~ sleep_total + sleep_rem + sleep_cycle + awake + brainwt + bodywt, 
-       data = msleep_clean)
+       data = msleep)
 ```
 
 ::: notes
@@ -819,7 +833,7 @@ Let's run `prcomp()` with `na.fail` for the `na.action` instead:
 
 ```{r eval=FALSE}
 prcomp(~ sleep_total + sleep_rem + sleep_cycle + awake + brainwt + bodywt, 
-       data = msleep_clean, 
+       data = msleep, 
        na.action = na.fail)
 ```
 
@@ -839,7 +853,7 @@ You should now see an error that includes the message "missing values in object"
 Some R functions will show a warning by default when they remove cases with missing values. For example, let's use `ggplot` to create a scatterplot of `bodywt` and `brainwt`:
 
 ```{r eval=FALSE}
-ggplot(msleep_clean, aes(x=bodywt, y=brainwt)) +
+ggplot(msleep, aes(x=bodywt, y=brainwt)) +
   geom_point()
 ```
 
@@ -881,17 +895,17 @@ Note: The differences between the options is subtle, so don't stress if it feels
 
 ## Other arguments for handling missingness
 
-Let's look at a correlation matrix using the `msleep_clean` data:
+Let's look at a correlation matrix using the `msleep` data:
 
 ```{r}
 #| output-location: fragment
-msleep_clean |> 
+msleep |> 
   select(sleep_total, sleep_rem, sleep_cycle, awake, brainwt, bodywt) |> 
   cor()
 ```
 
 ::: notes
-This code is going to start with the msleep_clean dataframe, select just the listed variables from it (which is all the numeric variables in this dataset), and then send that to the `cor()` function to create a correlation matrix of those variables. 
+This code is going to start with the msleep dataframe, select just the listed variables from it (which is all the numeric variables in this dataset), and then send that to the `cor()` function to create a correlation matrix of those variables. 
 
 [CLICK]
 Since we didn't supply anything for the `use` argument, it will be its default value, which is "everything". That returns an `NA` for any correlation where there were missing values on either of the two variables being compared.
@@ -903,7 +917,7 @@ Let's try again, but this time change the behavior to calculate correlations for
 
 ```{r}
 #| output-location: fragment
-msleep_clean |> 
+msleep |> 
   select(sleep_total, sleep_rem, sleep_cycle, awake, brainwt, bodywt) |> 
   cor(use = "pairwise.complete.obs")
 ```
@@ -970,7 +984,7 @@ There are a few different options for removing rows with missing values in R:
 If you want a version of your data with no missing values in it, you can use `na.omit` to remove any rows with missing values.
 
 ```{r}
-msleep_nomissing <- na.omit(msleep_clean)
+msleep_nomissing <- na.omit(msleep)
 ```
 
 . . .
@@ -980,7 +994,7 @@ msleep_nomissing <- na.omit(msleep_clean)
 How many rows were in the original data?
 
 ```{r}
-nrow(msleep_clean) 
+nrow(msleep) 
 ```
 
 . . .
@@ -1002,7 +1016,7 @@ How many rows are in the original data? And how many are left if we limit it to 
 If we want to create a version of the data that doesn't have any missing values for `brainwt` (but allows missing values for other variables), we can do that with `filter`:
 
 ```{r}
-msleep_nomissing_brainwt <- filter(msleep_clean, !is.na(brainwt))
+msleep_nomissing_brainwt <- filter(msleep, !is.na(brainwt))
 ```
 
 ::: notes
@@ -1018,7 +1032,7 @@ Consider the following code. Do you think it will run without an error?
 
 ```{r}
 #| output-location: fragment
-model_data <- msleep_clean |> 
+model_data <- msleep |> 
   select(sleep_total, brainwt) |> 
   na.omit()
 
@@ -1037,7 +1051,7 @@ There's two main pieces to the code here. The first piece saves a dataframe call
 So if we look at the bit with `lm()`, it looks like `lm()` is doing something with the `sleep_total` and `brainwt` variables, and it says `data = model_data`, so that suggests it's working with that dataframe. 
 Then we see it has `na.action = na.fail`. That means the function should throw and error and not run if there are missing values present. When we tried that with `prcomp()` we did get an error right away, because there were missing values in the data. Are there missing values in the data here?
 
-To answer that, let's look back at that first bit of code. It starts with the `msleep_clean` dataframe and puts it through a couple steps with pipes. The first step is the `select()` function. We haven't talked about that much today; `select()` takes a dataframe and pulls out just the columns you list, dropping any others. So here it will take the `msleep_clean` dataframe and then keep just the `sleep_total` and `brainwt` columns. 
+To answer that, let's look back at that first bit of code. It starts with the `msleep` dataframe and puts it through a couple steps with pipes. The first step is the `select()` function. We haven't talked about that much today; `select()` takes a dataframe and pulls out just the columns you list, dropping any others. So here it will take the `msleep` dataframe and then keep just the `sleep_total` and `brainwt` columns. 
 Then there's another pipe sending that two-column dataframe to the `na.omit()` function. 
 As we talked about, `na.omit()` removes any rows that have missing data on any variables. So in this case, what we'll be left with at the end is a dataframe that has just the columns `sleep_total` and `brainwt`, and only the observations that had no missing values on either of those. 
 So there will be no missing values at all in that `model_data` dataframe. If there were missing values, we would expect the `lm()` function to throw an error since it has `na.action = na.fail`, but here we know there will be no missing values at all so this should run with no errors. 
