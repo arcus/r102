@@ -432,6 +432,21 @@ Remember: If you run `rm(msleep)` to reset the data, you'll need to re-run any c
 :::
 
 
+## Filtering
+
+As a reminder, `filter()` selects just the rows from a dataframe that return TRUE for the logical test you put in. For example:
+
+```{r}
+#| output-location: fragment
+filter(msleep, vore == "carni")
+```
+
+## {{< fa book-open >}} Learn more
+
+For more details about how `filter()` works, see our tutorial on [The `filter()` function](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#11).
+
+![A symbolic dataframe of four rows with a header, with two rows selected (highlighted in a different color), is transformed into a new dataframe with just the two selected rows and a header.](https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/media/dplyr_filter.png)
+
 ## Filtering with `NA`s
 
 Let's use `filter` to take a look at just the rows that have missing values for the brainwt variable.
