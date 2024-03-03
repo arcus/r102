@@ -23,11 +23,11 @@ Use this form to [register to attend one or more workshop sessions](https://redc
 
 - **Missing Values in R**
   * Date: 2024-03-04 12pm-1pm ET
-  * Follow along with the slides (link coming soon)
+  * Follow along with the [Missing Values in R slides](https://rosemhartman.quarto.pub/r102/quarto_slides/missing_values_in_r.html#/title-slide)
   * Try the [online tutorial version available at DART](https://bit.ly/DART_r_missing_values)
 - **Summary Statistics in R**
   * Date:  2024-04-08 12pm-1pm ET
-  * Follow along with the [slides](https://rosemhartman.quarto.pub/summary_stats_in_r/)
+  * Follow along with the slides (link coming soon)
   * Try the [online tutorial version available at DART](https://bit.ly/DART_r_summary_stats)
 - **Reshaping Data with tidyr**
   * Date: 2024-05-06 12pm-1pm ET
