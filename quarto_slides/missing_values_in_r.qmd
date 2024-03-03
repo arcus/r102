@@ -457,7 +457,8 @@ The resulting dataframe has all carnivores.
 Remember that the double equals sign is a comparison --- in the above code it's **asking** whether `vore` is equal to "carni", while a single equals sign is a "setter", and it will try to **make** `vore` equal to "carni".  
 
 ::: notes
-One tricky little thing I want to be sure to draw your attention to is the equals test. 
+One tricky little thing I want to be sure to draw your attention to is the equals test. In R, if you want to test whether two things equal each other, you have to use `==`. 
+Just a single `=` is a setter, used for assigning values, not testing whether two values are the same. 
 :::
 
 ## Filtering
@@ -467,18 +468,15 @@ These are some of the logical tests you might use:
 | logical condition | means | example |
 | :---: | --- | --- |
 | `x < y` | less than | `sleep_total < 10` |
-| `x > y`| greater than | `brainwt > 3` |
+| `x > y`| greater than | `sleep_total > 4` |
 | `x == y` | equal to | `vore == "carni"` |
-| `x <= y` | less than or equal to | `awake <= 12` |
-| `x >= y` | greater than or equal to | `sleep_cycle >= 1` |
-| `x != y` | not equal to | `conservation != "lc"` |
-
+| `x != y` | not equal to | `vore != "carni"` |
 
 ## {{< fa book-open >}} Learn more
 
 For more details about how `filter()` works, see the DART tutorial on data transformation, including [The `filter()` function](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#11).
 
-![A symbolic dataframe of four rows with a header, with two rows selected (highlighted in a different color), is transformed into a new dataframe with just the two selected rows and a header.](https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/media/dplyr_filter.png)
+![](https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/media/dplyr_filter.png){fig-alt="A symbolic dataframe of four rows with a header, with two rows selected (highlighted in a different color), is transformed into a new dataframe with just the two selected rows and a header." width="80%"}
 
 ## Filtering with `NA`s
 
@@ -539,6 +537,7 @@ I also want to create another opportunity here for anyone that's having trouble 
 You may need to assign values to `NA` as part of data cleaning.
 
 ::: notes
+You may need to assign values to `NA` as part of data cleaning.
 When you're working with data, as part of your data exploration, you may notice values for some variables that you know are impossible or extremely unlikely.
 
 For example, imagine you have a dataset called `df` with a variable called `rating`.
