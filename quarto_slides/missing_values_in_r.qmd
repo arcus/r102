@@ -442,15 +442,37 @@ filter(msleep, vore == "carni")
 ```
 
 ::: notes
+Next we'll talk about how to filter missing values, but I want to start with a quick refresher on what the `filter()` function actually does. 
+`filter()` selects just the rows from a dataframe that return TRUE for the logical test you put in.
+
 `filter(msleep, vore == "carni")` takes the `msleep` dataframe and checks each row to see whether `vore` equals `"carni"` in that row. 
 Rows where that's true will be included in the output, and any rows where that's false get dropped. 
 
 [CLICK]
 The resulting dataframe has all carnivores.
-
-One tricky little thing I want to be sure to draw your attention to is the equals test. In R, if you want to test whether two things are the same, you need to use `==`. 
-Just a single `=` is used for setting values, not testing equality.
 :::
+
+## {{< fa circle-question >}} Troubleshooting
+
+Remember that the double equals sign is a comparison --- in the above code it's **asking** whether `vore` is equal to "carni", while a single equals sign is a "setter", and it will try to **make** `vore` equal to "carni".  
+
+::: notes
+One tricky little thing I want to be sure to draw your attention to is the equals test. 
+:::
+
+## Filtering
+
+These are some of the logical tests you might use:
+
+| logical condition | means | example |
+| :---: | --- | --- |
+| `x < y` | less than | `sleep_total < 10` |
+| `x > y`| greater than | `brainwt > 3` |
+| `x == y` | equal to | `vore == "carni"` |
+| `x <= y` | less than or equal to | `awake <= 12` |
+| `x >= y` | greater than or equal to | `sleep_cycle >= 1` |
+| `x != y` | not equal to | `conservation != "lc"` |
+
 
 ## {{< fa book-open >}} Learn more
 
@@ -556,9 +578,6 @@ The `ifelse` command is what's called a ternary operator, and it has three parts
 Our `ifelse` statement begins with a conditional test, in this case `rating == -99`.
 :::
 
-## {{< fa circle-question >}} Troubleshooting
-
-Remember that the double equals sign is a comparison --- in the above code it's **asking** whether `rating` is equal to -99, while a single equals sign is a "setter", and it will try to **make** `rating` equal to -99.  
 
 ## Assigning values to missing
 
