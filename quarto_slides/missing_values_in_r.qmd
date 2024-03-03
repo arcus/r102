@@ -583,19 +583,23 @@ Our `ifelse` statement begins with a conditional test, in this case `rating == -
 Here's some code to assign the -99 values in our pretend dataset to missing:
 
 ```{r eval=FALSE}
-#| code-line-numbers: "|1|2|3|4|"
+#| code-line-numbers: "2,3|4|5|"
 df <- mutate(df, 
-             rating = ifelse(rating == -99, 
-                             NA, 
-                             rating))
+             rating = ifelse(
+               rating == -99, 
+               NA, 
+               rating
+               ))
 ```
 
 ::: notes
 For each value in `rating`, it will run the test and return either `TRUE` or `FALSE`.
-If it returns `TRUE`, then it assigns the next argument, in this case `NA`, which will mark that value missing.
+If it returns `TRUE`, then it assigns the next argument, [CLICK] in this case `NA`, which will mark that value missing.
 
+[CLICK]
 If it returns `FALSE`, then it assigns the last argument, in this case `rating`, which will leave the value untouched.
 
+[CLICK]
 So for any `rating` values that equal -99, we're asking it to replace them with `NA`, otherwise leave them as they were.
 :::
 
