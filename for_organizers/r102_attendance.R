@@ -55,4 +55,4 @@ r102 |>
                                                 "(4) I am confident in my ability to do it")) + 
   labs(x=NULL, y=NULL,
        title = paste0("Signups as of ", Sys.Date()))
-ggsave("ability_plots.png", height = 10, width = 5, units = "in")
+ggsave("for_organizers/ability_plots.png", height = 10, width = 5, units = "in")
