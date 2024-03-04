@@ -49,9 +49,7 @@ We're looking for more volunteers to lead appointments! Get in touch: hartmanr1@
 
 ::: notes
 We also have regular office hours appointments available to get R help. 
-We're offering two kinds of appointments: one-on-one, if you want individual help, or open appointments that are more of a community conversation about whatever R questions people bring up that day. The open appointments can be particularly valuable to attend if you want to hear other people's questions about R but maybe don't have a project of your own that you're troubleshooting at the moment. 
 We set up a calendar online where you can book an appointment. 
-And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
 :::
 
 ## Coming soon! 
@@ -60,14 +58,20 @@ This is the first talk in a new series called **R102: MasteRing the Fundamentals
 
 <br>
 
+**Next up:** Summary Statistics in R, April 8th 12:00pm ET
+
+<br> 
+
 Learn more about this new series, including dates and titles for each session: 
 <br>
 [https://arcus.github.io/r102/](https://arcus.github.io/r102/)
 
+
 ::: notes
 Today's talk is the first in a new series called **R102: MasteRing the Fundamentals**.
-This is a new series of workshops intended as a continuation of the popular Intro to R for Clinical Data workshop we offer a few times a year. 
+These workshops are intended as a continuation of the popular Intro to R for Clinical Data workshop we offer a few times a year. 
 We're designing these talks with beginners in mind, so if you're trying to figure out how to get started with R, or how to start applying it in your own work, these talks are for you!
+To see the schedule of talks, check out the website for the series. We'll also post links to slides and recordings there as well as they become available.
 ::: 
 
 # Missing Values in R
@@ -798,6 +802,7 @@ You'll see `na.rm` as an argument for many functions in R, usually with the defa
 For more complex statistical functions, there's often an `na.action` argument instead of `na.rm`.
 
 . . .
+
 <br>
 Let's take a look at the help documentation for `prcomp`:
 
@@ -824,12 +829,13 @@ We can see from the help documentation that, unless you've changed some of your 
 
 The `na.action` argument is computationally a bit more complicated than `na.rm` which just can be TRUE or FALSE, but actually they actually work kind of similarly.
 
-The `na.fail` option for `na.action` is a lot like setting `na.rm = TRUE`, and it's usually the default, just like `na.rm = TRUE` usually is. 
+The `na.fail` option for `na.action` is a lot like using `na.rm = FALSE`.
 When you have `na.action = na.fail`, you'll get an error if you try to run the function on data with missingness. 
 
-The `na.omit` and `na.exclude` options both work a lot like `na.rm = FALSE`; they will skip over missing values and run the function just on whatever data are available. 
+The `na.omit` and `na.exclude` options both work a lot like `na.rm = TRUE`; they will skip over missing values and run the function just on whatever data are available. 
 The difference between `na.omit` and `na.exclude` is pretty subtle, and in my experience it only really matters if you're going to be using the resulting model objects in kind of advanced ways. 
 
+One big difference is that while `na.rm = FALSE` is usually the default, for `na.action` it's usually `na.omit`, which means the function will remove missing values. 
 :::
 
 ## `na.action`
@@ -1114,3 +1120,9 @@ For more powerful analysis of missing data in R, checkout the [`Amelia` package]
 # Practice opportunity
 
 Want to go through this material again? It's posted as [an interactive tutorial online](https://bit.ly/DART_r_missing_values) as part of [DART (Data and Analytics for Research Training)](https://arcus.github.io/education_modules/)!
+
+# Thank you! Questions?
+
+```{r eval=FALSE}
+filter(attendees, is.na(understanding))
+```
