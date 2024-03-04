@@ -83,7 +83,7 @@ If you're completely brand new to R, first of all: Welcome! You may find it tric
 Our topic is missing values in R, one of the major stumbling blocks folks typically encounter when they start trying to use R to analyze data "in the wild". 
 Real data are messy, and missingness is one of the main kinds of mess you'll have to deal with!
 
-Please feel very free to stop me with questions, either by unmuting or in the chat – I've left plenty of extra time in the talk, so there's space for us to stop and talk about things. 
+If you have questions during the talk, feel free to put them in the chat. We have several very friendly R experts on the call today helping out, so they may be able to chime in and answer your questions, otherwise I can.
 :::
 
 ## What we're covering today
@@ -257,7 +257,7 @@ Learn more about the tidyverse packages on the [tidyverse website](https://www.t
 First, we need to load the `tidyverse` packages, since we'll be using several functions that come in the `tidyverse`, as well as a built-in dataset that comes with `tidyverse`.
 
 I'll also pause here for a moment to invite anyone that is having trouble getting access to the code, either with that Posit Cloud link or by downloading the files, to let us know in the chat. 
-We've got a couple very friendly R experts on the call, so one of them can hop into a breakout room with you real quick to troubleshoot. 
+We've got a couple very friendly R experts on the call, so one of them can help you troubleshoot. 
 If you have the code pulled up and ready to go, please thumbs up the comment I'm putting the chat to let me know you're ready to move on. 
 :::
 
@@ -968,6 +968,10 @@ Now we're seeing a correlation reported for every pair of variables, regardless 
 
 **True or False**: The output from R functions usually tells you how missing data were handled.
 
+{{< fa thumbs-up >}} True!
+
+{{< fa thumbs-down >}} False!
+
 ::: notes
 Okay! Now we're going to jump into some quick quiz questions to check your understanding. Give me a thumbs-up reaction in Teams if you think this is true and thumbs down if you think it's false: The output from R functions usually tells you how missing data were handled.
 
@@ -981,8 +985,9 @@ Although some functions, like `geom_point`, provide a warning when dropping miss
 
 If you want R to skip over missing values and give you the results based only on the available data, which argument might you use?
 
-* `na.rm = TRUE`
-* `na.rm = FALSE`
+{{< fa thumbs-up >}} `na.rm = TRUE`
+
+{{< fa thumbs-down >}} `na.rm = FALSE`
 
 ::: notes
 If you want R to skip over missing values and give you the results based only on the available data, which argument might you use? Thumbs up for `na.rm = TRUE` and thumbs down for `na.rm = FALSE`.
@@ -999,7 +1004,7 @@ This can be especially important if you want to make sure you're using a consist
 
 ::: notes
 For example, let's say you ran a study on the relationship between cortisol levels and time spent on a challenging task.
-In addition to measuring cortisol and how long participants spent on the task, you also collected a set of demographic variables and background information like age, education level, and socio-economic status.
+In addition to measuring cortisol and how long participants spent on the task, you also collected a set of demographic variables and background information like age, education level, etc.
 
 Because the main focus of your analysis is on cortisol, you want to exclude any participants who have missing cortisol values (perhaps because of problems with the saliva sample they provided), even from parts of the analysis that don't use the cortisol data directly.
 For example, you may begin your analysis by describing your participants with summary statistics on their demographic information (e.g. what is the median age in this sample?). If some of those participants have missing cortisol values, you want them excluded from the demographic summaries as well. The most straightforward way to do this is to save a new version of your data that only includes the observations you want in your final analysis, and to use that for all of your calculations.
