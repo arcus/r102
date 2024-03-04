@@ -97,6 +97,46 @@ When you're done, put a "thumbs up" on the note in the chat to let us know you'r
 ----------------------------------------------------------
 
 
+# Working around missing values
+
+```{r}
+mean(msleep$brainwt)
+```
+
+```{r}
+mean(msleep$brainwt, na.rm = TRUE)
+```
+
+```{r}
+prcomp(~ sleep_total + sleep_rem + sleep_cycle + awake + brainwt + bodywt, 
+       data = msleep)
+```
+
+```{r}
+prcomp(~ sleep_total + sleep_rem + sleep_cycle + awake + brainwt + bodywt, 
+       data = msleep, 
+       na.action = na.fail)
+```
+
+```{r}
+ggplot(msleep, aes(x=bodywt, y=brainwt)) +
+  geom_point()
+```
+
+```{r}
+msleep |> 
+  select(sleep_total, sleep_rem, sleep_cycle, awake, brainwt, bodywt) |> 
+  cor()
+```
+
+```{r}
+msleep |> 
+  select(sleep_total, sleep_rem, sleep_cycle, awake, brainwt, bodywt) |> 
+  cor(use = "pairwise.complete.obs")
+```
+
+
+
 
 
 Use this space to run tests and try things out!
