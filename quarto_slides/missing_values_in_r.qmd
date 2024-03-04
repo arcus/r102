@@ -252,7 +252,9 @@ Learn more about the tidyverse packages on the [tidyverse website](https://www.t
 ::: notes
 First, we need to load the `tidyverse` packages, since we'll be using several functions that come in the `tidyverse`, as well as a built-in dataset that comes with `tidyverse`.
 
-I'll also pause here for a moment to invite anyone that is having trouble getting access to the code, either with that Posit Cloud link or by downloading the files, to let us know in the chat. If you have the code pulled up and ready to go, please click the thumbs up reaction in Teams to let me know you're ready. 
+I'll also pause here for a moment to invite anyone that is having trouble getting access to the code, either with that Posit Cloud link or by downloading the files, to let us know in the chat. 
+We've got a couple very friendly R experts on the call, so one of them can hop into a breakout room with you real quick to troubleshoot. 
+If you have the code pulled up and ready to go, please thumbs up the comment I'm putting the chat to let me know you're ready to move on. 
 :::
 
 ## Load packages
@@ -279,8 +281,6 @@ If you're running this on your own computer rather than in the cloud instance we
 
 Either way, the library command here is written out for you in the first chunk of the file `missing_values_exercises.rmd`. 
 I'll go ahead and open that file now in my posit cloud instance, and click the green arrow to run that line.
-
-And I'll pause again here to invite folks to let us know in the chat if you're running into problems. We've got a couple very friendly R experts on the call, so one of them can hop into a breakout room with you real quick to troubleshoot. 
 :::
 
 ## The data
@@ -437,9 +437,11 @@ Remember: If you run `rm(msleep)` to reset the data, you'll need to re-run any c
 As a reminder, `filter()` selects just the rows from a dataframe that return TRUE for the logical test you put in. For example:
 
 ```{r}
-#| output-location: fragment
+#| output-location: slide
 filter(msleep, vore == "carni")
 ```
+
+![](https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/media/dplyr_filter.png){fig-alt="A symbolic dataframe of four rows with a header, with two rows selected (highlighted in a different color), is transformed into a new dataframe with just the two selected rows and a header." width="80%"}
 
 ::: notes
 Next we'll talk about how to filter missing values, but I want to start with a quick refresher on what the `filter()` function actually does. 
@@ -476,7 +478,6 @@ These are some of the logical tests you might use:
 
 For more details about how `filter()` works, see the DART tutorial on data transformation, including [The `filter()` function](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#11).
 
-![](https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/media/dplyr_filter.png){fig-alt="A symbolic dataframe of four rows with a header, with two rows selected (highlighted in a different color), is transformed into a new dataframe with just the two selected rows and a header." width="80%"}
 
 ## Filtering with `NA`s
 
@@ -553,7 +554,7 @@ Either way, you don't want to treat those -99 scores as actual responses to the 
 Here's some code to assign the -99 values in our pretend dataset to missing:
 
 ```{r eval=FALSE}
-#| code-line-numbers: "|1|2|3|4|"
+#| code-line-numbers: "|1|2|3|4|5|"
 df <- mutate(df, 
              rating = ifelse(
                rating == -99, 
@@ -574,34 +575,14 @@ The `ifelse` command is what's called a ternary operator, and it has three parts
 [CLICK] a value to use if the test returns `TRUE`
 [CLICK] a value to use if the test returns `FALSE`
 
+[CLICK]
 Our `ifelse` statement begins with a conditional test, in this case `rating == -99`.
-:::
-
-
-## Assigning values to missing
-
-Here's some code to assign the -99 values in our pretend dataset to missing:
-
-```{r eval=FALSE}
-#| code-line-numbers: "2,3|4|5|"
-df <- mutate(df, 
-             rating = ifelse(
-               rating == -99, 
-               NA, 
-               rating
-               ))
-```
-
-::: notes
 For each value in `rating`, it will run the test and return either `TRUE` or `FALSE`.
-If it returns `TRUE`, then it assigns the next argument, [CLICK] in this case `NA`, which will mark that value missing.
-
-[CLICK]
+If it returns `TRUE`, then it assigns the next argument, in this case `NA`, which will mark that value missing.
 If it returns `FALSE`, then it assigns the last argument, in this case `rating`, which will leave the value untouched.
-
-[CLICK]
 So for any `rating` values that equal -99, we're asking it to replace them with `NA`, otherwise leave them as they were.
 :::
+
 
 ## {{< fa rocket >}} Coding Challenge 2
 
@@ -685,7 +666,7 @@ These are all perfectly reasonable situations in which to mark values as missing
 * Values that are logically impossible
 * Values that you know are meant to mark missing or invalid responses
 
-## A note about removing outliers
+## {{< fa book-open >}} Learn more
 
 Be very cautious of removing outliers that might be valid data, though!
 
@@ -693,11 +674,6 @@ Be very cautious of removing outliers that might be valid data, though!
 
 To learn more, read [The Extent and Consequences of P-Hacking in Science](https://journals.plos.org/plosbiology/article?id=10.1371/journal.pbio.1002106).
 
-. . .
-
-<br>
-
-If you want to learn more about p-hacking and how to avoid it, reach out! :) hartmanr1@chop.edu
 
 ::: notes
 Note, however that you should be cautious when excluding observations in general.
