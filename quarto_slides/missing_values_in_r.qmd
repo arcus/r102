@@ -907,7 +907,6 @@ Let's take a look at the help documentation for `cor`:
 ?cor
 ```
 
-. . . 
 
 > `na.rm`	
 > logical. Should missing values be removed?
@@ -916,6 +915,8 @@ Let's take a look at the help documentation for `cor`:
 > an optional character string giving a method for computing covariances in the presence of missing values. This must be (an abbreviation of) one of the strings "everything", "all.obs", "complete.obs", "na.or.complete", or "pairwise.complete.obs".
 
 ::: notes
+In the interest of time I'm going to skip over this last example here as it's much less broadly applicable than the others we've talked about. 
+
 Some functions have more complicated options for how to handle missingness. For example, if you want to get correlations (or covariances) for several variables in your data, you have several options.
 
 There are two arguments related to missing values: `na.rm` and `use`. You can scroll down to the **Details** section to read more about how they work. 
@@ -968,6 +969,8 @@ Now we're seeing a correlation reported for every pair of variables, regardless 
 **True or False**: The output from R functions usually tells you how missing data were handled.
 
 ::: notes
+Okay! Now we're going to jump into some quick quiz questions to check your understanding. Give me a thumbs-up reaction in Teams if you think this is true and thumbs down if you think it's false: The output from R functions usually tells you how missing data were handled.
+
 False! 
 Although some functions, like `geom_point`, provide a warning when dropping missing values, many functions in R do not. We saw an example of this with the `prcomp` function.
 :::
@@ -982,11 +985,12 @@ If you want R to skip over missing values and give you the results based only on
 * `na.rm = FALSE`
 
 ::: notes
+If you want R to skip over missing values and give you the results based only on the available data, which argument might you use? Thumbs up for `na.rm = TRUE` and thumbs down for `na.rm = FALSE`.
+
 `na.rm = TRUE`!
 For functions that have an `na.rm` argument, like `mean()` does, setting `na.rm = TRUE` will give you the result ignoring missing values.
 The default setting for most of these functions is `na.rm = FALSE`, which will return `NA` as the result whenever there are missing values present.
 :::
-
 
 ## Filtering out missing values
 
@@ -1124,5 +1128,5 @@ Want to go through this material again? It's posted as [an interactive tutorial 
 # Thank you! Questions?
 
 ```{r eval=FALSE}
-filter(attendees, is.na(understanding))
+filter(topics, is.na(understanding))
 ```
