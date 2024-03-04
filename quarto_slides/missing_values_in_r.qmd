@@ -318,14 +318,9 @@ To learn more about this dataset:
 ?msleep
 ```
 
-. . .
-
-From the help documentation: 
-
-> This is an updated and expanded version of the mammals sleep dataset. Updated sleep times and weights were taken from V. M. Savage and G. B. West. A quantitative, theoretical framework for understanding mammalian sleep. Proceedings of the National Academy of Sciences, 104 (3):1051-1056, 2007. 
-
 ::: notes
-You can look up help documentation for built-in datasets, just like there's help documentation for functions. Cool, huh?
+You can look up help documentation for built-in datasets, just like there's help documentation for functions. 
+
 :::
 
 ## How to check for missing values
@@ -434,14 +429,17 @@ Remember: If you run `rm(msleep)` to reset the data, you'll need to re-run any c
 
 ## Filtering
 
-As a reminder, `filter()` selects just the rows from a dataframe that return TRUE for the logical test you put in. For example:
+As a reminder, `filter()` selects just the rows from a dataframe that return TRUE for the logical test you put in. 
+
+![](https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/media/dplyr_filter.png){fig-alt="A symbolic dataframe of four rows with a header, with two rows selected (highlighted in a different color), is transformed into a new dataframe with just the two selected rows and a header." width="80%"}
+
+<br>
+For example:
 
 ```{r}
 #| output-location: slide
 filter(msleep, vore == "carni")
 ```
-
-![](https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/media/dplyr_filter.png){fig-alt="A symbolic dataframe of four rows with a header, with two rows selected (highlighted in a different color), is transformed into a new dataframe with just the two selected rows and a header." width="80%"}
 
 ::: notes
 Next we'll talk about how to filter missing values, but I want to start with a quick refresher on what the `filter()` function actually does. 
@@ -517,7 +515,7 @@ Instead, to test whether something is missing, we have to use the `is.na()` func
 
 <br>
 
-Look in the `missing_values_exercises.rmd` file to find your first coding challenge. 
+Look in the `exercises/missing_values_exercises.rmd` file to find your first coding challenge. 
 
 
 ```{r echo=FALSE}
@@ -592,7 +590,7 @@ So for any `rating` values that equal -99, we're asking it to replace them with 
 
 <br>
 
-Go back to the `missing_values_exercises.rmd` file to find your second coding challenge. 
+Go back to the `exercises/missing_values_exercises.rmd` file to find your second coding challenge. 
 
 ```{r echo=FALSE}
 countdown(minutes = 2, seconds = 00)
