@@ -23,8 +23,9 @@ Use this form to [register to attend one or more workshop sessions](https://redc
 
 - **Missing Values in R**
   * Date: 2024-03-04 12pm-1pm ET
+  * Watch the [recording of the Missing Values in R workshop](https://www.youtube.com/watch?v=R6RVppJ5qa0)
   * Follow along with the [Missing Values in R slides](https://rosemhartman.quarto.pub/r102/quarto_slides/missing_values_in_r.html#/title-slide)
-  * Try the [online tutorial version available at DART](https://bit.ly/DART_r_missing_values)
+  * Try the [online tutorial version of Missing Values in R available at DART](https://bit.ly/DART_r_missing_values)
 - **Summary Statistics in R**
   * Date:  2024-04-08 12pm-1pm ET
   * Follow along with the slides (link coming soon)
@@ -57,7 +58,7 @@ Before attending a workshop session, please do the following.
 On the day of your workshop, we suggest the following:
 
 * If available to you, use two monitors (or another two-screen setup such as a laptop and a tablet or two laptops).
-* Follow along in the slides (link coming soon), if you like.
+* Follow along in the [slides](https://rosemhartman.quarto.pub/r102/quarto_slides/index.html#/r102-mastering-the-fundamentals-in-r), if you like.
 
 ## Where to do the exercises
 
@@ -89,7 +90,7 @@ install.packages(c(
 
 ## Slides
 
-Slides (link coming soon) of the teaching presentation that accompany each of the workshop sessions are available and you are welcome to follow along or refer back to them at a later date.  
+[Slides](https://rosemhartman.quarto.pub/r102/quarto_slides/index.html#/r102-mastering-the-fundamentals-in-r) of the teaching presentation that accompany each of the workshop sessions are available and you are welcome to follow along or refer back to them at a later date.  
 The source code for these slides is included in the directory [quarto_slides](https://github.com/arcus/r102/tree/main/quarto_slides) in this repository.
 
 ## License
