@@ -1,8 +1,8 @@
 ---
 title: "Summary Statistics <br> in R"
-author: "Update"
-institute: "Update"
-date: "2023-06-22"
+author: "Keith Baxelbaum, Rose Hartman, and <br> Alexis Zavez (presenter) "
+institute: "Data Science and Biostatistics Unit (DSBU) and <br> Arcus Education, DBHI"
+date: "2024-04-08"
 ---
 
 -   Use keyboard arrow keys to
@@ -55,28 +55,33 @@ We set up a calendar online where you can book an appointment.
 [click] And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
 :::
 
-## Coming soon! R 101 Workshop
+## Coming Soon - More R102 Sessions! 
 
-We are offering the popular **Introduction to R for Clinical Data** workshop again!
+This is the second talk in a new series called **R102: MasteRing the Fundamentals** 
 
-**Wednesday, August 16, 2023 from 8:30 AM - 1:30 PM**
+<br>
 
-Link to sign up: [https://redcap.link/august_2023_r_workshop](https://redcap.link/august_2023_r_workshop)
+**Next up:** Reshaping Data with tidyr, May 6th 12:00pm ET
 
-. . . 
+<br> 
 
-Attended an R 101 workshop in the past? Consider joining as a TA!
+Learn more about this new series, including dates and titles for each session: 
+<br>
+[https://arcus.github.io/r102/](https://arcus.github.io/r102/)
+
 
 ::: notes
-We're increasing the registration cap to allow for more people this time around, but it usually does fill up so if you want to attend be sure to sign up soon. 
+Today's talk is the second in a new series called **R102: MasteRing the Fundamentals**.
+These workshops are intended as a continuation of the popular Intro to R for Clinical Data workshop we offer a few times a year. Last month, we covered the first topic in this series: Missing values in R. Next month, we will cover: Reshaping Data with tidyr
 
-Note that if you've attended R 101 in the past, this will be the same content again; it's not a new workshop. [click] If you have attended the R 101 workshop before, we'd love to have you join as a TA! You'll see an email about this in the coming weeks, but I wanted to mention it now to put it on your radar.
+We're designing these talks with beginners in mind, so if you're trying to figure out how to get started with R, or how to start applying it in your own work, these talks are for you!
+To see the schedule of talks, check out the website for the series. We'll also post links to slides and recordings there as well as they become available.
 ::: 
 
-# R 201: <br> Summary Statistics
+# R 102: <br> Summary Statistics
 
 ::: notes
-Okay! So this talk is a quick dip into some 201-level R. In other words, if you've had a little exposure to R before, such as through an Intro to R for Clinical Data workshop, this is hopefully the right level for you now. 
+Okay! So this talk is a quick dip into some 102-level R. In other words, if you've had a little exposure to R before, such as through an Intro to R for Clinical Data workshop, this is hopefully the right level for you now. 
 If you're completely brand new to R, first of all: Welcome! You may find it tricky to actively follow along with the code today since I'm going to skim over some of the initial steps, but go ahead and give it a try, or just listen and watch if that feels more like the right speed. 
 
 Our topic is getting summary statistics in R, the first step to pretty much any analysis. We'll also look at how to present those summary stats in a lovely, publication-ready Table 1. Please feel very free to stop me with questions, either by unmuting or in the chat – I've left plenty of extra time in the talk, so there's space for us to stop and talk about things. 
