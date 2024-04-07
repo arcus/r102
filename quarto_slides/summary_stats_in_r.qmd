@@ -1,8 +1,11 @@
 ---
-title: "Summary Statistics <br> in R"
-author: "Keith Baxelbaum, Rose Hartman, and <br> Alexis Zavez (presenter) "
+title: "Summary Statistics <br> in R <br>"
+author: "Keith Baxelbaum, Rose Hartman, and <br> Alexis Zavez (presenter) <br>"
 institute: "Data Science and Biostatistics Unit (DSBU) and <br> Arcus Education, DBHI"
 date: "2024-04-08"
+editor: 
+  markdown: 
+    wrap: 72
 ---
 
 -   Use keyboard arrow keys to
@@ -17,106 +20,160 @@ library(countdown)
 
 ## Join the CHOP R User Group
 
-
 ::: {.columns .v-center-container}
 ::: {.column width="50%"}
 ![](media/chopr.png){fig-alt="CHOPR hex sticker logo" width="100%"}
 :::
 
 ::: {.column width="50%"}
-- Friendly help troubleshooting your R code
-- Announcements for upcoming talks, workshops, and conferences
+-   Friendly help troubleshooting your R code
+-   Announcements for upcoming talks, workshops, and conferences
 :::
 :::
 
-Link to join: [https://bit.ly/chopRusers](https://bit.ly/chopRusers)
+Link to join: <https://bit.ly/chopRusers>
 
 ::: notes
-Just a few announcements before we get started. 
-For anyone here today that isn't already part of the CHOP R User group, I strongly encourage you to join (it is also open to Penn folks). The CHOP R User group has more than 400 members from all departments. This is great place to network with other R users, get help with coding problems, and learn about new packages, webinars, and conferences. We also have semi-regular meetings and workshops, like this one. 
-
+Just a few announcements before we get started. For anyone here today
+that isn't already part of the CHOP R User group, I strongly encourage
+you to join (it is also open to Penn folks). The CHOP R User group has
+more than 400 members from all departments. This is great place to
+network with other R users, get help with coding problems, and learn
+about new packages, webinars, and conferences. We also have semi-regular
+meetings and workshops, like this one.
 :::
 
 ## Come to R Office Hours!
 
-- Set up a meeting to get live help with your R code from our most experienced useRs
-- Office hours appointments can be one-on-one or open to the community
+-   Set up a meeting to get live help with your R code from our most
+    experienced useRs
+-   Office hours appointments can be one-on-one or open to the community
 
-Link to calendar: [https://bit.ly/chopROfficeHours](https://bit.ly/chopROfficeHours)
+Link to calendar: <https://bit.ly/chopROfficeHours>
 
 ::: aside
-We're looking for more volunteers to lead appointments! Get in touch: hartmanr1@chop.edu
+We're looking for more volunteers to lead appointments! Get in touch:
+hartmanr1\@chop.edu
 :::
 
 ::: notes
-We have regular office hours appointments available to get R help. 
-We're offering two kinds of appointments: one-on-one, if you want individual help, or open appointments that are more of a community conversation about whatever R questions people bring up that day. The open appointments can be particularly valuable to attend if you want to hear other people's questions about R but maybe don't have a project of your own that you're troubleshooting at the moment. 
-We set up a calendar online where you can book an appointment. 
-[click] And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
+We have regular office hours appointments available to get R help. We're
+offering two kinds of appointments: one-on-one, if you want individual
+help, or open appointments that are more of a community conversation
+about whatever R questions people bring up that day. The open
+appointments can be particularly valuable to attend if you want to hear
+other people's questions about R but maybe don't have a project of your
+own that you're troubleshooting at the moment. We set up a calendar
+online where you can book an appointment. 
+
+And if you like this
+idea and you're an experienced R user yourself, consider joining us to
+offer appointments! It's just whatever times work for you, so we can set
+up a schedule around whatever other work you've got going on. Reach out
+to me via email or slack for details.
 :::
 
-## Coming Soon - More R102 Sessions! 
+## R/Medicine is Accepting Abstracts!
 
-This is the second talk in a new series called **R102: MasteRing the Fundamentals** 
+-   R-based tools should have a substantial role in the work
+
+-   The content of the presentation should be of interest to the R/Medicine
+    community
+
+*CFP ends Monday, April 22 at 11:59 PM EDT*
+
+**R/Medicine 2024:** June 10-14 (virtual)
+
+More info: <https://rconsortium.github.io/RMedicine_website/>
+
+::: notes
+We also want to spread the word that R/Medicine is currently accepting abstracts for their upcoming conference in June. Abstracts can be on a variety of topics, but R-based tools should have a substantial role in the work. More information is available at this link. 
+:::
+
+## Coming Soon - More R102 Sessions!
+
+This is the second talk in a new series called **R102: MasteRing the
+Fundamentals**
 
 <br>
 
 **Next up:** Reshaping Data with tidyr, May 6th 12:00pm ET
 
-<br> 
-
-Learn more about this new series, including dates and titles for each session: 
 <br>
-[https://arcus.github.io/r102/](https://arcus.github.io/r102/)
 
+Learn more about this new series, including dates and titles for each
+session: <br> <https://arcus.github.io/r102/>
 
 ::: notes
-Today's talk is the second in a new series called **R102: MasteRing the Fundamentals**.
-These workshops are intended as a continuation of the popular Intro to R for Clinical Data workshop we offer a few times a year. Last month, we covered the first topic in this series: Missing values in R. Next month, we will cover: Reshaping Data with tidyr
+Today's talk is the second in a new series called **R102: MasteRing the
+Fundamentals**. These workshops are intended as a continuation of the
+popular Intro to R for Clinical Data workshop we offer a few times a
+year. Last month, we covered the first topic in this series: Missing
+values in R. Next month, we will cover: Reshaping Data with tidyr
 
-We're designing these talks with beginners in mind, so if you're trying to figure out how to get started with R, or how to start applying it in your own work, these talks are for you!
-To see the schedule of talks, check out the website for the series. We'll also post links to slides and recordings there as well as they become available.
-::: 
+We're designing these talks with beginners in mind, so if you're trying
+to figure out how to get started with R, or how to start applying it in
+your own work, these talks are for you! To see the schedule of talks,
+check out the website for the series. We'll also post links to slides
+and recordings there as well as they become available.
+:::
 
 # R 102: <br> Summary Statistics
 
 ::: notes
-Okay! So this talk is a quick dip into some 102-level R. In other words, if you've had a little exposure to R before, such as through an Intro to R for Clinical Data workshop, this is hopefully the right level for you now. 
-If you're completely brand new to R, first of all: Welcome! You may find it tricky to actively follow along with the code today since I'm going to skim over some of the initial steps, but go ahead and give it a try, or just listen and watch if that feels more like the right speed. 
+Okay! So this talk is a quick dip into some 102-level R. In other words,
+if you've had a little exposure to R before, such as through an Intro to
+R for Clinical Data workshop, this is hopefully the right level for you
+now. If you're completely brand new to R, first of all: Welcome! You may
+find it tricky to actively follow along with the code today since I'm
+going to skim over some of the initial steps, but go ahead and give it a
+try, or just listen and watch if that feels more like the right speed.
 
-Our topic is getting summary statistics in R, the first step to pretty much any analysis. We'll also look at how to present those summary stats in a lovely, publication-ready Table 1. Please feel very free to stop me with questions, either by unmuting or in the chat – I've left plenty of extra time in the talk, so there's space for us to stop and talk about things. 
+Our topic is getting summary statistics in R, the first step to pretty
+much any analysis. We'll also look at how to present those summary stats
+in a lovely, publication-ready Table 1. Please feel free to put any questions in the chat - we have a few additional team members who will try to answer your questions during the talk.
+If there is extra time, we can also stop and talk about
+things as a group. 
 :::
 
 ## What we're covering today
 
 . . .
 
-* How to get summary stats in R for both continuous and categorical variables
+-   How to get summary stats in R for both continuous and categorical
+    variables
 
 . . .
 
-* How to create a publication-ready Table 1
+-   How to create a publication-ready Table 1
 
 . . .
 
-* NOT teaching the full analysis in R pipeline -- we're glossing over importing data and tidying data
+-   NOT teaching the full analysis in R pipeline -- we're glossing over
+    importing data and tidying data
 
 . . .
 
-* NOT teaching formal statistical modeling (e.g. hypothesis testing)
+-   NOT teaching formal statistical modeling (e.g. hypothesis testing)
 
 ## Thinking About Summary Statistics
 
-Summary statistics, also called descriptive statistics, serve a few important functions:
+Summary statistics, also called descriptive statistics, serve a few
+important functions:
 
 -   understand your data better during exploratory data analysis
 -   give you an idea of what your study population was like at baseline
 -   show preexisting differences between groups
 
 ::: notes
--   they help you understand your data better during exploratory data analysis (including things like catching errors or outliers!)
--   they give you (and your readers) a better idea of what your study population was like at baseline, which has implications for how generalizable your results might be
--   they can show any preexisting differences between groups (or lack thereof), which is important for interpreting any differences between groups after treatment
+-   they help you understand your data better during exploratory data
+    analysis (including things like catching errors or outliers!)
+-   they give you (and your readers) a better idea of what your study
+    population was like at baseline, which has implications for how
+    generalizable your results might be
+-   they can show any preexisting differences between groups (or lack
+    thereof), which is important for interpreting any differences
+    between groups after treatment
 :::
 
 ## Which statistic?
@@ -135,9 +192,14 @@ Continuous variables:
 -   variability
 
 ::: notes
-For categorical variables, summary statistics are generally limited to counts in each category (for example, how many patients tested positive and negative for CMV?).
-
-For continuous variables, there are many more options. Summary statistics generally focus on **central tendency** and **variability**. In other words, where on the scale are the data located, and how spread out are the data?
+For categorical variables, summary statistics are generally limited to
+counts in each category (for example, how many patients tested positive
+and negative for CMV?).
+\[click\] 
+For continuous variables, there are many more options. Summary
+statistics generally focus on **central tendency** and **variability**.
+In other words, where on the scale are the data located, and how spread
+out are the data?
 :::
 
 ## Central tendency
@@ -146,13 +208,19 @@ For continuous variables, there are many more options. Summary statistics genera
 
 Measures of central tendency:
 
-- mean
-- median
+-   mean
+-   median
 
 ::: notes
-For example, consider a variable like age. A measure of central tendency would tell you, generally, how old are the research subjects? Is this a pediatric population, or adult?
+For example, consider a variable like age. A measure of central tendency
+would tell you, generally, how old are the research subjects? Is this a
+pediatric population, or adult?
 
-[click]Examples of statistics that capture central tendency are the **mean** and the **median**. Let's say the mean age of participants in our study was 45. Now you have an idea of where on the scale we are --- this is not a population of children, nor is it a study about advanced age.
+\[click\]Examples of statistics that capture central tendency are the
+**mean** and the **median**. Let's say the mean age of participants in
+our study was 45. Now you have an idea of where on the scale we are ---
+this is not a population of children, nor is it a study about advanced
+age.
 :::
 
 ## Variability
@@ -161,68 +229,110 @@ For example, consider a variable like age. A measure of central tendency would t
 
 Measures of variability:
 
-- variance
-- standard deviation
-- interquartile range
-- range
+-   variance
+-   standard deviation
+-   interquartile range
+-   range
 
 ::: notes
-But how spread out are the data? This could be a population sampled from across the lifespan, with participants ranging from 5 to 90, or it could be a focused investigation of people in middle age, with all of the subjects in their 40s or even in their mid-40s.
+But how spread out are the data? This could be a population sampled from
+across the lifespan, with participants ranging from 5 to 90, or it could
+be a focused investigation of people in middle age, with all of the
+subjects in their 40s or even in their mid-40s.
 
-Examples of statistics that capture variability are **variance**, **standard deviation**, **interquartile range**, and **range**.
+Examples of statistics that capture variability are **variance**,
+**standard deviation**, **interquartile range**, and **range**.
 :::
 
 ## {{< fa book-open >}} Learn more
 
-We won't get into the mathematical definitions of each of these statistics here, but if you'd like a refresher, check out these excellent Khan academy videos:
+We won't get into the mathematical definitions of each of these
+statistics here, but if you'd like a refresher, check out these
+excellent Khan academy videos:
 
--   [Statistics Intro: Mean, Median, and Mode](https://www.khanacademy.org/math/engageny-alg-1/alg1-2/alg1-2a-center/v/statistics-intro-mean-median-and-mode)
--   [Measures of Spread: Range, Variance, and Standard Deviation](https://www.khanacademy.org/math/statistics-probability/summarizing-quantitative-data/variance-standard-deviation-population/v/range-variance-and-standard-deviation-as-measures-of-dispersion)
--   [Interquartile Range (IQR)](https://www.khanacademy.org/math/engageny-alg-1/alg1-2/alg1-2b-interquartile-range/v/calculating-interquartile-range-iqr)
+-   [Statistics Intro: Mean, Median, and
+    Mode](https://www.khanacademy.org/math/engageny-alg-1/alg1-2/alg1-2a-center/v/statistics-intro-mean-median-and-mode)
+-   [Measures of Spread: Range, Variance, and Standard
+    Deviation](https://www.khanacademy.org/math/statistics-probability/summarizing-quantitative-data/variance-standard-deviation-population/v/range-variance-and-standard-deviation-as-measures-of-dispersion)
+-   [Interquartile Range
+    (IQR)](https://www.khanacademy.org/math/engageny-alg-1/alg1-2/alg1-2b-interquartile-range/v/calculating-interquartile-range-iqr)
 
 ::: notes
-I've got a few of these "learn more" slides thrown in throughout the presentation. They include links to resources I like for learning more about the topics we're covering. I won't click through to any of these resources now, but you have access to the slides so feel free to go back and review these links later if you like!
+I've got a few of these "learn more" slides thrown in throughout the
+presentation. They include links to resources I like for learning more
+about the topics we're covering. I won't click through to any of these
+resources now, but you have access to the slides so feel free to go back
+and review these links later if you like!
 :::
 
 ## Getting Summary Statistics in R
 
 Two options:
 
-1. Work in the cloud: [https://posit.cloud/content/6126628](https://posit.cloud/content/6126628)
-2. Work on your computer: [https://github.com/arcus/education_r_environment](https://github.com/arcus/education_r_environment)
+1.  Work in the cloud: 
+<https://posit.cloud/content/6126628>
+
+2.  Work on your computer:
+<https://github.com/arcus/education_r_environment>
 
 ::: notes
-Time to start coding! By far the best way to learn R is to practice, so work through this code yourself as you follow along.
+Time to start coding! By far the best way to learn R is to practice, so
+work through this code yourself as you follow along.
 
-This link will take you to Posit Cloud, which gives you a way to work with the code right in your browser without having to install anything on your machine. You will need to create a free account if you don't already have one. I'll click that link now, and log in with a different account than the one I used to create it so you can see what it looks like. It will take a few minutes to load.
+The first link will take you to Posit Cloud, which gives you a way to work
+with the code right in your browser without having to install anything
+on your machine. You will need to create a free account if you don't
+already have one. I'll click that link now so you can see what it looks
+like. It will take a few minutes to load.
 
-You can also get all of the code for this talk directly from our GitHub and download it to work on your own machine. If you want to go this route, go to our GitHub repo and then find this green "Code" button. If click it you'll see you have several options, one of which is downloading a zip file -- click that and it will download all the files you need for this talk. Once it's done downloading, double click it to unzip the file. If you're comfortable using git, you can also clone the repo, or fork it if you'd like a personal copy. And if you don't know what cloning and forking are, no worries! Just use the zip file. 
+You can also get all of the code for this talk directly from our GitHub
+and download it to work on your own machine. If you want to go this
+route, go to our GitHub repo and then find this green "Code" button. If
+you click that you'll see you have several options, one of which is
+downloading a zip file -- click that and it will download all the files
+you need for this talk. Once it's done downloading, double click it to
+unzip the file. If you're comfortable using git, you can also clone the
+repo, or fork it if you'd like a personal copy. And if you don't know
+what cloning and forking are, no worries! Just use the zip file.
 :::
 
 ## The packages we'll be using today
 
-![](https://www.tidyverse.org/images/hex-tidyverse.png){.absolute top=200 left=0 width="300" fig-alt="tidyverse hex sticker logo."}
-![](https://higgi13425.github.io/medicaldata/logo.png){.absolute top=200 left=350 width="300" fig-alt="medicaldata hex sticker logo."}
-![](https://www.danieldsjoberg.com/gtsummary/reference/figures/logo.png){.absolute top=182 right=0 width="400" fig-alt="gtsummary hex sticker logo."}
+![](https://www.tidyverse.org/images/hex-tidyverse.png){.absolute
+top="200" left="0" width="300" fig-alt="tidyverse hex sticker logo."}
+![](https://higgi13425.github.io/medicaldata/logo.png){.absolute
+top="200" left="350" width="300"
+fig-alt="medicaldata hex sticker logo."}
+![](https://www.danieldsjoberg.com/gtsummary/reference/figures/logo.png){.absolute
+top="182" right="0" width="400" fig-alt="gtsummary hex sticker logo."}
 
 ::: notes
-First, we need to load the `tidyverse` packages, since we'll be using several functions that come in the `tidyverse`.
-We'll also load the `medicaldata` package, which includes several publicly available data sets with medical data. 
-And we'll load the `gtsummary` package for creating publication-ready tables.
+First, we need to load the `tidyverse` packages, since we'll be using
+several functions that come in the `tidyverse`. We'll also load the
+`medicaldata` package, which includes several publicly available data
+sets with medical data. And we'll load the `gtsummary` package for
+creating publication-ready tables.
 :::
 
 ## {{< fa book-open >}} Learn more
 
-There's a lot of helpful information (including examples and tutorials) on the package websites for each of the packages we'll be using:
+There's a lot of helpful information (including examples and tutorials)
+on the package websites for each of the packages we'll be using:
 
-- [tidyverse](https://www.tidyverse.org/)
-- [medicaldata](https://higgi13425.github.io/medicaldata/)
-- [gtsummary](https://www.danieldsjoberg.com/gtsummary)
+-   [tidyverse](https://www.tidyverse.org/)
+-   [medicaldata](https://higgi13425.github.io/medicaldata/)
+-   [gtsummary](https://www.danieldsjoberg.com/gtsummary)
 
 ::: notes
-These packages all have excellent websites available with lots of great tutorials and such, so definitely go back and look at those websites if you want to learn more. 
+These packages all have excellent websites available with lots of great
+tutorials and such, so definitely go back and look at those websites if
+you want to learn more.
 
-I'll also pause here for a moment to invite anyone that is having trouble getting access to the code, either with that Posit Cloud link or by downloading the files, to let us know in the chat. If you have the code pulled up and ready to go, please click the thumbs up reaction in Teams to let me know you're ready. 
+I'll also pause here for a moment to invite anyone that is having
+trouble getting access to the code, either with that Posit Cloud link or
+by downloading the files, to let us know in the chat. If you have the
+code pulled up and ready to go, please "thumbs up" the comment in the chat 
+to let us know you're ready.
 :::
 
 ## Load packages
@@ -233,8 +343,7 @@ Only if needed:
 install.packages(c("tidyverse", "medicaldata", "gtsummary"))
 ```
 
-<br>
-Each R session:
+<br> Each R session:
 
 ```{r}
 library(tidyverse)
@@ -243,9 +352,14 @@ library(gtsummary)
 ```
 
 ::: notes
-If you're running this on your own computer rather than in the cloud instance we set up, you may need to run `install.packages` first if you haven't ever used these packages before. If you're working in the cloud, then all three packages have already been installed for you.
+If you're running this on your own computer rather than in the cloud
+instance we set up, you may need to run `install.packages` first if you
+haven't ever used these packages before. If you're working in the cloud,
+then all three packages have already been installed for you.
 
-Either way, the library commands here are written out for you in the first chunk of the file `summary_stats_exercises.rmd`. Go ahead and open that file now, and click the green arrow to run those three lines.
+Either way, the library commands here are written out for you in the
+first chunk of the file `summary_stats_exercises.rmd`. Go ahead and open
+that file now, and click the green arrow to run those three lines.
 :::
 
 ## The data
@@ -258,15 +372,24 @@ head(cytomegalovirus)
 ```
 
 ::: notes
-This command is also written out for you in the `summary_stats_exercises.rmd` file, in the next code chunk.
+This command is also written out for you in the
+`summary_stats_exercises.rmd` file, in the next code chunk.
 
-Let's take a look at the data. [click]
+Let's take a look at the data. \[click\]
 
-You should see the first six rows of the cytomegalovirus data frame, which look like this.
+You should see the first six rows of the cytomegalovirus data frame,
+which look like this.
 
-Note that this is one of the example datasets that comes built-in when you install the `medicaldata` package, so it's already available to you without you having to read it in or download anything.
+Note that this is one of the example datasets that comes built-in when
+you install the `medicaldata` package, so it's already available to you
+without you having to read it in or download anything.
 
-For those of you that have worked in R before, you know importing data is a whole thing, so we're definitely skipping over a potentially tricky bit by using built-in data, but we only have so much time today and I wanted to be able to put as much time as possible towards actually working with the summary statistics. So we're just merrily skipping past all the importing and tidying that would normally happen.
+For those of you that have worked in R before, you know importing data
+is a whole thing, so we're definitely skipping over a potentially tricky
+bit by using built-in data, but we only have so much time today and I
+wanted to be able to put as much time as possible towards actually
+working with the summary statistics. So we're just merrily skipping past
+all the importing and tidying that would normally happen.
 :::
 
 ## About these data
@@ -279,18 +402,30 @@ To learn more about this dataset:
 
 . . .
 
-From the help documentation: 
+From the help documentation:
 
-> This data set contains 64 consecutive patients who underwent T-cell replete, matched sibling donor reduced-intensity conditioning allogeneic hematopoietic stem cell transplant. The primary risk factor of interest was the number of activating killer immunoglobulin-like receptors (aKIRs: 1-4 vs. 5-6). 
+> This data set contains 64 consecutive patients who underwent T-cell
+> replete, matched sibling donor reduced-intensity conditioning
+> allogeneic hematopoietic stem cell transplant. The primary risk factor
+> of interest was the number of activating killer immunoglobulin-like
+> receptors (aKIRs: 1-4 vs. 5-6).
 
 ::: notes
-For those of you who are (like me) typo-prone, I recommend using tab-completion for the dataframe name. Start typing `cyt` and then pause a moment and you should see RStudio suggest the correct name. Hit tab to fill it in.
+For those of you who are (like me) typo-prone, I recommend using
+tab-completion for the dataframe name. Start typing `cyt` and then pause
+a moment and you should see RStudio suggest the correct name. Hit tab to
+fill it in.
 :::
 
 ## {{< fa book-open >}} Learn more
 
-- To learn more about the cytomegalovirus data and the study behind it, read [Sobecks et al. 2011](https://pubmed.ncbi.nlm.nih.gov/21605017/).
-- To learn more about the `medicaldata` R package these data are published in, see the [`medicaldata` package website](https://higgi13425.github.io/medicaldata/) -- and note that the maintainers are always looking for more data contributions!
+-   To learn more about the cytomegalovirus data and the study behind
+    it, read [Sobecks et al.
+    2011](https://pubmed.ncbi.nlm.nih.gov/21605017/).
+-   To learn more about the `medicaldata` R package these data are
+    published in, see the [`medicaldata` package
+    website](https://higgi13425.github.io/medicaldata/) -- and note that
+    the maintainers are always looking for more data contributions!
 
 ## Using `summary()`
 
@@ -302,10 +437,15 @@ summary(cytomegalovirus$age)
 ```
 
 ::: notes
-The best place to start your exploratory data analysis is often the `summary` function.
-You can run it on an individual column, or on a whole dataframe.
+The best place to start your exploratory data analysis is often the
+`summary` function. You can run it on an individual column, or on a
+whole dataframe.
 
-So let's look at what we get from running `summary` on the age column. Min is 29, Max is 67. The youngest patient is 29 and the oldest is 67. It's also printing the 1st Quartile (25th percentile), Median, Mean, and 3rd Quartile (75th percentile) for us. 
+So let's look at what we get from running `summary` on the age column.
+\[click\] 
+Min is 29, Max is 67. The youngest patient is 29 and the oldest is 67.
+It's also printing the 1st Quartile (25th percentile), Median, Mean, and
+3rd Quartile (75th percentile) for us.
 :::
 
 ## Using `summary()`
@@ -320,12 +460,26 @@ summary(cytomegalovirus)
 ::: notes
 Now let's try running it on the whole data frame at once.
 
-[click] You should see a summary of each of the 26 variables in the data, with a set of summary statistics printed under each. This is a great way to get a lot of information quickly. 
-The `summary` function is clever enough to print different summary statsitics for different variable types --- it won't try to calculate the mean or median of a categorical variable (called a factor in R), for example, since that wouldn't be meaningful.
+\[click\] You should see a summary of each of the 26 variables in the
+data, with a set of summary statistics printed under each. This is a
+great way to get a lot of information quickly. The `summary` function is
+clever enough to print different summary statsitics for different
+variable types --- it won't try to calculate the mean or median of a
+categorical variable (called a factor in R), for example, since that
+wouldn't be meaningful.
 
-The `summary` function checks what type of variable (numeric, categorical/factor, etc.) is in each column and returns sensible summary statistics for each. For a factor, you get the count for each level, and also a count of how many observations are missing. For numeric variables, you get the range (minimum and maximum), the 1st quartile, median, mean, 3rd quartile, and the count of missing observations. 
+The `summary` function checks what type of variable (numeric,
+categorical/factor, etc.) is in each column and returns sensible summary
+statistics for each. For a factor, you get the count for each level, and
+also a count of how many observations are missing. For numeric
+variables, you get the range (minimum and maximum), the 1st quartile,
+median, mean, 3rd quartile, and the count of missing observations.
 
-In this dataframe, most of the data are numeric. There is one column, diagnosis, that shows up as character. If you look at the help documentation for the data set (`?cytomegalovirus`), you'll see that should actually be a factor with 13 levels. If it were a factor, we could get more useful summary statistics for it, too.
+In this dataframe, most of the data are numeric. There is one column,
+diagnosis, that shows up as character. If you look at the help
+documentation for the data set (`?cytomegalovirus`), you'll see that
+diagnosis should actually be a factor with 13 levels. If it were a factor, we
+could get more useful summary statistics for it, too.
 :::
 
 ## Convert to factor
@@ -349,7 +503,7 @@ summary(cytomegalovirus$diagnosis)
 Now we get counts for each type of diagnosis! Much better.
 
 There are also several other variables that are represented in the data
-as 0 or 1, but should really be considered as factors. We’ll clean those
+as 0 or 1, but should really be considered as factors. We'll clean those
 up now.
 :::
 
@@ -374,17 +528,21 @@ cytomegalovirus <- cytomegalovirus |>
 ```
 
 ::: notes
-We could do it with individual commands using `as.factor` like we did for diagnosis, but instead we’ll take a look at another approach. Also note that this code is ready for you in the `summary_stats_exercises.Rmd` file --- no need to try to type this all out now.
+We could do it with individual commands using `as.factor` like we did
+for diagnosis, but instead we'll take a look at another approach. Also
+note that this code is ready for you in the
+`summary_stats_exercises.Rmd` file --- no need to try to type this all
+out now.
 
-Let’s break that down. We’re using `mutate` to make changes to the
+Let's break that down. We're using `mutate` to make changes to the
 columns in the dataframe. You can use `mutate` to create new columns,
-but in this case we’re just overwriting existing columns. Within the
+but in this case we're just overwriting existing columns. Within the
 mutate command, we have a different argument for each column we want to
 change. They all take the form
 `column_name = factor(column_name, levels = c(), labels = c())` where
-the levels are the existing values in the colum already (e.g. 0 and 1)
-and labels are what we want them to show up as in the factor (e.g. “no”
-and “yes”). Note that the order of levels and labels has to line up, so
+the levels are the existing values in the column already (e.g. 0 and 1)
+and labels are what we want them to show up as in the factor (e.g. "Female"
+and "Male"). Note that the order of levels and labels has to line up, so
 the first level will get the first label, and the second level will get
 the second label, etc. To learn more about the `factor()` command, check
 out its help documentation with `?factor`.
@@ -392,31 +550,43 @@ out its help documentation with `?factor`.
 
 ## {{< fa book-open >}} Learn more
 
-A few things from the above code that you might want to look into further:
+A few things from the above code that you might want to look into
+further:
 
-- Pipes! See [R4DS Ch 18: Pipes](https://r4ds.had.co.nz/pipes.html), or the not-quite-published [2nd edition R4DS section on pipes](https://r4ds.hadley.nz/data-transform.html#sec-the-pipe), which uses the new `|>` instead of `%>%`.
-- If you're curious, a [comparison of the new and old pipes](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/).
-- More about `mutate` and data transformation in general in [R4DS section on mutate](https://r4ds.hadley.nz/data-transform.html#sec-mutate)
+-   Pipes! See [2nd edition R4DS section on
+    pipes](https://r4ds.hadley.nz/data-transform.html#sec-the-pipe),
+    which uses the new `|>` instead of `%>%`.
+-   If you're curious, a [comparison of the new and old
+    pipes](https://www.tidyverse.org/blog/2023/04/base-vs-magrittr-pipe/).
+-   More about `mutate` and data transformation in general in [R4DS
+    section on
+    mutate](https://r4ds.hadley.nz/data-transform.html#sec-mutate)
 
 ## {{< fa circle-question >}} Troubleshooting
 
 If you make a mistake modifying the data, how can you undo it?
 
-If this were a dataset we read in from an external file (like a .csv), you could just read it in again to get a fresh copy. 
-But how do you get a fresh copy of a built-in dataset? 
+If this were a dataset we read in from an external file (like a .csv),
+you could just read it in again to get a fresh copy. But how do you get
+a fresh copy of a built-in dataset?
 
 . . .
 
-To reset the data to its original state, run `rm(cytomegalovirus)` in the console. This will delete your current version of the data from R's environment, and you'll just be left with the original clean copy from the `medicaldata` package.
+To reset the data to its original state, run `rm(cytomegalovirus)` in
+the console. This will delete your current version of the data from R's
+environment, and you'll just be left with the original clean copy from
+the `medicaldata` package.
 
 ::: notes
-Remember: If you run `rm(cytomegalovirus)` to reset the data, you'll need to re-run any changes you made to the data that you want to keep, like converting `diagnosis` to a factor above. 
+Remember: If you run `rm(cytomegalovirus)` to reset the data, you'll
+need to re-run any changes you made to the data that you want to keep,
+like converting `diagnosis` to a factor above.
 :::
 
 ## Summary again
 
-Let’s run `summary` on the whole dataframe again to see the results now
-that we’ve cleaned up the column types.
+Let's run `summary` on the whole dataframe again to see the results now
+that we've cleaned up the column types.
 
 ```{r}
 #| output-location: fragment
@@ -424,15 +594,17 @@ summary(cytomegalovirus)
 ```
 
 ::: notes
-[click] The results are much more useful now that we’ve cleaned up the column types!
+\[click\] The results are much more useful now that we've cleaned up the
+column types!
 :::
 
 ## Individual summary statistics
 
-What is the shortest time from diagnosis to transplant in the data? 
+What is the shortest time from diagnosis to transplant in the data?
 
 ::: aside
-You can see in the help documentation for the data (`?cytomegalovirus`) that `time.to.transplant` is in months.
+You can see in the help documentation for the data (`?cytomegalovirus`)
+that `time.to.transplant` is in months.
 :::
 
 ```{r}
@@ -443,7 +615,8 @@ min(cytomegalovirus$time.to.transplant)
 ::: notes
 We can get the minimum of any numeric variable with the function `min`.
 
-[click] Uh-oh! It returns `NA` for this because there is a missing observation somewhere in this column. 
+\[click\] Uh-oh! It returns `NA` for this because there is a missing
+observation somewhere in this column.
 :::
 
 ## Checking the help documentation
@@ -461,8 +634,10 @@ From the help documentation for `min`:
 > `min(..., na.rm = FALSE)`
 
 ::: notes
-If you look at `?min`, you’ll see the default for this function (and most statistics functions in R) is `na.rm = FALSE`, which basically means “only compute a value if there are no missing observations”.
-::: 
+If you look at `?min`, you'll see the default for this function (and
+most statistics functions in R) is `na.rm = FALSE`, which basically
+means "only compute a value if there are no missing observations".
+:::
 
 ## Working around missing values
 
@@ -472,10 +647,13 @@ min(cytomegalovirus$time.to.transplant, na.rm = TRUE)
 ```
 
 ::: notes
-Quick aside here about a handy shortcut when you're working in the console. 
-If you want to tweak a line of code you just ran, you can use the up arrow on your keyboard to bring up the last command you ran. Then you can edit it, and hit enter to run the tweaked version.
+Quick aside here about a handy shortcut when you're working in the
+console. If you want to tweak a line of code you just ran, you can use
+the up arrow on your keyboard to bring up the last command you ran. Then
+you can edit it, and hit enter to run the tweaked version.
 
-To get the minimum for this column ignoring the missing value, use the up arrow to bring up your last command and add `na.rm = TRUE`.
+To get the minimum for this column ignoring the missing value, use the
+up arrow to bring up your last command and add `na.rm = TRUE`.
 :::
 
 ## More individual statistics
@@ -514,17 +692,18 @@ var(cytomegalovirus$time.to.transplant, na.rm = TRUE) # variance
 sd(cytomegalovirus$time.to.transplant, na.rm = TRUE) # standard deviation
 ```
 
-
 ::: notes
-Since we're running these all on the same column, you can use the up arrow to tweak the command each time.
+Since we're running these all on the same column, you can use the up
+arrow to tweak the command each time.
 :::
 
 ## {{< fa rocket >}} Coding Challenge 1
 
-::: {.r-fit-text}
+::: r-fit-text
 Your turn!
 
-Look in the `summary_stats_exercises.rmd` file to find your first coding challenge. 
+Look in the `summary_stats_exercises.rmd` file to find your first coding
+challenge.
 :::
 
 ```{r echo=FALSE}
@@ -532,14 +711,17 @@ countdown(minutes = 2, seconds = 00)
 ```
 
 ::: notes
-We'll just work on this for a couple minutes and if you don't finish during that time, no sweat, just pause wherever you are and we'll take a look at the solutions together. 
+We'll just work on this for a couple minutes and if you don't finish
+during that time, no sweat, just pause wherever you are and we'll take a
+look at the solutions together.
 :::
 
 ## Counts
 
-For categorical variables, summary statistics are just counts. 
+For categorical variables, summary statistics are just counts.
 
-We'll look at two ways to get the counts for a single categorical variable in R:
+We'll look at two ways to get the counts for a single categorical
+variable in R:
 
 ```{r}
 #| output-location: fragment
@@ -561,22 +743,22 @@ table(cytomegalovirus$diagnosis.type, useNA = "always")
 ```
 
 ::: notes
-You can use `summary` to get counts for factors, but it won’t work on
+You can use `summary` to get counts for factors, but it won't work on
 character vectors, whereas `table` works to get counts on factors or
-characters. 
+characters.
 
-Note that `table` doesn’t give you any information about
-missing values by default, though – it just gives counts for
-observations with data. 
-If you want to see missing values using `table`,
-add the argument `useNA = "always"`
+Note that `table` doesn't give you any information about missing values
+by default, though -- it just gives counts for observations with data.
+If you want to see missing values using `table`, add the argument
+`useNA = "always"`
 :::
 
 ## More counts
 
 To get counts of two categorical variables together (e.g. what is the
 diagnosis type breakdown by recipient CMV status?), use
-[cross-tabulation](https://www.khanacademy.org/math/statistics-probability/analyzing-categorical-data/two-way-tables-for-categorical-data/a/two-way-tables-review), also called “crosstabs” or "two-way frequency tables".
+[cross-tabulation](https://www.khanacademy.org/math/statistics-probability/analyzing-categorical-data/two-way-tables-for-categorical-data/a/two-way-tables-review),
+also called "crosstabs" or "two-way frequency tables".
 
 ```{r}
 #| output-location: fragment
@@ -608,21 +790,32 @@ summary(cmv_and_diagnosistype)
 ```
 
 ::: notes
-Ah, and see I said we weren't going to be doing any actual hypothesis testing, but there we just ran a chi-squared test of independence! 
+Ah, and see I said we weren't going to be doing any actual hypothesis
+testing, but there we just ran a chi-squared test of independence!
 
-We won't get into interpreting this test right now, but I wanted to show you this because you may recognize our old friend, the `summary` function. `summary` is one of several functions in R that shows up in quite a wide range of different circumstances, and it's smart enough to give you different output depending on what you ask it to summarize. Just like it switched what kind of descriptive statistics it printed when we used it on a numeric vs factor variable, if you run `summary` on a crosstab it prints out the relevant statistical test for that table! 
+We won't get into interpreting this test right now, but I wanted to show
+you this because you may recognize our old friend, the `summary`
+function. `summary` is one of several functions in R that shows up in
+quite a wide range of different circumstances, and it's smart enough to
+give you different output depending on what you ask it to summarize.
+Just like it switched what kind of descriptive statistics it printed
+when we used it on a numeric vs factor variable, if you run `summary` on
+a crosstab it prints out the relevant statistical test for that table!
 :::
 
 ## {{< fa book-open >}} Learn more
 
-For beautifully printed crosstabs, see [the `tbl_cross` function in the `gtsummary` package](https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html#tbl_cross).
+For beautifully printed crosstabs, see [the `tbl_cross` function in the
+`gtsummary`
+package](https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html#tbl_cross).
 
 ## {{< fa rocket >}} Coding Challenge 2
 
-::: {.r-fit-text}
+::: r-fit-text
 Your turn!
 
-Look in the `summary_stats_exercises.rmd` file to find your next coding challenge.
+Look in the `summary_stats_exercises.rmd` file to find your next coding
+challenge.
 :::
 
 ```{r echo=FALSE}
@@ -631,32 +824,42 @@ countdown(minutes = 2, seconds = 00)
 
 ## Presenting Summary Statistics<br>in R
 
-![Table 1 summary statistics on the cytomegalovirus data](media/cytomegalovirus_table1.png){fig-alt='Table 1 from the published paper on the cytomegalovirus data. Columns are "1 to 4 aKIRs", "5 to 6 aKIRs" and "P value". There are rows for each of the following variables: age, sex, race, diagnosis category, months from diagnosis to treatment, prior radiation therapy, number of prior chemo regimens, prior transplants, recipient CMV seropositive, donor CMV seropositive, and recipient or donor CMV seropositive.' width="100%"}
+![Table 1 summary statistics on the cytomegalovirus
+data](media/cytomegalovirus_table1.png){fig-alt="Table 1 from the published paper on the cytomegalovirus data. Columns are \"1 to 4 aKIRs\", \"5 to 6 aKIRs\" and \"P value\". There are rows for each of the following variables: age, sex, race, diagnosis category, months from diagnosis to treatment, prior radiation therapy, number of prior chemo regimens, prior transplants, recipient CMV seropositive, donor CMV seropositive, and recipient or donor CMV seropositive."
+width="100%"}
 
 ::: notes
-Many research articles begin with a table summarizing the patients or research subjects analyzed, usually broken down by condition or exposure to allow the reader to see any baseline differences between groups. For example, here is Table 1 from the paper this dataset is from.
+Many research articles begin with a table summarizing the patients or
+research subjects analyzed, usually broken down by condition or exposure
+to allow the reader to see any baseline differences between groups. For
+example, here is Table 1 from the paper this dataset is from.
 
 One way to create a summary table would be to copy-paste all of your
 summary stats from R into whatever program you use to write your
 article. That is both error-prone and tedious, and it also means if
 anything changes in your data you need to re-do all of that work.
 
-Another approach is creating the whole table right in R! 
-The `gtsummary` package is a great way to do that.
+Another approach is creating the whole table right in R! The `gtsummary`
+package is a great way to do that.
 :::
 
 ## Creating Table 1 with `gtsummary`
 
-We’ll recreate an approximation of the cytomegalovirus Table 1 using `gtsummary`:
+We'll recreate an approximation of the cytomegalovirus Table 1 using
+`gtsummary`:
 
-![](media/cytomegalovirus_table1_cropped.png){fig-alt='Top half of Table 1 showing the column headers "1 to 4 aKIRs", "5 to 6 aKIRs" and "P value".'}
+![](media/cytomegalovirus_table1_cropped.png){fig-alt="Top half of Table 1 showing the column headers \"1 to 4 aKIRs\", \"5 to 6 aKIRs\" and \"P value\"."}
 
 ::: notes
-Often, a lot of the work you need to do to get a table to look how you want is actually data cleaning work rather than anything about the function that will actually create your table. This case is no exception.
+Often, a lot of the work you need to do to get a table to look how you
+want is actually data cleaning work rather than anything about the
+function that will actually create your table. This case is no
+exception.
 
 Note that the table breaks patients down by whether their aKIRs are 1-4
-or 5-6. In the data, aKIRs are just numeric scores 1-6, so first we’ll
-need to create a factor for those two groups. Similarly, the table groups all patients with at least 4 prior chemo treatments as one group.
+or 5-6. In the data, aKIRs are just numeric scores 1-6, so first we'll
+need to create a factor for those two groups. Similarly, the table
+groups all patients with at least 4 prior chemo treatments as one group.
 :::
 
 ## Recoding variables for the table
@@ -678,45 +881,64 @@ cytomegalovirus <- cytomegalovirus |>
 
 . . .
 
-The `if_else` function is what's called a ternary operator, and it has three parts:
+The `if_else` function is what's called a ternary operator, and it has
+three parts:
 
- * a conditional test
- * a value to use if the test returns `TRUE`
- * a value to use if the test returns `FALSE`.
-
+-   a conditional test
+-   a value to use if the test returns `TRUE`
+-   a value to use if the test returns `FALSE`.
 
 ::: notes
 Let's break that down.
 
-[click] We're using the `if_else` function to recode the numeric variable `aKIRs` as one of two strings, "5 to 6 aKIRs" if it's greater than 4 and "1 to 4 aKIRs" otherwise.
-[click] That will result in a character vector called `aKIRs_groups`, so then with the next line we turn it into a factor.
+\[click\] We're using the `if_else` function to recode the numeric
+variable `aKIRs` as one of two strings, "5 to 6 aKIRs" if it's greater
+than 4 and "1 to 4 aKIRs" otherwise. \[click\] That will result in a
+character vector called `aKIRs_groups`, so then with the next line we
+turn it into a factor.
 
-[click] Then we apply the same approach to the `prior.chemo` variable, first we make everything greater than or equal to 4 into "≥ 4", and set all other values to `as.character()` on whatever their original values were --- this changes the numbers into string versions, so 0 becomes "0", 1 becomes "1", etc.
-That creates a new variable called `prior.chemo_groups`, but it's a character vector, so we turn it into a factor.
+\[click\] Then we apply the same approach to the `prior.chemo` variable,
+first we make everything greater than or equal to 4 into "≥ 4", and set
+all other values to `as.character()` on whatever their original values
+were --- this changes the numbers into string versions, so 0 becomes
+"0", 1 becomes "1", etc. That creates a new variable called
+`prior.chemo_groups`, but it's a character vector, so we turn it into a
+factor.
 
-[click, click] The `if_else` function is what's called a ternary operator.
+\[click, click\] The `if_else` function is what's called a ternary
+operator.
 
-In the aKIRs example, we first tested each value to see if it was > 4. If yes, we assigned it "5 to 6 aKIRs", and if no we assigned it to "1 to 4 aKIRs". Note that `if_else` preserves missing values, so anything that was NA in aKIRs will still be NA in aKIRs_groups.
+In the aKIRs example, we first tested each value to see if it was \> 4.
+If yes, we assigned it "5 to 6 aKIRs", and if no we assigned it to "1 to
+4 aKIRs". Note that `if_else` preserves missing values, so anything that
+was NA in aKIRs will still be NA in aKIRs_groups.
 :::
 
 ## {{< fa book-open >}} Learn more
 
-For more on using `mutate` and `if_else`, see see the [R Basics: Data Transformation sections on `mutate`](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#the-mutate%28%29-function) and [logical operators](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#logical-operators) to see more examples of the kinds of conditional tests you can put in.
+For more on using `mutate` and `if_else`, see see the [R Basics: Data
+Transformation sections on
+`mutate`](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#the-mutate%28%29-function)
+and [logical
+operators](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_basics_transform_data/r_basics_transform_data.md#logical-operators)
+to see more examples of the kinds of conditional tests you can put in.
 
 ## {{< fa circle-question >}} Troubleshooting
 
-Note that there are two different functions that look similar and do almost (but not quite!) exactly the same thing: `if_else` and `ifelse`. 
+Note that there are two different functions that look similar and do
+almost (but not quite!) exactly the same thing: `if_else` and `ifelse`.
 
 . . .
 
-`if_else` is part of the `dplyr` package, and `ifelse` is part of base R. 
-This is a common point of confusion. 
-There are a few differences in how the two functions work, but one of the big ones is that `ifelse` does NOT preserve missingness. 
-It's a subtle difference, but watch out!
+`if_else` is part of the `dplyr` package, and `ifelse` is part of base
+R. This is a common point of confusion. There are a few differences in
+how the two functions work, but one of the big ones is that `ifelse`
+does NOT preserve missingness. It's a subtle difference, but watch out!
 
 ## Our first attempt at Table 1
 
-Now we can use the new `aKIRs_groups` and `prior.chemo_groups` variables in our Table 1.
+Now we can use the new `aKIRs_groups` and `prior.chemo_groups` variables
+in our Table 1.
 
 ```{r}
 #| code-line-numbers: "|1|2-5|6|"
@@ -732,21 +954,28 @@ cytomegalovirus |>
 ::: notes
 Let's break that down.
 
-[click] We're starting with our cytomegalovirus dataframe, [click] and we pipe that to a `select` command to pick out just the variables we want to use in our table.
-[click] Then we pipe that selected dataframe to the `tbl_summary` command, and we put in the argument `by = aKIRs_groups` to tell it we want the table to present summary statistics for the two aKIRs groups (1-4 and 5-6) in separate columns. 
+\[click\] We're starting with our cytomegalovirus dataframe, \[click\]
+and we pipe that to a `select` command to pick out just the variables we
+want to use in our table. \[click\] Then we pipe that selected dataframe
+to the `tbl_summary` command, and we put in the argument
+`by = aKIRs_groups` to tell it we want the table to present summary
+statistics for the two aKIRs groups (1-4 and 5-6) in separate columns.
 :::
 
 ## Customizing a `gtsummary` table
 
-This is a decent table! 
-Notice there are a few things about this table that we might still want to change, for example:
+This is a decent table! Notice there are a few things about this table
+that we might still want to change, for example:
 
-- row labels are taken from the variable names in the dataframe, so they're lowercase and don't use whitespace as we might like (e.g. "diagnosis.type" would be better as "Diagnosis Type")
-- There's no information about significance testing, like there is in the published table
+-   row labels are taken from the variable names in the dataframe, so
+    they're lowercase and don't use whitespace as we might like (e.g.
+    "diagnosis.type" would be better as "Diagnosis Type")
+-   There's no information about significance testing, like there is in
+    the published table
 
 ::: notes
-We can add a lot of customization, though, to bring it closer to the publication version. 
-We'll look at a few options now.
+We can add a lot of customization, though, to bring it closer to the
+publication version. We'll look at a few options now.
 :::
 
 ## Save a little typing...
@@ -760,7 +989,8 @@ table_data <- cytomegalovirus |>
 ```
 
 ::: notes
-To save re-typing code and highlight just what's new, save the first part as `table_data`.
+To save re-typing code and highlight just what's new, save the first
+part as `table_data`.
 :::
 
 ## Add p-values
@@ -773,25 +1003,36 @@ table_data |>
 ```
 
 ::: notes
-This is an improvement, but some of you may have noticed that the p values here don't match the published table, and the footnote explains why --- says it's using Wilcoxon rank sum test, Pearson's chi-squared, and Fisher's exact test to get the p vlaues. 
+This is an improvement, but some of you may have noticed that the p
+values here don't match the published table, and the footnote explains
+why --- says it's using Wilcoxon rank sum test, Pearson's chi-squared,
+and Fisher's exact test to get the p vlaues.
 :::
 
 ## Customize p-values
 
-The help documentation (`?add_p.tbl_summary`) explains a little more thoroughly:
+The help documentation (`?add_p.tbl_summary`) explains a little more
+thoroughly:
 
->Tests default to "kruskal.test" for continuous variables ("wilcox.test" when "by" variable has two levels), "chisq.test.no.correct" for categorical variables with all expected cell counts >=5, and "fisher.test" for categorical variables with any expected cell count <5.
-
+> Tests default to "kruskal.test" for continuous variables
+> ("wilcox.test" when "by" variable has two levels),
+> "chisq.test.no.correct" for categorical variables with all expected
+> cell counts \>=5, and "fisher.test" for categorical variables with any
+> expected cell count \<5.
 
 ::: notes
-It would be nice if the published table included a footnote explaining which tests they used, but unfortunately it doesn't. We can guess that it was a standard t-test rather than the Wilcoxon rank sum test, though.
-We can control which tests `gtsummary` uses by adding a `test` argument to the `add_p()` command.
-We'll also have it round to two digits instead of one by modifying the `pvalue_fun` command.
+It would be nice if the published table included a footnote explaining
+which tests they used, but unfortunately it doesn't. We can guess that
+it was a standard t-test rather than the Wilcoxon rank sum test, though.
+We can control which tests `gtsummary` uses by adding a `test` argument
+to the `add_p()` command. We'll also have it round to two digits instead
+of one by modifying the `pvalue_fun` command.
 :::
 
 ## Customize p-values
 
-Make the p values round to 2 digits instead of 1, and use t.test instead of wilcoxon rank sum test:
+Make the p values round to 2 digits instead of 1, and use t.test instead
+of wilcoxon rank sum test:
 
 ```{r}
 #| output-location: slide
@@ -805,34 +1046,54 @@ table_data |>
 
 ## {{< fa heart >}} A little encouragement...
 
-If you're feeling like these arguments look confusing (why does it start with `list()`? What does the `~` mean??), you're not alone! 
+If you're feeling like these arguments look confusing (why does it start
+with `list()`? What does the `~` mean??), you're not alone!
 
-As you get further away from the default settings in `gtsummary` (and other packages), your code is likely to become less intuitive and harder to read. 
-That's okay!
+As you get further away from the default settings in `gtsummary` (and
+other packages), your code is likely to become less intuitive and harder
+to read. That's okay!
 
 ::: notes
-Pretty much no one, even an R expert, would be able to guess how to specify these arguments without looking it up first. 
-The normal, expected process for something like this is to search for what you want to do online (e.g. "gtsummary round p value to 2 digits"), or look in the help documentation, until you find example code that does what you need and then copy it. 
-Part of why we included these examples here is so you can come back and copy them later when you're making your own tables!
+Pretty much no one, even an R expert, would be able to guess how to
+specify these arguments without looking it up first. The normal,
+expected process for something like this is to search for what you want
+to do online (e.g. "gtsummary round p value to 2 digits"), or look in
+the help documentation, until you find example code that does what you
+need and then copy it. Part of why we included these examples here is so
+you can come back and copy them later when you're making your own
+tables!
 :::
 
 ## What was that error?
 
-When you ran the above code, you may have noticed that R printed out several warnings with text like `Warning for variable 'race': simpleWarning in stats::chisq.test(x = structure(c(1L, 2L, 2L, 2L, 2L, 2L, 2L, : Chi-squared approximation may be incorrect`. 
+When you ran the above code, you may have noticed that R printed out
+several warnings with text like
+`Warning for variable 'race': simpleWarning in stats::chisq.test(x = structure(c(1L, 2L, 2L, 2L, 2L, 2L, 2L, : Chi-squared approximation may be incorrect`.
 
 ::: notes
-Like many warnings in R (and other programming languages), the text is unfortunately not super clear. But at least it does let you know what variable has a problem (race, in this case) and that it has something to do with the Chi-squared test we're running on it to get those p-values. 
+Like many warnings in R (and other programming languages), the text is
+unfortunately not super clear. But at least it does let you know what
+variable has a problem (race, in this case) and that it has something to
+do with the Chi-squared test we're running on it to get those p-values.
 
-It's beyond the scope of this talk to get into the details, but the reason this warning comes up is because it's actually a bad idea statistically to run an uncorrected Chi-squared test on variables where the expected counts are too low, as is the situation for several of the variables in this table (including race). We're just trying to replicate the tests that were done to get the published version of the table, but R is right that we're not using the best choice of tests here. 
+It's beyond the scope of this talk to get into the details, but the
+reason this warning comes up is because it's actually a bad idea
+statistically to run an uncorrected Chi-squared test on variables where
+the expected counts are too low, as is the situation for several of the
+variables in this table (including race). We're just trying to replicate
+the tests that were done to get the published version of the table, but
+R is right that we're not using the best choice of tests here.
 :::
 
 ## Clean up labels
 
-One glaring issue that remains is the row labels. We don't want labels like "prior.chemo_groups" in our final table! 
+One glaring issue that remains is the row labels. We don't want labels
+like "prior.chemo_groups" in our final table!
 
 . . .
 
-We can clean those up with the `label` argument in the `tbl_summary` command:
+We can clean those up with the `label` argument in the `tbl_summary`
+command:
 
 ```{r}
 #| output-location: fragment
@@ -855,22 +1116,30 @@ table_data |>
 ```
 
 ::: notes
-This is starting to look a lot like the published paper! 
+This is starting to look a lot like the published paper!
 
-There are still things to change (for example, our table prints the median with IQR for continuous variables, whereas the published paper prints the median with range), but this shows what the process is like for building a table with `gtsummary`.
+There are still things to change (for example, our table prints the
+median with IQR for continuous variables, whereas the published paper
+prints the median with range), but this shows what the process is like
+for building a table with `gtsummary`.
 :::
 
-## Exporting a table 
+## Exporting a table
 
-So how do you get the table from R to Word? You can save the table as a Word doc, which you can then open and copy into your article. 
+So how do you get the table from R to Word? You can save the table as a
+Word doc, which you can then open and copy into your article.
 
 ::: aside
 Not working in Word? No problem!
 
-You can export your table in many different formats! For a list, see [the `gtsummary` website](https://www.danieldsjoberg.com/gtsummary/articles/rmarkdown.html).
+You can export your table in many different formats! For a list, see
+[the `gtsummary`
+website](https://www.danieldsjoberg.com/gtsummary/articles/rmarkdown.html).
 :::
 
-To save a table as a Word file, add the following two lines to the end of your table commands (you can change "my_table.docx" to be whatever you want the file name to be):
+To save a table as a Word file, add the following two lines to the end
+of your table commands (you can change "my_table.docx" to be whatever
+you want the file name to be):
 
 ```{r eval=FALSE}
   as_flex_table() |> 
@@ -879,7 +1148,9 @@ To save a table as a Word file, add the following two lines to the end of your t
 
 ## {{< fa circle-question >}} Troubleshooting
 
-Note that this requires a function from the `flextable` package. If you've never used `flextable` before, you may need to run `install.packages("flextable")` before this code will work.
+Note that this requires a function from the `flextable` package. If
+you've never used `flextable` before, you may need to run
+`install.packages("flextable")` before this code will work.
 
 ## Exporting a table
 
@@ -907,71 +1178,112 @@ table_data |>
 ```
 
 ::: notes
-By default, `flextable::save_as_docx` will save the table in your current working directory. To save it somewhere else, use the `path` argument to specify which folder you want to save it in (for example, "reports/table1.docx").
+By default, `flextable::save_as_docx` will save the table in your
+current working directory. To save it somewhere else, use the `path`
+argument to specify which folder you want to save it in (for example,
+"reports/table1.docx").
 :::
 
 ## {{< fa book-open >}} Learn more
 
-For a review of how to specify a path, see the [explanation of absolute and relative paths in our Directories and File Paths module](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/directories_and_file_paths/directories_and_file_paths.md#file-paths).
+For a review of how to specify a path, see the [explanation of absolute
+and relative paths in our Directories and File Paths
+module](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/directories_and_file_paths/directories_and_file_paths.md#file-paths).
 
 ## {{< fa rocket >}} Coding Challenge 3: Homework!
 
-For your final coding challenge, return to RStudio and follow the instructions there to create a Table 1 for a brand new data set, the [laryngoscope data](https://www.causeweb.org/tshs/datasets/Laryngoscope%20Dataset%20Introduction.pdf). 
+For your final coding challenge, return to RStudio and follow the
+instructions there to create a Table 1 for a brand new data set, the
+[laryngoscope
+data](https://www.causeweb.org/tshs/datasets/Laryngoscope%20Dataset%20Introduction.pdf).
 
 Here's the published table you'll be trying to recreate:
 
-![Table 1 from the published article on the laryngoscope data.](media/laryngoscope_table1.png)
+![Table 1 from the published article on the laryngoscope
+data.](media/laryngoscope_table1.png)
 
 . . .
 
-For inspiration (and lots of examples of things to try), check out [the `tbl_summary` help documentation](https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html).
+For inspiration (and lots of examples of things to try), check out [the
+`tbl_summary` help
+documentation](https://www.danieldsjoberg.com/gtsummary/articles/tbl_summary.html).
 
 ::: notes
-Have fun, and don't worry about getting everything perfect --- if you get stuck on part of the table, just move on and try something else. The goal is to get practice using the `gtsummary` commands. 
+Have fun, and don't worry about getting everything perfect --- if you
+get stuck on part of the table, just move on and try something else. The
+goal is to get practice using the `gtsummary` commands.
 :::
 
 ## {{< fa rocket >}} Coding Challenge 3: Homework!
 
-Don't struggle in silence! 
+Don't struggle in silence!
 
-::: {.incremental}
-- Ask questions and share tips on the CHOPR slack
-- Come to [R Office Hours](https://bit.ly/chopROfficeHours) to show off your progress and get help
-- There's a solution available in `summary_stats_solutions.Rmd`, but you'll learn a lot more if you try it yourself first
+::: incremental
+-   Ask questions and share tips on the CHOPR slack
+-   Come to [R Office Hours](https://bit.ly/chopROfficeHours) to show
+    off your progress and get help
+-   There's a solution available in `summary_stats_solutions.Rmd`, but
+    you'll learn a lot more if you try it yourself first
 :::
 
 ## What we covered
 
-::: {.incremental}
-- getting example data from the `medicaldata` package
-- `summary()`
-- `min()`, `max()`, `mean()`, `median()`, `var()`, `sd()`, `quantile()`
-- `table()`
-- `xtabs()`
-- building tables with `gtsummary` package, specifically using `tbl_summary()`
-- a bunch of extras throughout on data transformations and data cleaning
+::: incremental
+-   getting example data from the `medicaldata` package
+-   `summary()`
+-   `min()`, `max()`, `mean()`, `median()`, `var()`, `sd()`,
+    `quantile()`
+-   `table()`
+-   `xtabs()`
+-   building tables with `gtsummary` package, specifically using
+    `tbl_summary()`
+-   a bunch of extras throughout on data transformations and data
+    cleaning
 :::
 
 ::: notes
-That's a lot! 
-So don't expect to remember everything --- you have the slides and all the example code to go back to. My goal for you all is for you to come away with a general impression of how to go about getting summary stats in R, and to know where there's some code for you to copy if you want to make a Table 1. 
+That's a lot! So don't expect to remember everything --- you have the
+slides and all the example code to go back to. My goal for you all is
+for you to come away with a general impression of how to go about
+getting summary stats in R, and to know where there's some code for you
+to copy if you want to make a Table 1.
 :::
 
 # Additional resources
 
-For general background on statistics: 
+For general background on statistics:
 
-- [StatsQuest videos on Statistics Fundamentals](https://www.youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9)
-- [Videos on statistics from Kahn Academy](https://www.khanacademy.org/math/statistics-probability)
+-   [StatsQuest videos on Statistics
+    Fundamentals](https://www.youtube.com/playlist?list=PLblh5JKOoLUK0FLuzwntyYI10UQFUhsY9)
+-   [Videos on statistics from Kahn
+    Academy](https://www.khanacademy.org/math/statistics-probability)
 
-For more on the `gtsummary` package, see their website, especially the [FAQ and gallery of example tables](https://www.danieldsjoberg.com/gtsummary/articles/gallery.html)
+For more on the `gtsummary` package, see their website, especially the
+[FAQ and gallery of example
+tables](https://www.danieldsjoberg.com/gtsummary/articles/gallery.html)
 
-# Shameless plug
+# Shameless Plug \#1
 
-Want to go through this material again? It's posted as [an interactive tutorial online](https://bit.ly/DART_r_summary_stats) as part of [DART (Data and Analytics for Research Training)](https://arcus.github.io/education_modules/)!
+Want to go through this material again? 
+It's posted as [an interactive
+tutorial online](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_summary_stats/r_summary_stats.md#1) as part of [DART
+(Data and Analytics for Research
+Training)](https://arcus.github.io/education_modules/)!
+<br>
+<br>
 
 . . .
 
-If you like it you may want to sign up for the DART research program (eligibility criteria apply)! Our next wave begins Aug 7.
+You can also explore the rest of the DART modules with the [new module discovery app prototype](https://learn.arcus.chop.edu)
 
-[Fill out our interest form to learn more!](https://redcap.chop.edu/surveys/?s=FPHWFNEA9KN3HERF)
+# Shameless Plug \#2
+
+**Have funding for your research project and interested in working with an experienced biostatistician or data scientist to analyze your data?**
+<br>
+<br>
+
+. . .
+
+The Data Science and Biostatistics Unit (DSBU) is DBHi’s and CHOP Research Institute’s centralized service unit for biostatistics and data science analysis support. Reach out to Alexis Zavez (zaveza\@chop.edu) or Keith Baxelbaum (baxelbaumk\@chop.edu) for more info! 
+
+
