@@ -33,8 +33,13 @@ r102 <- r102_raw |>
   # clean up dates
   dplyr::mutate(date = lubridate::ymd_hms(form_1_timestamp))
   
-# get a list of emails to paste into outlook for forwarding event invite: 
-paste0(unique(r102[r102$select_workshops___jun == 1,]$email), collapse = "; ")
+# get a list of emails to paste into outlook for forwarding event invite (last sent 2024-04-08): 
+r102 |> 
+  dplyr::filter(select_workshops___may == 1, date > lubridate::ymd("2024-04-07")) |> 
+  dplyr::pull(email) |> 
+  unique() |> 
+  paste0(collapse = "; ")
+
 
 # plots
 r102 |> 
