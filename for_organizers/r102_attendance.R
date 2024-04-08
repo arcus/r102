@@ -66,6 +66,9 @@ r102 |>
        title = paste0("Signups as of ", Sys.Date()))
 ggsave("for_organizers/ability_plots.png", height = 10, width = 5, units = "in")
 
+
+workshop_dates <- lubridate::ymd(c("2024-03-04", "2024-04-08", "2024-05-06", "2024-06-03"))
+
 r102 |> 
   tidyr::pivot_longer(tidyselect::starts_with("select_workshops___"), names_to = "session", values_to = "registered") |> 
   # clean up
@@ -78,4 +81,5 @@ r102 |>
   dplyr::mutate(signups = cumsum(registered)) |> 
   ggplot(aes(x=date, y=signups, color = session)) + 
   geom_line() + 
+  geom_vline(xintercept = workshop_dates, linetype = 2) + 
   theme_classic()
