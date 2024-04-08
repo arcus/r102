@@ -29,13 +29,13 @@ Use this form to [register to attend one or more workshop sessions](https://redc
 - **Summary Statistics in R**
   * Date:  2024-04-08 12pm-1pm ET
   * Follow along with the [Summary Statistics in R slides](https://rosemhartman.quarto.pub/r102/quarto_slides/summary_stats_in_r.html#/title-slide)
-  * Try the [online tutorial version available at DART](https://bit.ly/DART_r_summary_stats)
+  * Try the [online tutorial version available at DART](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_summary_stats/r_summary_stats.md#1)
 - **Reshaping Data with tidyr**
   * Date: 2024-05-06 12pm-1pm ET
-  * Follow along with the slides (link coming soon)
+  * Follow along with the [Reshaping Data with tidyr slides](https://rosemhartman.quarto.pub/r102/quarto_slides/reshaping_data_with_tidyr.html#/title-slide)
 - **Data Types and Visualizations**
   * Date: 2024-06-03 12pm-1pm ET
-  * Follow along with the slides (link coming soon)
+  * Follow along with the [Data Types and Visualizations slides](https://rosemhartman.quarto.pub/r102/quarto_slides/data_types_and_viz.html#/title-slide) 
 
 For all of the talks, you can [work hands-on with the code and see solutions in our Posit.cloud project](https://posit.cloud/content/7522885)
 
