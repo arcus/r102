@@ -29,8 +29,12 @@ r102 <- r102_raw |>
   dplyr::mutate(org = dplyr::case_when(grepl(x=org, pattern = "chop") ~ "CHOP",
                                        grepl(x=org, pattern = "upenn") ~ "Penn",
                                        TRUE ~ "Other"),
-                org = as.factor(org))
+                org = as.factor(org)) |> 
+  # clean up dates
+  dplyr::mutate(date = lubridate::ymd_hms(form_1_timestamp))
   
+# get a list of emails to paste into outlook for forwarding event invite: 
+paste0(unique(r102[r102$select_workshops___jun == 1,]$email), collapse = "; ")
 
 # plots
 r102 |> 
@@ -56,3 +60,17 @@ r102 |>
   labs(x=NULL, y=NULL,
        title = paste0("Signups as of ", Sys.Date()))
 ggsave("for_organizers/ability_plots.png", height = 10, width = 5, units = "in")
+
+r102 |> 
+  tidyr::pivot_longer(tidyselect::starts_with("select_workshops___"), names_to = "session", values_to = "registered") |> 
+  # clean up
+  dplyr::mutate(session = gsub(x=session, pattern = "select_workshops___", replacement = ""),
+                session = factor(session, levels = c("mar", "apr", "may", "jun"))) |> 
+  dplyr::select(date, session, registered) |> 
+  dplyr::filter(registered == 1) |> 
+  dplyr::arrange(date) |> 
+  dplyr::group_by(session) |> 
+  dplyr::mutate(signups = cumsum(registered)) |> 
+  ggplot(aes(x=date, y=signups, color = session)) + 
+  geom_line() + 
+  theme_classic()
