@@ -33,6 +33,7 @@ r102 <- r102_raw |>
   # clean up dates
   dplyr::mutate(date = lubridate::ymd_hms(form_1_timestamp))
   
+
 # get a list of emails to paste into outlook for forwarding event invite (last sent 2024-04-08): 
 r102 |> 
   dplyr::filter(select_workshops___may == 1, date > lubridate::ymd("2024-04-07")) |> 
@@ -41,7 +42,7 @@ r102 |>
   paste0(collapse = "; ")
 
 
-# plots
+# counts
 r102 |> 
   tidyr::pivot_longer(tidyselect::starts_with("select_workshops___"), names_to = "session", values_to = "registered") |> 
   # clean up
@@ -50,27 +51,35 @@ r102 |>
   dplyr::filter(registered == 1) |> 
   dplyr::count(session)
 
+# plots
 library(ggplot2)
 r102 |> 
-  tidyr::pivot_longer(missing_values:ggplot2, names_to = "skill", values_to = "rating") |> 
+  tidyr::pivot_longer(missing_values:ggplot2, 
+                      names_to = "skill", 
+                      values_to = "rating") |> 
+  dplyr::mutate(rating = as.factor(rating)) |> 
+  dplyr::select(record_id, skill, rating) |> 
+  na.omit() |> 
   ggplot(aes(y = rating, fill = skill)) + 
-  geom_histogram(bins = 5, show.legend = FALSE) + 
+  geom_bar(show.legend = FALSE) +  
   facet_wrap(~skill, ncol = 1) + 
   theme_classic() + 
-  scale_y_continuous(breaks = 1:4, limits = c(.5,4.5),
-                                     labels = c("(1) I wouldn't know where to start",
-                                                "(2) I could struggle through,\nbut not confident I could do it",
-                                                "(3) I could probably do it\nwith some trial and error",
-                                                "(4) I am confident in my ability to do it")) + 
+  scale_y_discrete(breaks = as.character(1:4), 
+                   labels = c("(1) I wouldn't know where to start",
+                              "(2) I could struggle through,\nbut not confident I could do it",
+                              "(3) I could probably do it\nwith some trial and error",
+                              "(4) I am confident in my ability to do it")) + 
   labs(x=NULL, y=NULL,
        title = paste0("Signups as of ", Sys.Date()))
 ggsave("for_organizers/ability_plots.png", height = 10, width = 5, units = "in")
 
 
-workshop_dates <- lubridate::ymd(c("2024-03-04", "2024-04-08", "2024-05-06", "2024-06-03"))
+workshop_dates <- lubridate::ymd_hms(c("2024-03-04 12:00:00", "2024-04-08 12:00:00", "2024-05-06 12:00:00", "2024-06-03 12:00:00"))
 
 r102 |> 
-  tidyr::pivot_longer(tidyselect::starts_with("select_workshops___"), names_to = "session", values_to = "registered") |> 
+  tidyr::pivot_longer(tidyselect::starts_with("select_workshops___"), 
+                      names_to = "session", 
+                      values_to = "registered") |> 
   # clean up
   dplyr::mutate(session = gsub(x=session, pattern = "select_workshops___", replacement = ""),
                 session = factor(session, levels = c("mar", "apr", "may", "jun"))) |> 
@@ -80,6 +89,8 @@ r102 |>
   dplyr::group_by(session) |> 
   dplyr::mutate(signups = cumsum(registered)) |> 
   ggplot(aes(x=date, y=signups, color = session)) + 
+  geom_vline(xintercept = workshop_dates, linetype = 2, alpha = .7) + 
   geom_line() + 
-  geom_vline(xintercept = workshop_dates, linetype = 2) + 
-  theme_classic()
+  theme_classic() + 
+  labs(x=NULL, title = "R102 signups over time", subtitle = "Dashed lines are workshop dates")
+ggsave("for_organizers/signups_over_time.png", height = 5, width = 5, units = "in")
