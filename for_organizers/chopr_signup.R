@@ -49,7 +49,7 @@ r102 <- lubridate::ymd(c("2024-03-04", "2024-04-08", "2024-05-06", "2024-06-03")
   theme_classic() + 
   scale_x_date(date_breaks = "3 months", date_labels = "%b %Y") +
   theme(axis.text.x = element_text(angle = 45, vjust = 1, hjust=1))) 
-ggsave("CHOPR_signups.png", width = 5, height = 5, units = "in")
+ggsave("for_organizers/CHOPR_signups.png", width = 5, height = 5, units = "in")
 
 base_plot + 
   labs(subtitle = "Light blue bars are R101, darkblue bars are R102") + 
@@ -61,4 +61,4 @@ base_plot +
              color = chop_darkblue,
              size = 2,
              alpha = .5)
-ggsave("CHOPR_signups_with_workshops.png", width = 5, height = 5, units = "in")
+ggsave("for_organizers/CHOPR_signups_with_workshops.png", width = 5, height = 5, units = "in")
