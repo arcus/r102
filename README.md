@@ -28,6 +28,7 @@ Use this form to [register to attend one or more workshop sessions](https://redc
   * Try the [online tutorial version of Missing Values in R available at DART](https://bit.ly/DART_r_missing_values)
 - **Summary Statistics in R**
   * Date:  2024-04-08 12pm-1pm ET
+  * Watch the [recording of the Summary Statistics in R workshop](https://www.youtube.com/watch?v=I9K-FZtC-_8)
   * Follow along with the [Summary Statistics in R slides](https://rosemhartman.quarto.pub/r102/quarto_slides/summary_stats_in_r.html#/title-slide)
   * Try the [online tutorial version available at DART](https://liascript.github.io/course/?https://raw.githubusercontent.com/arcus/education_modules/main/r_summary_stats/r_summary_stats.md#1)
 - **Reshaping Data with tidyr**
