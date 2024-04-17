@@ -22,7 +22,7 @@ Thank you very much to everyone who has so far taken the time to respond!
 
 Here are some of the results from our Missing Values in R workshop:
 
-![](for_organizers/prepost_03_all.png)
+![](for_organizers/prepost_03_completers.png)
 
 If you see that plot and wish you too could get your level of understanding up to "I am confident in my ability to do it" but you missed the workshop, never fear! 
 The slides, code, and recordings for each workshop are linked on this page under [workshop sessions](#workshop-sessions) as soon as we have them available. 
