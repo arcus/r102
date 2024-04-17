@@ -14,6 +14,19 @@ If you're brand new to R, you're still welcome to attend but you may find it har
 This workshop series is free and does not require any paid software.  
 You will need a computer and a robust internet connection, however.
 
+## What are participants saying?
+
+We send out (very brief!) surveys after each workshop to help us to assess what's working well and what isn't. 
+We are reading your responses carefully. 
+Thank you very much to everyone who has so far taken the time to respond! 
+
+Here are some of the results from our Missing Values in R workshop:
+
+![](for_organizers/prepost_03_all.png)
+
+If you see that plot and wish you too could get your level of understanding up to "I am confident in my ability to do it" but you missed the workshop, never fear! 
+The slides, code, and recordings for each workshop are linked on this page under [workshop sessions](#workshop-sessions) as soon as we have them available. 
+
 ## Workshop sessions
 
 **You're welcome to attend the whole series, or just pick the dates/topics that work best for you.** 
