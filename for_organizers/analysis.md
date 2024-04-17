@@ -206,6 +206,8 @@ ggsave("prepost_04_all.png",
 
     ## Warning: Removed 234 rows containing non-finite values (stat_count).
 
+![](prepost_04_all.png)
+
 Just folks who did respond at post:
 
 ``` r
@@ -225,6 +227,8 @@ ggsave("prepost_04_completers.png",
        plot = p,
        height = 4, width = 7, units = "in")
 ```
+
+![](prepost_04_completers.png)
 
 ``` r
 apr_test <- t.test(r102$create_table_2, r102$create_table, paired = TRUE)

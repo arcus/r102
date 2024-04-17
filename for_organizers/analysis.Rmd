@@ -202,6 +202,7 @@ ggsave("prepost_04_all.png",
        plot = p,
        height = 4, width = 7, units = "in")
 ```
+![](prepost_04_all.png)
 
 Just folks who did respond at post:
 
@@ -224,6 +225,8 @@ ggsave("prepost_04_completers.png",
        plot = p,
        height = 4, width = 7, units = "in")
 ```
+
+![](prepost_04_completers.png)
 
 ```{r summary_stats_ttest}
 #| eval = eval_apr
