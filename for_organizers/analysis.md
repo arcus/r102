@@ -1,7 +1,7 @@
 R102 Workshop Analysis
 ================
 Rose Hartman
-2024-04-11
+2024-04-17
 
 ``` r
 library(ggplot2)
@@ -136,7 +136,7 @@ eval_jun = sum(r102$data_types_and_viz_follow_up_complete == 2) > 0
 
 152 signups.
 
-47 responses on post-workshop survey.
+48 responses on post-workshop survey.
 
 All available responses at pre and post:
 
@@ -189,21 +189,27 @@ in R session, with respondents reporting higher ability afterward, t(40)
 
 205 signups.
 
-0 responses on post-workshop survey.
+18 responses on post-workshop survey.
 
 All available responses at pre and post:
 
 ``` r
-plot_data |> 
+p <- plot_data |> 
   dplyr::filter(topic == "create_table") |> 
   ability_plot() +
   labs(title = "How comfortable are you creating a\npublication-ready table of descriptive statistics in R?")
+
+ggsave("prepost_04_all.png", 
+       plot = p,
+       height = 4, width = 7, units = "in")
 ```
+
+    ## Warning: Removed 234 rows containing non-finite values (stat_count).
 
 Just folks who did respond at post:
 
 ``` r
-plot_data |> 
+p <- plot_data |> 
   dplyr::filter(topic == "create_table") |> 
   # remove folks who are NA for either pre or post
   tidyr::pivot_wider(names_from = event, values_from = ability) |> 
@@ -214,6 +220,10 @@ plot_data |>
   ability_plot() +
   labs(title = "How comfortable are you creating a\npublication-ready table of descriptive statistics in R?", 
        subtitle = "Only participants who responded at pre and post")
+
+ggsave("prepost_04_completers.png", 
+       plot = p,
+       height = 4, width = 7, units = "in")
 ```
 
 ``` r
@@ -222,7 +232,7 @@ apr_test <- t.test(r102$create_table_2, r102$create_table, paired = TRUE)
 
 We saw significant improvement from pre to post after the Summary
 Statistics in R session, with respondents reporting higher ability
-afterward, .
+afterward, t(14) = 2.82, p = .014.
 
 ## Tidyr
 
@@ -233,16 +243,20 @@ afterward, .
 All available responses at pre and post:
 
 ``` r
-plot_data |> 
+p <- plot_data |> 
   dplyr::filter(topic == "tidyr") |> 
   ability_plot() +
   labs(title = "How comfortable are you reshaping data\nwith the tidyr package in R?")
+
+ggsave("prepost_05_all.png", 
+       plot = p,
+       height = 4, width = 7, units = "in")
 ```
 
 Just folks who did respond at post:
 
 ``` r
-plot_data |> 
+p <- plot_data |> 
   dplyr::filter(topic == "tidyr") |> 
   # remove folks who are NA for either pre or post
   tidyr::pivot_wider(names_from = event, values_from = ability) |> 
@@ -253,6 +267,10 @@ plot_data |>
   ability_plot() +
   labs(title = "How comfortable are you reshaping data\nwith the tidyr package in R?", 
        subtitle = "Only participants who responded at pre and post")
+
+ggsave("prepost_05_completers.png", 
+       plot = p,
+       height = 4, width = 7, units = "in")
 ```
 
 ``` r
@@ -272,21 +290,29 @@ with tidyr session, with respondents reporting higher ability afterward,
 All available responses at pre and post:
 
 ``` r
-plot_data |> 
+p1 <- plot_data |> 
   dplyr::filter(topic == "data_types") |> 
   ability_plot() +
   labs(title = "How comfortable are you identifying and\nmanipulating different data types in R?")
 
-plot_data |> 
+p2 <- plot_data |> 
   dplyr::filter(topic == "ggplot2") |> 
   ability_plot() +
   labs(title = "How comfortable are you creating\ndata visualizations in R with ggplot2?")
+
+ggsave("prepost_05data_all.png", 
+       plot = p1,
+       height = 4, width = 7, units = "in")
+
+ggsave("prepost_05ggplot_all.png", 
+       plot = p2,
+       height = 4, width = 7, units = "in")
 ```
 
 Just folks who did respond at post:
 
 ``` r
-plot_data |> 
+p1 <- plot_data |> 
   dplyr::filter(topic == "data_types") |> 
   # remove folks who are NA for either pre or post
   tidyr::pivot_wider(names_from = event, values_from = ability) |> 
@@ -298,7 +324,7 @@ plot_data |>
   labs(title = "How comfortable are you identifying and\nmanipulating different data types in R?", 
        subtitle = "Only participants who responded at pre and post")
 
-plot_data |> 
+p2 <- plot_data |> 
   dplyr::filter(topic == "ggplot2") |> 
   # remove folks who are NA for either pre or post
   tidyr::pivot_wider(names_from = event, values_from = ability) |> 
@@ -309,6 +335,14 @@ plot_data |>
   ability_plot() +
   labs(title = "How comfortable are you creating\ndata visualizations in R with ggplot2?", 
        subtitle = "Only participants who responded at pre and post")
+
+ggsave("prepost_05data_completers.png", 
+       plot = p1,
+       height = 4, width = 7, units = "in")
+
+ggsave("prepost_05ggplot_completers.png", 
+       plot = p2,
+       height = 4, width = 7, units = "in")
 ```
 
 ``` r
