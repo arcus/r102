@@ -1,7 +1,7 @@
 ---
 title: "Reshaping Data with tidyr"
-author: "Update"
-institute: "Update"
+author: "Keith Baxelbaum, Rose Hartman, and <br> Alexis Zavez <br>"
+institute: "Data Science and Biostatistics Unit (DSBU) and <br> Arcus Education, DBHI"
 date: "2024-05-06"
 ---
 
@@ -13,10 +13,10 @@ date: "2024-05-06"
 
 ```{r echo = FALSE}
 library(countdown)
+library(tidyverse)
 ```
 
 ## Join the CHOP R User Group
-
 
 ::: {.columns .v-center-container}
 ::: {.column width="50%"}
@@ -24,37 +24,514 @@ library(countdown)
 :::
 
 ::: {.column width="50%"}
-- Friendly help troubleshooting your R code
-- Announcements for upcoming talks, workshops, and conferences
+-   Friendly help troubleshooting your R code
+-   Announcements for upcoming talks, workshops, and conferences
 :::
 :::
 
-Link to join: [https://bit.ly/chopRusers](https://bit.ly/chopRusers)
+Link to join: <https://bit.ly/chopRusers>
 
 ::: notes
-Just a few announcements before we get started. 
-For anyone here today that isn't already part of the CHOP R User group, I strongly encourage you to join (it is also open to Penn folks). The CHOP R User group has more than 400 members from all departments. This is great place to network with other R users, get help with coding problems, and learn about new packages, webinars, and conferences. We also have semi-regular meetings and workshops, like this one. 
-
+Just a few announcements before we get started. For anyone here today that isn't already part of the CHOP R User group, I strongly encourage you to join (it is also open to Penn folks). The CHOP R User group has more than 400 members from all departments. This is great place to network with other R users, get help with coding problems, and learn about new packages, webinars, and conferences. We also have semi-regular meetings and workshops, like this one.
 :::
 
 ## Come to R Office Hours!
 
-- Set up a meeting to get live help with your R code from our most experienced useRs
-- Office hours appointments can be one-on-one or open to the community
+-   Set up a meeting to get live help with your R code from our most experienced useRs
+-   Office hours appointments can be one-on-one or open to the community
 
-Link to calendar: [https://bit.ly/chopROfficeHours](https://bit.ly/chopROfficeHours)
+Link to calendar: <https://bit.ly/chopROfficeHours>
 
 ::: aside
-We're looking for more volunteers to lead appointments! Get in touch: hartmanr1@chop.edu
+We're looking for more volunteers to lead appointments! Get in touch: hartmanr1\@chop.edu
 :::
 
 ::: notes
-We have regular office hours appointments available to get R help. 
-We're offering two kinds of appointments: one-on-one, if you want individual help, or open appointments that are more of a community conversation about whatever R questions people bring up that day. The open appointments can be particularly valuable to attend if you want to hear other people's questions about R but maybe don't have a project of your own that you're troubleshooting at the moment. 
-We set up a calendar online where you can book an appointment. 
-[click] And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
+We have regular office hours appointments available to get R help. We're offering two kinds of appointments: one-on-one, if you want individual help, or open appointments that are more of a community conversation about whatever R questions people bring up that day. The open appointments can be particularly valuable to attend if you want to hear other people's questions about R but maybe don't have a project of your own that you're troubleshooting at the moment. We set up a calendar online where you can book an appointment. \[click\] And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.
 :::
 
-## These slides aren't done :)
+## Coming Soon - More R102 Sessions!
 
-We'll update the content here as the workshop date gets closer. 
+This is the third talk in a new series called **R102: MasteRing the Fundamentals**
+
+<br>
+
+**Next up:** Data Types and Visualizations, June 3rd 12:00pm ET
+
+<br>
+
+Learn more about this new series, including dates and titles for each session: <br> <https://arcus.github.io/r102/>
+
+::: notes
+Today's talk is the third in a series called **R102: MasteRing the Fundamentals**. These workshops are intended as a continuation of the popular Intro to R for Clinical Data workshop we offer a few times a year. Last month, we covered the first topic in this series: Missing values in R. Next month, we will cover: Data Types and Visualizations
+
+We're designing these talks with beginners in mind, so if you're trying to figure out how to get started with R, or how to start applying it in your own work, these talks are for you! To see the schedule of talks, check out the website for the series. We'll also post links to slides and recordings there as well as they become available.
+:::
+
+# R 102: <br> Reshaping Data with tidyr
+
+::: notes
+Today's talk is a quick primer on some tools for data manipulation. If you've had a little exposure to R before, such as through an Intro to R for Clinical Data workshop, this is hopefully the right level for you now. If you're completely brand new to R, first of all: Welcome! You may find it tricky to actively follow along with the code today since I'm going to skim over some of the initial steps, but go ahead and give it a try, or just listen and watch if that feels more like the right speed.
+
+Our topic is how to turn your messy dataset or datasets into a well-structured, analysis-ready format. Data come to use in all manner of disarray, often due to reasons beyond our control -- a collaborator loves hand-curated Excel spreadsheets, or REDCap spit out data with a zillion columns, or we have data from five different clinical sources that we need to somehow link. This talk will start to explore efficient ways to wrestle data into a consistent, easy-to-use format called tidy data. These are big tasks, and we only scratch the surface of how to accomplish them.
+
+Please feel free to put any questions in the chat - we have a few additional team members who will try to answer your questions during the talk. If there is extra time, we can also stop and talk about things as a group.
+:::
+
+## What we're covering today
+
+. . .
+
+-   What does it mean to have tidy data?
+
+. . .
+
+-   How to reshape data and how to extract multiple observations from a single cell
+
+. . .
+
+-   Some basic ways to combine multiple datasets
+
+. . .
+
+-   NOT manipulating data itself (e.g. imputing missing data), creating new variables, complex joins
+
+## How should we structure our data?
+
+`“Tidy datasets are all alike, but every messy dataset is messy in its own way.” Hadley Wickham`
+
+The same data can be presented in various formats.
+
+```{r}
+#| output-location: fragment
+table1
+```
+
+::: notes
+Here's some sample data from the tidyverse library that demonstrates different ways of presenting the same data (here, a small subset of data on TB cases by country in 1999 and 2000).
+
+We'll see how the exame same data can be put into a tabular format in really different ways. For example, here in table 1 is one presentation of these data, where each row is one country in one year, and there are separate columns for each variable of interest (here, TB cases and population).
+:::
+
+## How should we structure our data?
+
+`“Tidy datasets are all alike, but every messy dataset is messy in its own way.” Hadley Wickham`
+
+The same data can be presented in various formats.
+
+```{r}
+#| output-location: fragment
+table2
+```
+
+::: notes
+Here are those same data, but in a differently formatted table. Table 2 has each year for each country, but rather than separate columns for cases and population, it has a single column with these data, and separate rows for cases and population, identified in the "type" column. All the same information is present, but it's stored in a different format!
+:::
+
+## How should we structure our data?
+
+`“Tidy datasets are all alike, but every messy dataset is messy in its own way.” Hadley Wickham`
+
+The same data can be presented in various formats.
+
+```{r}
+#| output-location: fragment
+table3
+```
+
+::: notes
+Here's yet another way of storing those same data! Table 3 has all the same information, with each country/year pair in a row, but now rather than separate rows for cases and population, these are combined into a single "rate" column. This still has all the same information, as we could conceivably extract either the number of cases or the overall population if we wanted to, but it does so using one fewer column.
+:::
+
+## How should we structure our data?
+
+`“Tidy datasets are all alike, but every messy dataset is messy in its own way.” Hadley Wickham`
+
+The same data can be presented in various formats.
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| output-location: fragment
+table4a
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| output-location: fragment
+table4b
+```
+:::
+:::
+
+::: notes
+Still other formats are possible too -- e.g. having separate columns for each year, storing cases in one table and population in another, and so on.
+
+Remember, in each of these cases we have the same information -- we haven't lost data in any case! However, not all formats are equally easy to use! A lot of tools within R, and especially within the tidyverse family of R packages, expect a specfic format called tidy data.
+:::
+
+## What is tidy data?
+
+. . .
+
+-   Variables = columns
+-   Observations = rows
+-   Values = cells; One value per cell!
+
+. . .
+
+**Consistent formatting helps:**
+
+-   ensure functions operate consistently on our data (think TIDYverse)
+-   ensure WE know what to expect in our data
+
+::: notes
+Tidy data is a very specific, consistent way to format data that ensures we know exactly what to expect in our data. This is important and useful for multiple reasons. First, if data are consistently formatted the same way, then we can be confident in how functions will interact with these data. In the tidyverse (and increasingly other packages in R), the expectation is that data are in tidy format. This helps us get consistent output from the same functions!
+
+Second, consistent data formatting helps us know what to expect from our data! If we always have one observation per row and one row per observation, then we can immediately know how to parse our data. If we know that each variable has its own column, then we know that we don't have to try to unpack complex columns to understand what the data are.
+:::
+
+## Getting data into tidy format
+
+-   What to do when multiple variables' values are in a single column?
+-   What to do when repeated measures (multiple observations of the same variable) are in the same row?
+-   What to do when a single cell contains more than one observation?
+
+::: notes
+A dataframe could be untidy in lots of ways (recall Hadley's quote a few slides ago). We're going to focus on three very common forms of untidy data, and discuss relatively simple ways to remedy them using tools from the tidyr package (part of the tidyverse).
+
+One of the best things about R is there are always multiple ways to do the thing you want to do; this is also one of the worst things about R! But the tools in tidyr give us a standardized approach to reshaping our data, which gets rid of some of the decision points and variability in our coding style.
+:::
+
+# Using pivot wider to spread data across more columns
+
+::: notes
+First, we'll talk about a situation in which we don't have separate columns for each variable.
+:::
+
+## Pivot wider
+
+```{r}
+#| output-location: fragment
+table2
+```
+
+. . . 
+
+**The problem:** The count column has data for both the cases and population variables!
+
+::: notes
+The first reshaping challenge we'll address is when variables are specified in rows, rather than in columns. Recall that tidy data means that each variable has its own column, and rows are reserved for unique observations of these variables. But data don't always come in this way.
+
+Recall the structure of table2 from earlier (this table is pre-loaded as part of the tidyverse package if you want to play with it). In this table, the "type" column is used to identify which variable a row is talking about, and then the "count" column contains the value for that variable for that observation. This isn't what we want for tidy data; in particular, we want the values for population and for cases for a given country in a given year to be on the same row -- this is one "observation," so they shouldn't be separated.
+
+A great hint that your data may have this issue is if a column with data includes different types of data or things on really different scales (e.g. here, the population rows are several orders of magnitude larger than the cases rows). In this case, we want to spread these variables out to be in their own columns rather than sharing a column.
+:::
+
+
+## Pivot wider
+
+Enter the `pivot_wider` function!
+
+```{r eval=FALSE}
+#| code-line-numbers: "|1|3|4|5|"
+library(tidyr)
+
+df <- pivot_wider(table2, 
+                  values_from = count,
+                  names_from = type)
+```
+
+**`pivot_wider` arguments:**
+
+-   Dataframe with the original, unpivoted data
+-   `values_from`: the name of the column with the data values
+-   `names_from`: the name of the column that identifies which variable is represented in the data column
+
+::: notes
+A great way to do this is using the pivot_wider function. This function is part of the tidyr package, which is full of useful tools for tidying up your data. pivot_wider is used to spread out data from one column into separate columns. The additional piece of the puzzle is naming these new columns so we know what they show us. pivot_wider asks you both where the data should come from, as well as where the names are!
+
+First, you specify the dataframe your data that need pivoting are in.
+
+Then, you specify which column contains the data themselves using "values_from = column_name".
+
+Finally, you specify the column that contains the names you want to use for the new data columns using "names_from = column_name".
+:::
+
+## Pivot wider
+
+```{r}
+#| output-location: fragment
+head(table2)
+```
+
+```{r}
+#| output-location: fragment
+pivot_wider(table2, values_from = count, names_from = type)
+```
+
+::: notes
+Now our data are nice and tidy! The different variables for cases and population are in their own columns, and each row is a single observation of all the variables -- e.g. row 1 is the values of these variables in Afghanistan in the year 1999. The next row is a new observation -- it's the values in Afghanistan, but now in 2000.
+:::
+
+## {{< fa rocket >}} Coding Challenge 1
+
+::: r-fit-text
+Your turn!
+
+Look in the `tidyr_exercises.rmd` file to find your first coding
+challenge.
+:::
+
+```{r echo=FALSE}
+countdown(minutes = 2, seconds = 00)
+```
+
+::: notes
+We'll just work on this for a couple minutes and if you don't finish
+during that time, no sweat, just pause wherever you are and we'll take a
+look at the solutions together.
+:::
+
+## Pivot wider's other functionality
+
+`pivot_wider` has a variety of other optional arguments:
+
+`pivot_wider( data, …, id_cols = NULL, id_expand = FALSE, names_from = name, names_prefix = "", names_sep ="_", names_glue = NULL, names_sort = FALSE, names_vary ="fastest", names_expand = FALSE, names_repair = "check_unique", values_from = value, values_fill = NULL, values_fn = NULL, unused_fn = NULL )`
+
+Vignette!
+
+::: notes
+The function notes for pivot_wider, accessible by putting a question mark before the function name, show a number of other options available in pivot_wider. These let you automate a bunch of other things you might need to do for more complex pivots. We won't go through all of these, but the documentation can guide you to some other functionality. In particular, these other arguments are helpful when you need to widen multiple data columns rather than just one; there are lots of useful tools for making sure your output is still named coherently and that you are only pivoting the columns you want to.
+
+Another useful additional option is the values_fill argument. This argument lets you specify what to put if a specific observation is missing -- e.g. if we had the number of cases for Brazil in 1999 but we didn't have a row for the population in Brazil in 1999. The default is to mark these as missing, so they'll appear as an NA value. But you can use the values_fill argument to give different options -- e.g. perhaps you want any missing values to be entered as 0 instead of missing.
+:::
+
+# Using pivot longer to gather observations of the same variable into rows
+
+::: notes
+Next, we'll talk about a situation in the same variable has observations spread across columns rather than across rows.
+:::
+
+## Pivot longer
+
+```{r}
+#| output-location: fragment
+table4a
+```
+
+. . . 
+
+**The problem:** The same variable (number of cases) is in multiple columns! Not just one observation per row!
+
+::: notes
+Another challenge that often arises is that data are spread across columns such that multiple observations occur in the same row. For example, in this format of the TB case data, there are separate columns for the same variable in different years. This data format comes up a lot, especially for things like longitudinal data, where we measure the same thing at multiple timepoints. It sometimes feels natural to give each patient their own row, and then list all their measurements in columns across the row (like this table does with each country and measures at each year).
+
+This data format isn't wrong, but it's not tidy -- each row represents more than one observation. In these cases, the data is too wide -- so we don't want to pivot it wider, but we want to make it longer.
+:::
+
+## Pivot longer
+
+Enter the `pivot_longer` function!
+
+```{r eval=FALSE}
+#| code-line-numbers: "|1|2|"
+df_cases <- pivot_longer(table4a, 
+                  cols = `1999`:`2000`)
+```
+
+**`pivot_longer` arguments:**
+
+-   Dataframe with the original, unpivoted data
+-   `cols`: The set of column names with the data that you want to lengthen. 
+
+::: notes
+The pivot_longer function does just this -- it pivots the data in the opposite direction, creating new rows based on the columns we say to pivot.
+
+This function only requires two arguments: the dataframe with the data you want to pivot, and a cols argument that says which columns you want to pivot. This latter argument should be the set of columns that have the repeated observations you want to put into a single output column.
+:::
+
+## Pivot longer
+
+```{r}
+#| output-location: fragment
+head(table4a)
+```
+
+```{r}
+#| output-location: fragment
+pivot_longer(table4a, cols = `1999`:`2000`)
+```
+
+::: notes
+Now our data are nice and tidy! Each observation has its own row -- one row per country per year! And there is a single column for the number of TB cases. The function got the values for the "name" column from the column names in the unpivoted dataframe -- so it found the value in each of the columns you told it to pivot, and then marked which column that data came from.
+
+This worked great, but the column names leave something to be desired -- the defaults for pivot_longer always call the data column "value" and the specifier column "name". These are very uninformative column names! Thankfully, there some other arguments in pivot_longer that can fix this for us.
+:::
+
+## Pivot longer
+
+Some QOL arguments availabile in pivot_longer!
+```{r}
+#| output-location: fragment
+head(table4a)
+```
+
+```{r}
+#| output-location: fragment
+pivot_longer(table4a, cols = `1999`:`2000`, 
+             names_to = "year", 
+             values_to = "cases")
+```
+
+::: notes
+The names_to argument lets us specify what to call the column that stores the previous column names. The values_to argument lets us specify what to call the column that stores the values.
+:::
+
+## {{< fa rocket >}} Coding Challenge 2
+
+::: r-fit-text
+Your turn!
+
+Look in the `tidyr_exercises.rmd` file to find your next coding
+challenge.
+:::
+
+```{r echo=FALSE}
+countdown(minutes = 2, seconds = 00)
+```
+
+::: notes
+We'll just work on this for a couple minutes and if you don't finish
+during that time, no sweat, just pause wherever you are and we'll take a
+look at the solutions together.
+:::
+
+## Pivot longer's other functionality
+
+`pivot_longer` has a variety of other optional arguments:
+
+`pivot_longer(
+  data,
+  cols,
+  ...,
+  cols_vary = "fastest",
+  names_to = "name",
+  names_prefix = NULL,
+  names_sep = NULL,
+  names_pattern = NULL,
+  names_ptypes = NULL,
+  names_transform = NULL,
+  names_repair = "check_unique",
+  values_to = "value",
+  values_drop_na = FALSE,
+  values_ptypes = NULL,
+  values_transform = NULL
+)`
+
+::: notes
+The function notes for pivot_longer, accessible by putting a question mark before the function name, show a number of other options available in pivot_longer. We won't go through all of these, but the documentation can guide you to some other functionality. 
+
+One worth noting is the values_drop_na argument. This lets you decide what to do if there are missing values in your data as you pivot it. The default is to keep those NA values -- so for example, if we were missing the number of TB cases in China in 2000, after pivoting we would still have a row for China in 2000, but the value for cases would be NA. If you'd rather not create such rows, you can set values_drop_na to true.
+:::
+
+
+# Splitting multiple values contained in the same cell
+
+## Separating multiple variables in a single cell
+
+Sometimes multiple variables end up combined in your dataframe.
+
+```{r}
+#| output-location: fragment
+head(table3)
+```
+**The problem:** The rate column includes both cases and population variables!
+
+::: notes
+Sometimes our data come in in a way that we have multiple different variables in the same cell. This could be something like table 3 here, where rather than separating cases and population, they're presented in a single cell as a ratio. This may be useful for some analyses, but not for others -- what if we want to investigate population change irrespective of cases? What if we want to split data on the basis of population (small, medium, large)? For these (and other) uses, it's helpful to have each variable on its own. We can always compute a ratio later!
+
+We might also encounter this situation with things like medication dosage, if we have the dose and the units in the same column -- maybe one patient received 100 micrograms, but another received 10 mg. It's often easier to convert these if we have the numeric dose in one column, and the units in another. 
+
+This means that in situations like this, it's often helpful to split the offending column of combined variables into separate columns. Let's look into some options for doing so!
+:::
+
+## Separating multiple variables in a single cell
+Often idiosyncratic to your specific dataset, but a family of useful functions:
+
+-   `separate_longer_delim`
+-   `separate_longer_position`
+-   `separate_wider_delim`
+-   `separate_wider_position`
+
+::: notes
+This set of functions allows you to take the contents of one column and split them into either multiple columns (separate_wider) or separate rows (separate_longer). They also let you decide whether to split based on a specific delimiter -- a character that shows where the breaks between values are -- or based on a given width -- a count of the number of characters in each value.
+
+You'll need to think carefully about which of these applies to your data!
+:::
+
+Language list!
+
+## Separating multiple variables in a single cell
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| output-location: fragment
+head(table3)
+```
+:::
+
+::: {.column width="50%"}
+Which should use to get tidy data? Vote in the comments! 
+
+-   separate_longer_delim
+-   separate_longer_position
+-   separate_wider_delim
+-   separate_wider_position
+:::
+:::
+
+## Separating multiple variables in a single cell
+
+::: columns
+::: {.column width="50%"}
+```{r}
+#| output-location: fragment
+head(table3)
+```
+:::
+
+::: {.column width="50%"}
+```{r}
+#| output-location: fragment
+#| #| code-line-numbers: "|1|2|3|4|"
+separate_wider_delim(table3,
+   cols = rate,
+   delim = "/",
+   names = c("cases", "population"))
+```
+:::
+:::
+
+# Combining data from multiple tables
+
+## Combining data
+
+-   Sometimes we need to combine data from more than one dataset. What to do?
+-   Extra rows of data We could use rbind...
+-   Extra columns of data We could use cbind....
+-   Extra information about the data from a different shaped dataset Now we see the real limitations of the binds. We need to use joins!
+
+## Left joins
+
+-   Some assumptions! One-to-one or many-to-one. Not one-to-many or many-to-many!
+
+## Other types of joins
+
+-   Right joins
+-   Outer joins
+-   Inner joins
+-   Anti-joins
+-   Semi-joins
