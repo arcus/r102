@@ -1,7 +1,7 @@
 R102 Workshop Analysis
 ================
 Rose Hartman
-2024-04-17
+2024-05-02
 
 ``` r
 library(ggplot2)
@@ -51,9 +51,12 @@ r102 <- r102_raw |>
                 jun_followup_date = lubridate::ymd_hms(data_types_and_viz_follow_up_timestamp))
 ```
 
-    ## Warning: 6 failed to parse.
-
-    ## Warning: 1 failed to parse.
+    ## Warning: There were 2 warnings in `dplyr::mutate()`.
+    ## The first warning was:
+    ## ℹ In argument: `signup_date = lubridate::ymd_hms(form_1_timestamp)`.
+    ## Caused by warning:
+    ## !  8 failed to parse.
+    ## ℹ Run `dplyr::last_dplyr_warnings()` to see the 1 remaining warning.
 
 ``` r
 plot_data <- r102 |> 
@@ -134,7 +137,7 @@ eval_jun = sum(r102$data_types_and_viz_follow_up_complete == 2) > 0
 
 ## Missing Values in R
 
-152 signups.
+157 signups.
 
 48 responses on post-workshop survey.
 
@@ -145,13 +148,22 @@ p <- plot_data |>
   dplyr::filter(topic == "missing_values") |> 
   ability_plot() +
   labs(title = "How comfortable are you with identifying\nand working with missing values in R?")
+```
 
+    ## Warning: The `size` argument of `element_rect()` is deprecated as of ggplot2 3.4.0.
+    ## ℹ Please use the `linewidth` argument instead.
+    ## This warning is displayed once every 8 hours.
+    ## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+    ## generated.
+
+``` r
 ggsave("prepost_03_all.png", 
        plot = p,
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 256 rows containing non-finite values (stat_count).
+    ## Warning: Removed 314 rows containing non-finite outside the scale range
+    ## (`stat_count()`).
 
 ![](prepost_03_all.png)
 
@@ -187,9 +199,9 @@ in R session, with respondents reporting higher ability afterward, t(40)
 
 ## Summary Stats
 
-205 signups.
+214 signups.
 
-18 responses on post-workshop survey.
+37 responses on post-workshop survey.
 
 All available responses at pre and post:
 
@@ -204,7 +216,8 @@ ggsave("prepost_04_all.png",
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 234 rows containing non-finite values (stat_count).
+    ## Warning: Removed 275 rows containing non-finite outside the scale range
+    ## (`stat_count()`).
 
 ![](prepost_04_all.png)
 
@@ -236,11 +249,11 @@ apr_test <- t.test(r102$create_table_2, r102$create_table, paired = TRUE)
 
 We saw significant improvement from pre to post after the Summary
 Statistics in R session, with respondents reporting higher ability
-afterward, t(14) = 2.82, p = .014.
+afterward, t(27) = 3.81, p \< .001.
 
 ## Tidyr
 
-183 signups.
+214 signups.
 
 0 responses on post-workshop survey.
 
@@ -287,7 +300,7 @@ with tidyr session, with respondents reporting higher ability afterward,
 
 ## Data types and viz
 
-190 signups.
+218 signups.
 
 0 responses on post-workshop survey.
 

@@ -16,10 +16,21 @@ chopr_signup_form <- list("token"=Sys.getenv("CHOPR_signup_44957"),
 )
 chopr_signup <- httr::content(httr::POST("https://redcap.chop.edu/api/", body = chopr_signup_form, encode = "form"), 
                                show_col_types = FALSE) |> 
+  dplyr::mutate(email = tolower(email)) |> 
   # convert timestamps to date
   dplyr::mutate(date = lubridate::ymd_hms(email_signup_timestamp),
                 date = lubridate::floor_date(date, unit = "day")) 
 
+# institutions?
+chopr_signup |> 
+  tidyr::separate(email, c("email", "institution"), sep = "@") |> 
+  dplyr::mutate(institution = dplyr::case_when(grepl(institution, pattern = "chop") ~ "chop",
+                                               grepl(institution, pattern = "penn") ~ "penn",
+                                               grepl(institution, pattern = "drex") ~ "drexel",
+                                               TRUE ~ institution)) |> 
+  dplyr::count(institution) |> 
+  dplyr::arrange(desc(n)) |> 
+  knitr::kable()
 
 # PLOTS
 
