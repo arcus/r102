@@ -68,6 +68,26 @@ Today's talk is the third in a series called **R102: MasteRing the Fundamentals*
 We're designing these talks with beginners in mind, so if you're trying to figure out how to get started with R, or how to start applying it in your own work, these talks are for you! To see the schedule of talks, check out the website for the series. We'll also post links to slides and recordings there as well as they become available.
 :::
 
+## Update your R!
+
+Recent discovery of vulnerabilities in R. 
+
+**Make sure to update to the most recent version (4.4.0).**
+
+Details at: https://nvd.nist.gov/vuln/detail/CVE-2024-2732
+
+
+# Shameless Plug
+
+**Have a funded research project and need some additional help from an experienced biostatistician or data scientist to analyze your data?**
+<br>
+<br>
+
+. . .
+
+The Data Science and Biostatistics Unit (DSBU) is DBHi’s and CHOP Research Institute’s centralized service unit for biostatistics and data science analysis support. Reach out to Alexis Zavez (zaveza\@chop.edu) or Keith Baxelbaum (baxelbaumk\@chop.edu) for more info! 
+
+
 # R 102: <br> Reshaping Data with tidyr
 
 ::: notes
@@ -78,8 +98,9 @@ Our topic is how to turn your messy dataset or datasets into a well-structured, 
 Please feel free to put any questions in the chat - we have a few additional team members who will try to answer your questions during the talk. If there is extra time, we can also stop and talk about things as a group.
 :::
 
-## What we're covering today
+## Today's plan!
 
+**What we're covering:**
 . . .
 
 -   What does it mean to have tidy data?
@@ -90,11 +111,9 @@ Please feel free to put any questions in the chat - we have a few additional tea
 
 . . .
 
--   Some basic ways to combine multiple datasets
+**What we're not covering:**
 
-. . .
-
--   NOT manipulating data itself (e.g. imputing missing data), creating new variables, complex joins
+-   Manipulating data (e.g. imputing missing data, combining variables), creating new variables, joining multiple datasets
 
 ## How should we structure our data?
 
@@ -275,12 +294,23 @@ pivot_wider(table2, values_from = count, names_from = type)
 Now our data are nice and tidy! The different variables for cases and population are in their own columns, and each row is a single observation of all the variables -- e.g. row 1 is the values of these variables in Afghanistan in the year 1999. The next row is a new observation -- it's the values in Afghanistan, but now in 2000.
 :::
 
+## Compatible with piping!
+
+```{r}
+#| output-location: fragment
+table2 |>
+  pivot_wider(values_from = count, names_from = type)
+```
+
+You can use the "pipe" operator for this if you're used to piping. The pipe (`|>`) sends the value on the left of the pipe to serve as the first argument in the function on the right of the pipe.
+
+
 ## {{< fa rocket >}} Coding Challenge 1
 
 ::: r-fit-text
 Your turn!
 
-Look in the `tidyr_exercises.rmd` file to find your first coding
+Look in the `reshaping_data_exercises.rmd` file to find your first coding
 challenge.
 :::
 
@@ -294,19 +324,22 @@ during that time, no sweat, just pause wherever you are and we'll take a
 look at the solutions together.
 :::
 
-## Pivot wider's other functionality
 
-`pivot_wider` has a variety of other optional arguments:
+## {{< fa book-open >}} Learn more
 
-`pivot_wider( data, …, id_cols = NULL, id_expand = FALSE, names_from = name, names_prefix = "", names_sep ="_", names_glue = NULL, names_sort = FALSE, names_vary ="fastest", names_expand = FALSE, names_repair = "check_unique", values_from = value, values_fill = NULL, values_fn = NULL, unused_fn = NULL )`
+pivot_wider has lots of other functionality that we won't cover today. This includes options for renaming things, pivoting multiple columns simultaneously, and filling in missing values with default values. To learn more:
 
-Vignette!
+-   [Code documentation](https://tidyr.tidyverse.org/reference/pivot_wider.html)
+-   [Vignettes on pivoting](https://tidyr.tidyverse.org/articles/pivot.html)
 
 ::: notes
-The function notes for pivot_wider, accessible by putting a question mark before the function name, show a number of other options available in pivot_wider. These let you automate a bunch of other things you might need to do for more complex pivots. We won't go through all of these, but the documentation can guide you to some other functionality. In particular, these other arguments are helpful when you need to widen multiple data columns rather than just one; there are lots of useful tools for making sure your output is still named coherently and that you are only pivoting the columns you want to.
-
-Another useful additional option is the values_fill argument. This argument lets you specify what to put if a specific observation is missing -- e.g. if we had the number of cases for Brazil in 1999 but we didn't have a row for the population in Brazil in 1999. The default is to mark these as missing, so they'll appear as an NA value. But you can use the values_fill argument to give different options -- e.g. perhaps you want any missing values to be entered as 0 instead of missing.
+There are a few "learn more" slides throughout the
+presentation. They include links to resources to learn more
+about the topics we're covering. I won't click through to any of these
+resources now, but you have access to the slides so feel free to go back
+and review these links later if you like!
 :::
+
 
 # Using pivot longer to gather observations of the same variable into rows
 
@@ -394,12 +427,12 @@ The names_to argument lets us specify what to call the column that stores the pr
 ::: r-fit-text
 Your turn!
 
-Look in the `tidyr_exercises.rmd` file to find your next coding
+Look in the `reshaping_data_exercises.rmd` file to find your next coding
 challenge.
 :::
 
 ```{r echo=FALSE}
-countdown(minutes = 2, seconds = 00)
+countdown(minutes = 3, seconds = 00)
 ```
 
 ::: notes
@@ -408,36 +441,28 @@ during that time, no sweat, just pause wherever you are and we'll take a
 look at the solutions together.
 :::
 
-## Pivot longer's other functionality
+## {{< fa book-open >}} Learn more
 
-`pivot_longer` has a variety of other optional arguments:
+pivot_longer has lots of other functionality that we won't cover today. For example, there are arguments that help clean up names beyond what we've already seen, options to manipulate the data as you pivot, and options for what to do with missing values. To learn how to use these:
 
-`pivot_longer(
-  data,
-  cols,
-  ...,
-  cols_vary = "fastest",
-  names_to = "name",
-  names_prefix = NULL,
-  names_sep = NULL,
-  names_pattern = NULL,
-  names_ptypes = NULL,
-  names_transform = NULL,
-  names_repair = "check_unique",
-  values_to = "value",
-  values_drop_na = FALSE,
-  values_ptypes = NULL,
-  values_transform = NULL
-)`
+-   [Code documentation](https://tidyr.tidyverse.org/reference/pivot_longer.html)
+-   [Vignettes on pivoting](https://tidyr.tidyverse.org/articles/pivot.html)
 
 ::: notes
-The function notes for pivot_longer, accessible by putting a question mark before the function name, show a number of other options available in pivot_longer. We won't go through all of these, but the documentation can guide you to some other functionality. 
-
-One worth noting is the values_drop_na argument. This lets you decide what to do if there are missing values in your data as you pivot it. The default is to keep those NA values -- so for example, if we were missing the number of TB cases in China in 2000, after pivoting we would still have a row for China in 2000, but the value for cases would be NA. If you'd rather not create such rows, you can set values_drop_na to true.
+There are a few "learn more" slides throughout the
+presentation. They include links to resources to learn more
+about the topics we're covering. I won't click through to any of these
+resources now, but you have access to the slides so feel free to go back
+and review these links later if you like!
 :::
 
 
 # Splitting multiple values contained in the same cell
+
+::: notes
+Our final reshaping topic for today is what to do when you have more than one measurement in a single cell. Tidy data expects one value per cell -- remember, each variable should be in its own column! But sometimes, you end up with data where multiple variables are combined in one cell and need to be separated. There are lots of ways to do this, but we'll cover a particularly handy set of tools from the tidyr package.
+
+:::
 
 ## Separating multiple variables in a single cell
 
@@ -452,13 +477,11 @@ head(table3)
 ::: notes
 Sometimes our data come in in a way that we have multiple different variables in the same cell. This could be something like table 3 here, where rather than separating cases and population, they're presented in a single cell as a ratio. This may be useful for some analyses, but not for others -- what if we want to investigate population change irrespective of cases? What if we want to split data on the basis of population (small, medium, large)? For these (and other) uses, it's helpful to have each variable on its own. We can always compute a ratio later!
 
-We might also encounter this situation with things like medication dosage, if we have the dose and the units in the same column -- maybe one patient received 100 micrograms, but another received 10 mg. It's often easier to convert these if we have the numeric dose in one column, and the units in another. 
-
-This means that in situations like this, it's often helpful to split the offending column of combined variables into separate columns. Let's look into some options for doing so!
+One place this pops up a lot is things like a list of languages that a patient speaks. Rather than have this as a series of separate entries, it might be entered as a list with commas separating values. These lists can be a huge pain to work with! In situations like this, it's often helpful to split the offending column of combined variables into separate columns. Let's look into some options for doing so!
 :::
 
 ## Separating multiple variables in a single cell
-Often idiosyncratic to your specific dataset, but a family of useful functions:
+Often idiosyncratic to your specific dataset, but a family of useful functions from tidyr:
 
 -   `separate_longer_delim`
 -   `separate_longer_position`
@@ -471,7 +494,6 @@ This set of functions allows you to take the contents of one column and split th
 You'll need to think carefully about which of these applies to your data!
 :::
 
-Language list!
 
 ## Separating multiple variables in a single cell
 
@@ -508,30 +530,55 @@ head(table3)
 #| output-location: fragment
 #| #| code-line-numbers: "|1|2|3|4|"
 separate_wider_delim(table3,
-   cols = rate,
-   delim = "/",
-   names = c("cases", "population"))
+ cols = rate,
+ delim = "/",
+ names = c("cases", "population"))
 ```
 :::
 :::
 
-# Combining data from multiple tables
+::: notes
+In this case, we likely want to use separate_wider_delim.
 
-## Combining data
+-   wider because we are separating different variables (cases and populations) so we want to make new columns, not new rows.
+-   delim because we are separating by a delimiter (a slash), not by a specific number of characters.
 
--   Sometimes we need to combine data from more than one dataset. What to do?
--   Extra rows of data We could use rbind...
--   Extra columns of data We could use cbind....
--   Extra information about the data from a different shaped dataset Now we see the real limitations of the binds. We need to use joins!
+When we do this, we get a nice, tidy dataframe with separate columns for cases and populations (and those columns named using the names argument)
 
-## Left joins
+:::
 
--   Some assumptions! One-to-one or many-to-one. Not one-to-many or many-to-many!
+## {{< fa book-open >}} Learn more
 
-## Other types of joins
+There's another member of this family of functions for more complex separation needs:
+`separate_wider_regex`
 
--   Right joins
--   Outer joins
--   Inner joins
--   Anti-joins
--   Semi-joins
+-   [Code documentation](https://tidyr.tidyverse.org/reference/separate_wider_delim.html)
+-   [More info on regex](https://cran.r-project.org/web/packages/stringr/vignettes/regular-expressions.html)
+
+::: notes
+The separate_wider_regex function lets you write regular expressions to parse complex text in your cells in order to separate things that are more complicated. We won't cover this today -- regular expressions are really complicated and worthy of (at least) a full session on their own. But if you're feeling adventurous, check out these resources!
+:::
+
+
+## What have we learned today?
+
+. . .
+
+-   There are various ways to store data; the tidy format is quite useful!
+
+. . .
+
+-   `pivot_wider` can tidy datasets where multiple variables are presented in the same column.
+
+. . .
+
+-   `pivot_longer` can tidy datasets where multiple observations of the same variable are in the same row.
+
+. . .
+
+-   The `separate_` family of functions can tidy datasets where one cell has more than one piece of information.
+
+. . .
+
+## {{< fa rocket >}}  Capstone project!
+In the exercises R markdown file, look in the `reshaping_data_exercises.Rmd` file at the capstone project to try to apply these tools to a more complex dataset, while having to write your code from scratch!
