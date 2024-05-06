@@ -1,0 +1,132 @@
+## Load packages
+
+If you're running this on your own computer rather than in the cloud instance we set up, you may need to run `install.packages("tidyverse")` first if you haven't ever used the tidyverse packages before.
+
+Note that the `tidyr` is contained within the `tidyverse` package.
+
+```{r}
+library(tidyverse)
+```
+
+
+## CODING CHALLENGE 1!
+
+For the first coding challenge, we want to practice using the `pivot_wider` function. We'll do this using a built-in dataset from the tidyverse package.
+
+The solutions to this and the following challenges are available in the solutions folder, in `reshaping_data_solutions.Rmd`
+
+### The data
+```{r}
+fish_encounters
+```
+
+This dataset lists the number of times different types of fish (identified by an ID number in the `fish` column) were observed at various locations (listed in the `station` column).
+
+We may want to pivot the data to be wider and treat each location as its own variable. To do this, we need to pivot_wider 
+
+### Pivoting the data
+```{r}
+pivot_wider(         , names_from =     , values_from =    )
+```
+
+### Advanced option: Figure out how to fix the missing values!
+
+The results from above have a lot of missing values (the NA entries). These likely aren't really missing, but instead indicate that a specific fish was not observed at a given location. It would make more sense for these NA values to be 0s rather than NAs. Can you figure out how to do this within `pivot_wider`?
+
+If you need a hint, check out the help documentation for the `pivot_wider` function to see if you can figure out the argument you want to use.
+```{r}
+?pivot_wider
+```
+
+Now see if you can fill in what you need to pivot the data and set all NA values to 0 instead.
+
+```{r}
+pivot_wider(         , names_from =     , values_from =    ,        = 0)
+```
+
+
+When you're done, "thumbs up" the message in chat about this coding challenge to let us know you're ready to move forward.
+
+----------------------------------------------------------
+
+
+
+
+
+
+
+## CODING CHALLENGE 2!
+
+For this coding challenge, we'll use the `relig_income` dataset, which again comes built-in as part of the tidyverse. This dataset presents counts of people in different income ranges depending on their religion.
+
+### The data
+```{r}
+relig_income
+```
+
+Right now, these data have a row for each religion and columns for different income ranges, with each cell showing the count of people of that religion in that income range. In some instances, we might want this in a longer format, with separate rows for each combination of religion and income range, and then a single column for the counts (for example, this format will make it easier to plot the different religions' income ranges on a single plot using ggplot -- more on this in the next R102 presentation!).
+
+So we'll pivot the data to be in longer format! Specifically, we want to pivot the columns that include the income ranges.
+
+### Pivot the income ranges to have all counts in a single column
+
+You'll want to make sure to also update the names of the new columns to be interpretable.
+
+In some cases we gave you the argument names and you need to fill in the argument value. In other cases we gave you the argument values, and you need to fill in the argument name!
+
+```{r}
+pivot_longer(        , cols =       ,        = "income_range",        = "count")
+```
+
+You should end up with a very tall dataset, with only three columns, but 180 rows.
+
+Note that there are a few different ways to specify which columns you want to pivot. The solutions file shows a couple different ways you can do this; anything that results in the set of relevant columns will work! This is a nice reminder that there are usually multiple ways to do the same thing in R.
+
+When you're done, "thumbs up" the message in chat about this coding challenge to let us know you're ready to move forward.
+
+----------------------------------------------------------
+
+
+Use this space to run tests and try things out!
+
+```{r}
+
+```
+
+
+
+## CAPSTONE PROJECT!
+
+Now you're ready to deal with some very messy datasets! Let's see how you can put some of these ideas together to try to tidy some more complex data.
+
+### The data
+
+Included in the `tidyverse` package is a dataset called `world_bank_pop`
+
+This dataset includes various population statistics for different countries in different years. Look over the dataset with the code below:
+
+```{r}
+world_bank_pop
+```
+
+You'll notice that the indicator column lists different variables there are data for. If you'd like more info on these variables, type `?world_bank_pop` into a code block or into the console and more information about this dataset will show up in your help window.
+
+As these data stand, they are decidedly NOT tidy. Your task is to figure out the aspects that make the data untidy, and then tidy them using the tools we covered today! Remember, tidy data has the following:
+* Each variable is in its own column.
+* Each observation is in its own row.
+* Each cell contains a single value.
+
+One tip we will offer is to either use pipes (`|>`) to send the output of one function into the input of the next, or to assign datasets using the assignment operator (`<-`) to save your changed dataset before the next step. This is going to be a multi-step process, and we're not giving you much to go on!
+
+### Make things tidy!
+
+You're on your own here!! If you're stuck, ask in the chat or check out the solutions file.
+```{r}
+
+
+
+
+
+
+```
+
