@@ -36,7 +36,7 @@ r102 <- r102_raw |>
 
 # get a list of emails to paste into outlook for forwarding event invite: 
 r102 |> 
-  dplyr::filter(select_workshops___may == 1, date > lubridate::ymd_hms("2024-05-03 12:22:00")) |> 
+  dplyr::filter(select_workshops___may == 1, date > lubridate::ymd_hms("2024-05-06 09:00:00")) |> 
   dplyr::pull(email) |> 
   unique() |> 
   paste0(collapse = "; ")
