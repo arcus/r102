@@ -47,6 +47,7 @@ Use this form to [register to attend one or more workshop sessions](https://redc
 - **Reshaping Data with tidyr**
   * Date: 2024-05-06 12pm-1pm ET
   * Follow along with the [Reshaping Data with tidyr slides](https://rosemhartman.quarto.pub/r102/quarto_slides/reshaping_data_with_tidyr.html#/title-slide)
+  * Watch the [recording of the Reshaping Data with tidyr workshop](https://www.youtube.com/watch?v=Ii1jwXsvanA)
 - **Data Types and Visualizations**
   * Date: 2024-06-03 12pm-1pm ET
   * Follow along with the [Data Types and Visualizations slides](https://rosemhartman.quarto.pub/r102/quarto_slides/data_types_and_viz.html#/title-slide) 
