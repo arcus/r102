@@ -1,11 +1,36 @@
 R102 Workshop Analysis
 ================
 Rose Hartman
-2024-05-02
+2024-05-09
 
 ``` r
 library(ggplot2)
+library(dplyr)
 ```
+
+    ## 
+    ## Attaching package: 'dplyr'
+
+    ## The following objects are masked from 'package:stats':
+    ## 
+    ##     filter, lag
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     intersect, setdiff, setequal, union
+
+``` r
+library(tidyr)
+library(tidyselect)
+library(lubridate)
+```
+
+    ## 
+    ## Attaching package: 'lubridate'
+
+    ## The following objects are masked from 'package:base':
+    ## 
+    ##     date, intersect, setdiff, union
 
 ``` r
 # API tokens stored in .Renviron https://cran.r-project.org/web/packages/httr/vignettes/secrets.html#environment-variables
@@ -29,52 +54,102 @@ r102_raw <- httr::content(r102_response, show_col_types = FALSE)
 ```
 
 ``` r
+date_max <- function(dates){
+  if(all(is.na(dates))) {
+    return(as.Date(NA)) 
+  } else {
+    return(max(dates, na.rm = TRUE))
+  }
+}
+
+num_max <- function(numbers){
+  if(all(is.na(numbers))) {
+    return(NA) 
+  } else {
+    return(max(numbers, na.rm = TRUE))
+  }
+}
+  
+attend_max <- function(attend){
+  
+  levels <- c("no", "watch", "attend")
+  
+  if(all(is.na(attend))) {
+    return(factor(NA, levels = levels)) 
+  } else if("attend" %in% attend) {
+    return(factor("attend", levels = levels))
+  } else if("watch" %in% attend){
+    return(factor("watch", levels = levels))
+  } else if("no" %in% attend){
+    return(factor("no", levels = levels))
+  } else 
+    stop()
+}
+```
+
+``` r
 r102 <- r102_raw |> 
+  # clean up dates with lubridate
+    mutate(signup_date = ymd_hms(form_1_timestamp, quiet = TRUE),
+                mar_followup_date = ymd_hms(missing_values_in_r_follow_up_timestamp, quiet = TRUE),
+                apr_followup_date = ymd_hms(summary_stats_in_r_follow_up_timestamp, quiet = TRUE),
+                may_followup_date = ymd_hms(reshaping_data_in_tidyr_follow_up_timestamp, quiet = TRUE),
+                jun_followup_date = ymd_hms(data_types_and_viz_follow_up_timestamp, quiet = TRUE)) |> 
   # force all email to lowercase
-  dplyr::mutate(email = tolower(email)) |> 
-  # identify people who registered more than once with the same email
-  dplyr::add_count(email) |> 
+  mutate(email = tolower(email)) |> 
+  # select the columns to analyze
+  select(email, 
+         record_id,
+         ends_with("_date"), 
+         starts_with("attend_"),
+         starts_with("select_workshops_"),
+         ends_with("_complete"), 
+         missing_values, 
+         missing_values_2,
+         create_table,
+         create_table_2,
+         tidyr,
+         tidyr_2,
+         data_types,
+         data_types_2,
+         ggplot2,
+         ggplot2_2
+         ) |> 
+  # combine data from duplicate entries (people who registered more than once with the same email)
+  group_by(email) |> 
+  summarise(
+    across(starts_with("attend_"), attend_max),
+    across(ends_with("_date"), date_max),
+    across(!starts_with("attend_")&!ends_with("_date"), num_max),  
+    .groups = "drop") |> 
   # extract organization from email address
   tidyr::extract(email, into = "org", 
                  regex = "[^@]+@(.*)[.]edu", 
                  remove = FALSE) |> 
   # clean up org categories
-  dplyr::mutate(org = dplyr::case_when(grepl(x=org, pattern = "chop") ~ "CHOP",
+  mutate(org = case_when(grepl(x=org, pattern = "chop") ~ "CHOP",
                                        grepl(x=org, pattern = "upenn") ~ "Penn",
                                        TRUE ~ "Other"),
-                org = as.factor(org)) |> 
-  # clean up dates
-    dplyr::mutate(signup_date = lubridate::ymd_hms(form_1_timestamp),
-                mar_followup_date = lubridate::ymd_hms(missing_values_in_r_follow_up_timestamp),
-                apr_followup_date = lubridate::ymd_hms(summary_stats_in_r_follow_up_timestamp),
-                may_followup_date = lubridate::ymd_hms(reshaping_data_in_tidyr_follow_up_timestamp),
-                jun_followup_date = lubridate::ymd_hms(data_types_and_viz_follow_up_timestamp))
-```
-
-    ## Warning: There were 2 warnings in `dplyr::mutate()`.
-    ## The first warning was:
-    ## ℹ In argument: `signup_date = lubridate::ymd_hms(form_1_timestamp)`.
-    ## Caused by warning:
-    ## !  8 failed to parse.
-    ## ℹ Run `dplyr::last_dplyr_warnings()` to see the 1 remaining warning.
-
-``` r
+                org = as.factor(org))  
+  
+  
 plot_data <- r102 |> 
-  dplyr::select(record_id, missing_values_1 = missing_values, 
-                create_table_1 = create_table,
-                tidyr_1 = tidyr,
-                data_types_1 = data_types,
-                ggplot2_1 = ggplot2, 
-                tidyselect::ends_with("_2")) |> 
+  select(record_id, 
+         missing_values_1 = missing_values, 
+         create_table_1 = create_table,
+         tidyr_1 = tidyr,
+         data_types_1 = data_types,
+         ggplot2_1 = ggplot2, 
+         ends_with("_2")) |> 
   tidyr::pivot_longer(-record_id, values_to = "ability") |> 
   tidyr::extract(name, into=c("topic", "event"), regex="(.*)_([12])") |> 
-  dplyr::mutate(event = factor(event, levels = 1:2, labels = c("pre", "post"))) 
+  mutate(event = factor(event, levels = 1:2, labels = c("pre", "post"))) 
 ```
 
 ``` r
 ability_plot <- function(df){
   base_plot <- df |> 
-  dplyr::filter(event %in% c("pre", "post")) |> 
+  filter(event %in% c("pre", "post")) |> 
   ggplot(aes(y=ability)) + 
   geom_bar() +
   # geom_histogram(bins = 6) + 
@@ -137,15 +212,15 @@ eval_jun = sum(r102$data_types_and_viz_follow_up_complete == 2) > 0
 
 ## Missing Values in R
 
-157 signups.
+153 signups.
 
-48 responses on post-workshop survey.
+47 responses on post-workshop survey.
 
 All available responses at pre and post:
 
 ``` r
 p <- plot_data |> 
-  dplyr::filter(topic == "missing_values") |> 
+  filter(topic == "missing_values") |> 
   ability_plot() +
   labs(title = "How comfortable are you with identifying\nand working with missing values in R?")
 ```
@@ -162,7 +237,7 @@ ggsave("prepost_03_all.png",
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 314 rows containing non-finite outside the scale range
+    ## Warning: Removed 275 rows containing non-finite outside the scale range
     ## (`stat_count()`).
 
 ![](prepost_03_all.png)
@@ -171,13 +246,13 @@ Just folks who did respond at post:
 
 ``` r
 p <- plot_data |> 
-  dplyr::filter(topic == "missing_values") |> 
+  filter(topic == "missing_values") |> 
   # remove folks who are NA for either pre or post
   tidyr::pivot_wider(names_from = event, values_from = ability) |> 
   na.omit() |> 
   # pivot back to long for plotting
   tidyr::pivot_longer(pre:post, names_to = "event", values_to = "ability") |> 
-  dplyr::mutate(event = factor(event, levels = c("pre", "post"))) |> 
+  mutate(event = factor(event, levels = c("pre", "post"))) |> 
   ability_plot() +
   labs(title = "How comfortable are you with identifying\nand working with missing values in R?", 
        subtitle = "Only participants who responded at pre and post")
@@ -195,19 +270,19 @@ mar_test <- t.test(r102$missing_values_2, r102$missing_values, paired = TRUE)
 
 We saw significant improvement from pre to post after the Missing Values
 in R session, with respondents reporting higher ability afterward, t(40)
-= 5.31, p \< .001.
+= 5.57, p \< .001.
 
 ## Summary Stats
 
-214 signups.
+198 signups.
 
-37 responses on post-workshop survey.
+36 responses on post-workshop survey.
 
 All available responses at pre and post:
 
 ``` r
 p <- plot_data |> 
-  dplyr::filter(topic == "create_table") |> 
+  filter(topic == "create_table") |> 
   ability_plot() +
   labs(title = "How comfortable are you creating a\npublication-ready table of descriptive statistics in R?")
 
@@ -216,7 +291,7 @@ ggsave("prepost_04_all.png",
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 275 rows containing non-finite outside the scale range
+    ## Warning: Removed 246 rows containing non-finite outside the scale range
     ## (`stat_count()`).
 
 ![](prepost_04_all.png)
@@ -225,13 +300,13 @@ Just folks who did respond at post:
 
 ``` r
 p <- plot_data |> 
-  dplyr::filter(topic == "create_table") |> 
+  filter(topic == "create_table") |> 
   # remove folks who are NA for either pre or post
   tidyr::pivot_wider(names_from = event, values_from = ability) |> 
   na.omit() |> 
   # pivot back to long for plotting
   tidyr::pivot_longer(pre:post, names_to = "event", values_to = "ability") |> 
-  dplyr::mutate(event = factor(event, levels = c("pre", "post"))) |> 
+  mutate(event = factor(event, levels = c("pre", "post"))) |> 
   ability_plot() +
   labs(title = "How comfortable are you creating a\npublication-ready table of descriptive statistics in R?", 
        subtitle = "Only participants who responded at pre and post")
@@ -249,11 +324,11 @@ apr_test <- t.test(r102$create_table_2, r102$create_table, paired = TRUE)
 
 We saw significant improvement from pre to post after the Summary
 Statistics in R session, with respondents reporting higher ability
-afterward, t(27) = 3.81, p \< .001.
+afterward, t(27) = 3.29, p = .003.
 
 ## Tidyr
 
-214 signups.
+200 signups.
 
 0 responses on post-workshop survey.
 
@@ -261,7 +336,7 @@ All available responses at pre and post:
 
 ``` r
 p <- plot_data |> 
-  dplyr::filter(topic == "tidyr") |> 
+  filter(topic == "tidyr") |> 
   ability_plot() +
   labs(title = "How comfortable are you reshaping data\nwith the tidyr package in R?")
 
@@ -274,13 +349,13 @@ Just folks who did respond at post:
 
 ``` r
 p <- plot_data |> 
-  dplyr::filter(topic == "tidyr") |> 
+  filter(topic == "tidyr") |> 
   # remove folks who are NA for either pre or post
   tidyr::pivot_wider(names_from = event, values_from = ability) |> 
   na.omit() |> 
   # pivot back to long for plotting
   tidyr::pivot_longer(pre:post, names_to = "event", values_to = "ability") |> 
-  dplyr::mutate(event = factor(event, levels = c("pre", "post"))) |> 
+  mutate(event = factor(event, levels = c("pre", "post"))) |> 
   ability_plot() +
   labs(title = "How comfortable are you reshaping data\nwith the tidyr package in R?", 
        subtitle = "Only participants who responded at pre and post")
@@ -300,7 +375,7 @@ with tidyr session, with respondents reporting higher ability afterward,
 
 ## Data types and viz
 
-218 signups.
+206 signups.
 
 0 responses on post-workshop survey.
 
@@ -308,12 +383,12 @@ All available responses at pre and post:
 
 ``` r
 p1 <- plot_data |> 
-  dplyr::filter(topic == "data_types") |> 
+  filter(topic == "data_types") |> 
   ability_plot() +
   labs(title = "How comfortable are you identifying and\nmanipulating different data types in R?")
 
 p2 <- plot_data |> 
-  dplyr::filter(topic == "ggplot2") |> 
+  filter(topic == "ggplot2") |> 
   ability_plot() +
   labs(title = "How comfortable are you creating\ndata visualizations in R with ggplot2?")
 
@@ -330,25 +405,25 @@ Just folks who did respond at post:
 
 ``` r
 p1 <- plot_data |> 
-  dplyr::filter(topic == "data_types") |> 
+  filter(topic == "data_types") |> 
   # remove folks who are NA for either pre or post
   tidyr::pivot_wider(names_from = event, values_from = ability) |> 
   na.omit() |> 
   # pivot back to long for plotting
   tidyr::pivot_longer(pre:post, names_to = "event", values_to = "ability") |> 
-  dplyr::mutate(event = factor(event, levels = c("pre", "post"))) |> 
+  mutate(event = factor(event, levels = c("pre", "post"))) |> 
   ability_plot() +
   labs(title = "How comfortable are you identifying and\nmanipulating different data types in R?", 
        subtitle = "Only participants who responded at pre and post")
 
 p2 <- plot_data |> 
-  dplyr::filter(topic == "ggplot2") |> 
+  filter(topic == "ggplot2") |> 
   # remove folks who are NA for either pre or post
   tidyr::pivot_wider(names_from = event, values_from = ability) |> 
   na.omit() |> 
   # pivot back to long for plotting
   tidyr::pivot_longer(pre:post, names_to = "event", values_to = "ability") |> 
-  dplyr::mutate(event = factor(event, levels = c("pre", "post"))) |> 
+  mutate(event = factor(event, levels = c("pre", "post"))) |> 
   ability_plot() +
   labs(title = "How comfortable are you creating\ndata visualizations in R with ggplot2?", 
        subtitle = "Only participants who responded at pre and post")
