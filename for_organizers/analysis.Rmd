@@ -321,6 +321,8 @@ ggsave("prepost_05_all.png",
        height = 4, width = 7, units = "in")
 ```
 
+![](prepost_05_all.png)
+
 Just folks who did respond at post:
 
 ```{r}
@@ -342,6 +344,8 @@ ggsave("prepost_05_completers.png",
        plot = p,
        height = 4, width = 7, units = "in")
 ```
+
+![](prepost_05_completers.png)
 
 ```{r tidyr_ttest}
 #| eval = eval_may
