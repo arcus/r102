@@ -38,7 +38,7 @@ r102 <- r102_raw |>
 r102 |> 
   dplyr::filter(select_workshops___jun == 1, 
                 stop_emails___stop != 1,
-                date > lubridate::ymd_hms("2021-05-06 11:45:00")) |> 
+                date > lubridate::ymd_hms("2024-05-13 10:30:00")) |> 
   dplyr::pull(email) |> 
   unique() |> 
   paste0(collapse = "; ")
@@ -52,7 +52,7 @@ r102 |>
   dplyr::filter(email %in% repeats$email) |> 
   dplyr::arrange(email) |> 
   dplyr::select(record_id, email) |> 
-  View()
+  View() # if any records show up here, need to go into REDCap and select stop_emails for the older one
 
 
 # counts
