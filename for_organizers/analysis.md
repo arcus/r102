@@ -1,7 +1,7 @@
 R102 Workshop Analysis
 ================
 Rose Hartman
-2024-05-13
+2024-05-14
 
 ``` r
 library(ggplot2)
@@ -330,7 +330,7 @@ afterward, t(27) = 3.29, p = .003.
 
 200 signups.
 
-10 responses on post-workshop survey.
+15 responses on post-workshop survey.
 
 All available responses at pre and post:
 
@@ -345,7 +345,7 @@ ggsave("prepost_05_all.png",
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 262 rows containing non-finite outside the scale range
+    ## Warning: Removed 258 rows containing non-finite outside the scale range
     ## (`stat_count()`).
 
 ![](prepost_05_all.png)
@@ -378,7 +378,7 @@ may_test <- t.test(r102$tidyr_2, r102$tidyr, paired = TRUE)
 
 We saw significant improvement from pre to post after the Reshaping Data
 with tidyr session, with respondents reporting higher ability afterward,
-t(8) = 3.77, p = .005.
+t(12) = 2.98, p = .011.
 
 ## Data types and viz
 
