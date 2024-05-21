@@ -1,7 +1,7 @@
 R102 Workshop Analysis
 ================
 Rose Hartman
-2024-05-14
+2024-05-21
 
 ``` r
 library(ggplot2)
@@ -212,7 +212,7 @@ eval_jun = sum(r102$data_types_and_viz_follow_up_complete == 2) > 0
 
 ## Missing Values in R
 
-153 signups.
+155 signups.
 
 47 responses on post-workshop survey.
 
@@ -237,7 +237,7 @@ ggsave("prepost_03_all.png",
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 275 rows containing non-finite outside the scale range
+    ## Warning: Removed 289 rows containing non-finite outside the scale range
     ## (`stat_count()`).
 
 ![](prepost_03_all.png)
@@ -274,7 +274,7 @@ in R session, with respondents reporting higher ability afterward, t(40)
 
 ## Summary Stats
 
-198 signups.
+200 signups.
 
 36 responses on post-workshop survey.
 
@@ -291,7 +291,7 @@ ggsave("prepost_04_all.png",
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 246 rows containing non-finite outside the scale range
+    ## Warning: Removed 260 rows containing non-finite outside the scale range
     ## (`stat_count()`).
 
 ![](prepost_04_all.png)
@@ -328,9 +328,9 @@ afterward, t(27) = 3.29, p = .003.
 
 ## Tidyr
 
-200 signups.
+202 signups.
 
-15 responses on post-workshop survey.
+17 responses on post-workshop survey.
 
 All available responses at pre and post:
 
@@ -345,7 +345,7 @@ ggsave("prepost_05_all.png",
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 258 rows containing non-finite outside the scale range
+    ## Warning: Removed 271 rows containing non-finite outside the scale range
     ## (`stat_count()`).
 
 ![](prepost_05_all.png)
@@ -378,11 +378,11 @@ may_test <- t.test(r102$tidyr_2, r102$tidyr, paired = TRUE)
 
 We saw significant improvement from pre to post after the Reshaping Data
 with tidyr session, with respondents reporting higher ability afterward,
-t(12) = 2.98, p = .011.
+t(13) = 2.92, p = .012.
 
 ## Data types and viz
 
-206 signups.
+215 signups.
 
 0 responses on post-workshop survey.
 
