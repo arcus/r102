@@ -54,7 +54,7 @@ r102 <- lubridate::ymd(c("2024-03-04", "2024-04-08", "2024-05-06", "2024-06-03")
   dplyr::mutate(total = cumsum(n),
                 date = as.Date(date)) |> 
   ggplot(aes(y=total, x=date)) + 
-  geom_line(color = chop_pink, size = 2) + 
+  geom_line(color = chop_pink, linewidth = 2) + 
   labs(title="New CHOPR signups", 
        y=NULL, x=NULL) + 
   theme_classic() + 
@@ -66,10 +66,10 @@ base_plot +
   labs(subtitle = "Light blue bars are R101, darkblue bars are R102") + 
   geom_vline(xintercept = r101,
              color = chop_blue,
-             size = 2,
+             linewidth = 2,
              alpha = .5) + 
   geom_vline(xintercept = r102,
              color = chop_darkblue,
-             size = 2,
+             linewidth = 2,
              alpha = .5)
 ggsave("for_organizers/CHOPR_signups_with_workshops.png", width = 5, height = 5, units = "in")
