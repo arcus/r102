@@ -38,7 +38,7 @@ r102 <- r102_raw |>
 r102 |> 
   dplyr::filter(select_workshops___jun == 1, 
                 stop_emails___stop != 1,
-                date > lubridate::ymd_hms("2024-05-13 10:30:00")) |> 
+                date > lubridate::ymd_hms("2024-05-21 16:30:00")) |> 
   dplyr::pull(email) |> 
   unique() |> 
   paste0(collapse = "; ")
@@ -49,6 +49,7 @@ repeats <- r102 |>
   dplyr::count(email) |> 
   dplyr::filter(n > 1)
 r102 |> 
+  dplyr::filter(stop_emails___stop != 1) |>
   dplyr::filter(email %in% repeats$email) |> 
   dplyr::arrange(email) |> 
   dplyr::select(record_id, email) |> 
@@ -57,6 +58,7 @@ r102 |>
 
 # counts
 r102 |> 
+  dplyr::filter(stop_emails___stop != 1) |>
   tidyr::pivot_longer(tidyselect::starts_with("select_workshops___"), names_to = "session", values_to = "registered") |> 
   # clean up
   dplyr::mutate(session = gsub(x=session, pattern = "select_workshops___", replacement = ""),
@@ -67,6 +69,7 @@ r102 |>
 # plots
 library(ggplot2)
 r102 |> 
+  dplyr::filter(stop_emails___stop != 1) |>
   tidyr::pivot_longer(missing_values:ggplot2, 
                       names_to = "skill", 
                       values_to = "rating") |> 
@@ -90,6 +93,7 @@ ggsave("for_organizers/ability_plots.png", height = 10, width = 5, units = "in")
 workshop_dates <- lubridate::ymd_hms(c("2024-03-04 12:00:00", "2024-04-08 12:00:00", "2024-05-06 12:00:00", "2024-06-03 12:00:00"))
 
 r102 |> 
+  dplyr::filter(stop_emails___stop != 1) |>
   tidyr::pivot_longer(tidyselect::starts_with("select_workshops___"), 
                       names_to = "session", 
                       values_to = "registered") |> 
