@@ -1,7 +1,7 @@
 ---
-title: "Data Types and Visualizations"
-author: "Update"
-institute: "Update"
+title: "Data Types and Visualizations <br> in R <br>"
+author: "Keith Baxelbaum, Rose Hartman, and <br> Alexis Zavez (presenter) <br>"
+institute: "Data Science and Biostatistics Unit (DSBU) and <br> Arcus Education, DBHI"
 date: "2024-06-03"
 ---
 
@@ -55,6 +55,923 @@ We set up a calendar online where you can book an appointment.
 [click] And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
 :::
 
-## These slides aren't done :)
+## Recap: Previous R102 Sessions
 
-We'll update the content here as the workshop date gets closer. 
+This is the fourth talk in a new series called **R102: MasteRing the
+Fundamentals**
+
+<br>
+
+**Previous Talks:** 
+
+Missing Values in R (March 2024)
+
+Summary Statistics in R (April 2024)
+
+Reshaping Data with tidyr (May 2025)
+
+<br>
+
+To watch previous talks or review slides: <br> <https://arcus.github.io/r102/>
+
+::: notes
+Today's talk is the fourth in a new series called **R102: MasteRing the
+Fundamentals**. These workshops are intended as a continuation of the
+popular Intro to R for Clinical Data workshop we offer a few times a
+year.
+
+We're designing these talks with beginners in mind, so if you're trying
+to figure out how to get started with R, or how to start applying it in
+your own work, these talks are for you! To see the schedule of talks,
+check out the website for the series. We're also posting links to slides
+and recordings there as well as they become available.
+:::
+
+# R 102: <br> Data Types and Visualizations 
+
+::: notes
+Okay! So this talk is a quick dip into some 102-level R. In other words,
+if you've had a little exposure to R before, such as through an Intro to
+R for Clinical Data workshop, this is hopefully the right level for you
+now. If you're completely brand new to R, first of all: Welcome! You may
+find it tricky to actively follow along with the code today since I'm
+going to skim over some of the initial steps, but go ahead and give it a
+try, or just listen and watch if that feels more like the right speed.
+
+Our topic is Data Types and Visualizations in R. Data visualizations are a key component of any exploratory data analysis. We'll also discuss how different variable types determine the visualizations that are possible.
+
+Please feel free to put any questions in the chat - we have a few additional team members who will try to answer your questions during the talk.
+If there is extra time, we can also stop and talk about
+things as a group. 
+:::
+
+## What we're covering today
+
+. . .
+
+-   How to identify data types in R 
+
+. . .
+
+
+-   A review of the data types that are available in R
+
+. . .
+
+-   Converting variables from one data type to another 
+
+. . .
+
+-   Creating flexible visualizations of data in R
+
+## Identifying Data Types in R
+
+There are several R functions that can return a variable's type
+
+. . .
+
+<br> 
+
+Today we'll focus on using `str()`, which displays the internal **str**ucture of an R object
+
+. . .
+
+<br> 
+Other options include `class()` and `typeof()` - read more about those [here!](https://www.rforecology.com/post/data-types-in-r/#:~:text=We%20can%20check%20if%20our,numeric()%20.&text=We%20can%20check%20our%20data,i.e.%2C%20numbers%20with%20decimals)
+
+
+## What are the most common data types?
+
+. . .
+
+<br> 
+
+Character: each value is a string (e.g., "female")
+
+. . .
+
+
+```{r}
+# Create an example called x that contains either "female" or "male"
+x <-c("female", "male", "male", "female")
+
+print(x)
+
+str(x)
+```
+
+## What are the most common data types?
+
+. . .
+
+<br> 
+
+Factor: each value is a string, but the possible values are stored as levels within R 
+
+. . .
+
+
+```{r}
+# Convert the character example to a factor 
+x.factor <- as.factor(x)
+print(x.factor)
+
+str(x.factor)
+```
+
+## What are the most common data types?
+
+. . .
+
+<br> 
+
+Numeric: each value is a real number
+
+. . .
+
+
+```{r}
+x <- c(-5.2,0,1.2,2.82,7.676)
+print(x)
+str(x)
+```
+
+## Other data types
+
+. . .
+
+Logical: each value is either TRUE or FALSE
+
+```{r}
+x <- c(TRUE, FALSE, T, F)
+print(x)
+str(x)
+```
+
+. . .
+
+Complex: each value is a complex number 
+
+```{r}
+x <- c((1 + 2i), (2 + 3i))
+print(x)
+str(x)
+```
+
+## Character vs Factor Data Types
+
+Character and factor data types look similar: 
+```{r}
+x <-c("female", "male", "male", "female")
+
+print(x)
+
+x.factor <- as.factor(x)
+
+print(x.factor)
+```
+
+. . .
+
+* Factors are stored as numbers and a table of levels, which can save memory and computation time 
+
+. . .
+
+
+* More computational options available for factors compared to characters (e.g., `summary()` function!)
+
+For more on the `summary()` function, check out materials from our earlier talk on **Summary Statistics in R** [available here](https://arcus.github.io/r102/)
+
+. . .
+
+* Variables like name, study id, etc. can be stored as character vectors 
+
+
+## Can we mix data types? 
+
+Let's see what happens when we try to store different data types in 
+the same vector: 
+
+. . .
+
+
+```{r}
+x <- c(TRUE, 3.0, "male")
+print(x)
+str(x)
+```
+
+. . .
+
+* We generally want to avoid mixing data types within one variable
+
+. . .
+
+
+* R will try to convert all values in the column to one data type
+
+. . .
+
+
+* Often, it doesn't make much sense to have multiple data types stored 
+within the same variable 
+
+::: notes
+In this example of mixed data types, we can see that R converts all three value to the character data type.
+:::
+## Can we change data types? 
+
+Yes, using R's functions like `as.factor()`, `as.character()`, 
+and `as.numeric()`: 
+
+. . .
+
+```{r}
+x <-c("female", "male", "male", "female")
+print(x)
+str(x)
+
+x <- as.factor(x) # convert from character to factor 
+print(x)
+str(x)
+
+x <- as.character(x) # convert from factor back to character
+print(x)
+str(x)
+```
+
+## Can we change data types? 
+
+```{r}
+x <-c("3.7", "4.2", "5.0")
+print(x)
+str(x)
+
+x <- as.numeric(x) # convert from character to numeric 
+print(x)
+str(x)
+```
+
+## How can we create visualizations in R?
+
+There are two general options for creating figures in R: 
+
+. . .
+
+<br>
+Option 1: Base R functions like `plot()`
+
+[Examples of figures created in base R](https://r-graph-gallery.com/base-R.html)
+
+
+. . .
+
+<br>
+Option 2: Using the tidyverse and functions like `ggplot()`
+
+[Examples of figures created with ggplot](https://r-graph-gallery.com/ggplot2-package.html)
+
+::: notes
+Next, we'll switch from data types and talk a little more about creating visualizations in R. 
+:::
+
+## Some nice features of ggplot
+
+* All figures are built using a series of layers 
+
+. . .
+
+
+* Able to save plots (or partial plots) as objects 
+
+```{r, eval = FALSE}
+# save basis of plot as an object called "p"
+p <- ggplot(data = example_data, aes(x = x_variable, y = y_variable))
+
+# add a geometric object (points) and display the plot
+p + geom_point()
+
+# add a different geometric object (line) and display the plot
+p + geom_line()
+```
+
+. . .
+
+
+* Quickly create separate plots for each value of a factor variable using 
+facet_grid or facet_wrap
+
+. . .
+
+*Base R figures are still a good option!*
+
+::: notes
+While today we will be focusing on ggpplot, base R figures are also very flexible and can be an equally good option when deciding on how to create visualizations in R. 
+:::
+
+## Data Types and Visualizations in R
+
+Option 1:  Work in the cloud: 
+<https://posit.cloud/content/6126628>
+
+Option 2:  Work on your computer:
+<https://github.com/arcus/education_r_environment>
+
+::: notes
+Time to start coding! By far the best way to learn R is to practice, so
+work through this code yourself as you follow along.
+
+The first link will take you to Posit Cloud, which gives you a way to work
+with the code right in your browser without having to install anything
+on your machine. You will need to create a free account if you don't
+already have one. I'll click that link now so you can see what it looks
+like. It will take a few minutes to load.
+
+You can also get all of the code for this talk directly from our GitHub
+and download it to work on your own machine. If you want to go this
+route, go to our GitHub repo and then find this green "Code" button. If
+you click that you'll see you have several options, one of which is
+downloading a zip file -- click that and it will download all the files
+you need for this talk. Once it's done downloading, double click it to
+unzip the file. If you're comfortable using git, you can also clone the
+repo, or fork it if you'd like a personal copy. And if you don't know
+what cloning and forking are, no worries! Just use the zip file.
+:::
+
+## The packages we'll be using today
+
+![](https://www.tidyverse.org/images/hex-tidyverse.png){.absolute
+top="200" left="0" width="300" fig-alt="tidyverse hex sticker logo."}
+![](https://higgi13425.github.io/medicaldata/logo.png){.absolute
+top="200" left="350" width="300"
+fig-alt="medicaldata hex sticker logo."}
+![](https://ggplot2.tidyverse.org/logo.png){.absolute
+top="200" left="700" width="300" fig-alt="ggplot2 hex sticker logo."}
+
+. . .
+
+
+Note: ggplot2 is actually part of the tidyverse core set of packages
+
+::: notes
+First, we need to load the `tidyverse` packages, since we'll be using
+several functions that come in the `tidyverse`. We'll also load the
+`medicaldata` package, which includes several publicly available data
+sets with medical data. And we'll use the `ggplot2` package for
+creating data visualizations.
+
+A quick note that the ggplot2 package is actually part of the tidyverse so we don't technically need to install it or load it separately. However, it can be installed and loaded separately from the tidyverse. 
+:::
+
+## {{< fa book-open >}} Learn more
+
+There's a lot of helpful information (including examples and tutorials)
+on the package websites for each of the packages we'll be using:
+
+-   [tidyverse](https://www.tidyverse.org/)
+-   [medicaldata](https://higgi13425.github.io/medicaldata/)
+-   [ggplot2](https://ggplot2.tidyverse.org/)
+
+::: notes
+These packages all have excellent websites available with lots of great
+tutorials and such, so definitely go back and look at those websites if
+you want to learn more.
+
+I'll also pause here for a moment to invite anyone that is having
+trouble getting access to the code, either with that Posit Cloud link or
+by downloading the files, to let us know in the chat. If you have the
+code pulled up and ready to go, please "thumbs up" the comment in the chat 
+to let us know you're ready.
+:::
+
+## Load packages
+
+Only if needed:
+
+```{r eval=FALSE}
+install.packages(c("tidyverse", "medicaldata", "ggplot2"))
+```
+
+<br> Each R session:
+
+```{r}
+library(tidyverse)
+library(medicaldata) 
+library(ggplot2)
+```
+
+::: notes
+If you're running this on your own computer rather than in the cloud
+instance we set up, you may need to run `install.packages` first if you
+haven't ever used these packages before. If you're working in the cloud,
+then all three packages have already been installed for you.
+
+Either way, the library commands here are written out for you in the
+first chunk of the file `data_types_and_viz_exercises.rmd`. Go ahead and open
+that file now, and click the green arrow to run those three lines.
+:::
+
+## The data
+
+In the console or in the `data_types_and_viz_exercises.rmd` file, run the following command:
+
+```{r}
+#| output-location: fragment
+head(covid_testing)
+```
+
+::: notes
+This command is also written out for you in the
+`data_types_and_viz_exercises.rmd` file, in the next code chunk.
+
+Let's take a look at the data. \[click\]
+
+You should see the first six rows of the covid testing data frame,
+which look like this.
+
+Note that this is one of the example datasets that comes built-in when
+you install the `medicaldata` package, so it's already available to you
+without you having to read it in or download anything.
+
+For those of you that have worked in R before, you know importing data
+is a whole thing, so we're definitely skipping over a potentially tricky
+bit by using built-in data, but we only have so much time today. 
+:::
+
+## About these data
+
+To learn more about this dataset:
+
+```{r eval=FALSE}
+?covid_testing
+```
+
+. . .
+
+From the help documentation:
+
+> This data set is from Amrom E. Obstfeld, who de-identified data on COVID-19
+> testing during 2020 at CHOP (Children's Hospital of Pennsylvania). 
+> This data set contains data concerning testing for SARS-CoV2 via PCR as 
+> well as associated metadata. 
+> These data have been anonymized, time-shifted, and permuted.
+
+::: notes
+To learn more about the dataset from the help documentation, we can type the command shown here
+:::
+
+## {{< fa book-open >}} Learn more
+
+-   To learn more about the covid data and the study behind
+    it, check out [this link](https://htmlpreview.github.io/?https://github.com/higgi13425/medicaldata/blob/master/man/description_docs/covid_desc.html).
+-   To learn more about the `medicaldata` R package these data are
+    published in, see the [`medicaldata` package
+    website](https://higgi13425.github.io/medicaldata/) -- and note that
+    the maintainers are always looking for more data contributions!
+
+## {{< fa rocket >}} Coding Challenge 1:
+
+::: r-fit-text
+Your turn!
+
+Look in the `data_types_and_viz_exercises.rmd` file to find your first coding
+challenge.
+:::
+
+```{r echo=FALSE}
+countdown(minutes = 2, seconds = 00)
+```
+
+::: notes
+We'll just work on this for a couple minutes and if you don't finish
+during that time, no problem, just pause wherever you are. Solution files are available and, if we have time at the end, we'll review the solution together.
+
+:::
+
+## Quick aside: using `str()`
+
+We can also use `str()` on the entire covid_testing dataset all at once:
+
+```{r, eval = TRUE}
+str(covid_testing)
+```
+
+<br> 
+
+::: notes
+You should see a record for each of the 17 variables in the data, with a set of summary statistics printed under each. 
+
+You can see that this dataset has a lot of character variables, for which many R functions, like summary(), don't provide summary statistics. We might want to consider converting some of these, like gender, to factors, in order to get more helpful summary information when doing data analysis. However, that isn't the focus of today's presentation so we will leave the dataset as is for now. 
+:::
+
+## ggplot2 for Visualizations
+
+## Example 1: Scatterplot (single color)
+
+```{r}
+#| output-location: fragment
+baseplot <- ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result # y-axis variable
+                             ))
+baseplot
+```
+
+::: notes
+We'll start with a simple scatterplot to demonstrate some of the aspects of ggplot. The primary inputs for a ggplot figure are shown here.
+
+If we try to print the ggplot object with only data and mapping specified, you can see that the axes are populated but no visualization is generated. 
+
+:::
+
+## Example 1: Scatterplot (single color)
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|1|2|"
+baseplot + 
+  geom_point() # adds the points to the scatterplot
+```
+
+Click [here](https://r-graph-gallery.com/ggplot2-package.html) for the full list of geom_ options
+
+::: notes
+In order to generate a visualization, we'll need to specify another layer in our ggplot. For example, if we want to create a scatterplot we would use a geom_point layer to add data points. In addition to geom_point, there are many other options including geom_line (line graph) and geom_histogram (histogram). A full list of geom_ options and examples is available at this link. Depending on your R settings, you may see a warning message when running this bit of code which says "Removed 209 rows containing missing values or values outside the scale range." This is because 209 individuals are missing values for the ct_result variable on the y axis. 
+:::
+
+## Changing the color of the points
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|3|"
+baseplot + 
+  geom_point(  # adds the points to the scatterplot
+    color = "red" # sets the color of the points to "red"
+    )
+```
+
+::: notes
+GGplot is very customizable. Each of the geom_ layers has several argument to customize colors, sizes, and shapes. In this example, we use the color argument to set all of the points to red. 
+:::
+
+## Example 2: Scatterplot (color by variable)
+
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|5|"
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = drive_thru_ind # color variable
+                             )
+       ) + 
+  geom_point() # adds the points to the scatterplot
+```
+
+
+. . .
+
+```{r}
+table(covid_testing$drive_thru_ind)
+```
+
+. . .
+
+```{r}
+str(covid_testing$drive_thru_ind)
+```
+
+::: notes
+Instead of having all of points in a single color, we may want to color the points by a different variable in the dataset. One way to do this is to add a color argument to the first section of ggplot code. This will result in points colored by drive_thru_ind. [click]
+
+You may have noticed that drive_thru_ind is a binary variable which only takes on two values: 0 or 1. However, the legend in our scatterplot represents drive_thru_ind on a continuous 0 to 1 scale, rather than binary. [click]
+
+This is because drive_thru_ind is coded as a numeric variable in our dataset.
+:::
+
+## Converting drive_thru_ind to a factor
+
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|5|"
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = as.factor(drive_thru_ind) # color variable
+                             )
+       ) + 
+  geom_point() # adds the points to the scatterplot
+```
+
+::: notes
+Since drive_thru_ind can only take on two values, it may be better to treat this variable as a factor (rather than numeric). This code shows one way to quickly do this within the ggplot function. Alternatively, we could change the data type in the original dataset, but this is a quick change that will only impact the plot itself. [click]
+
+Now we can see that the legend is updated to only show two discrete values, 0 and 1.
+
+:::
+
+## Changing the color of the points
+
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|9-10|"
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = as.factor(drive_thru_ind) # color variable
+                             )
+       ) + 
+  geom_point() + # adds the points to the scatterplot
+  scale_color_manual(values = c("0" = 'blue', # sets colors for each level
+                                "1" = 'red'))
+```
+
+::: notes
+Next, we'll talk about changing some of the aesthetic aspects of the plot. For example, we may want to specify the colors for the points. This can be done by adding the scale_color_manual layer to the ggplot code. Here, we specify that 0's should colored blue while 1's should be colored red. [click] 
+
+In addition, you might find that the default axis labels and default legend title "as.factor()" are not ideal. We can change these in the next slide.  
+:::
+
+## Adding plot titles and labels
+
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|11-14|"
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = as.factor(drive_thru_ind)
+                             )
+       ) + 
+  geom_point() + 
+  scale_color_manual(values = c("0" = 'blue', # sets colors for each level
+                                "1" = 'red')) + 
+  ggtitle("CT Results by Pandemic Day") + # adds title to plot
+  xlab("Pandemic Day") + # changes x-axis label
+  ylab("CT Result") + # changes y-axis label 
+  labs(color = "Drive Thru Indicator") # changes legend label
+```
+
+::: notes
+To make these changes, and add a title to our figure, we can add several other ggplot options to our code to specify title, axis labels, and the legend label. [click]
+
+As I mentioned earlier, ggplot has a lot of custom options. For example, we may want the title to be in the center of the plot or we may want to use another theme/style for our figure. We can change these on the next slide.
+
+:::
+
+## Changing plot placement and theme 
+
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|15-17|"
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = as.factor(drive_thru_ind)
+                             )
+       ) + 
+  geom_point() + 
+  scale_color_manual(values = c("0" = 'blue', # sets colors for each level
+                                "1" = 'red')) + 
+  ggtitle("CT Results by Pandemic Day") + # adds title to plot
+  xlab("Pandemic Day") + # changes x-axis label
+  ylab("CT Result") + # changes y-axis label 
+  labs(color = "Drive Thru Indicator") + # changes legend label
+  theme_bw() + # changes plot theme to black and white
+  theme(plot.title = element_text(hjust = 0.5), # centers plot title
+        legend.position="bottom") # moves legend to bottom 
+```
+
+::: notes
+There are countless theme options available within ggplot. Today, we are just going to look at one theme, the black and white theme, by adding theme_bw() to our code. We can also add additional theme options like centering the plot title and moving the legend to the bottom. 
+:::
+
+## Using facet_wrap
+
+Suppose we are interested in separating the points in the previous scatterplot based on patient gender 
+
+. . .
+
+ggplot's `facet_wrap()` function provides a easy way to do this: 
+
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|18|"
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = as.factor(drive_thru_ind)
+                             )
+       ) + 
+  geom_point() + 
+  scale_color_manual(values = c("0" = 'blue', # sets colors for each level
+                                "1" = 'red')) + 
+  ggtitle("CT Results by Pandemic Day") + # adds title to plot
+  xlab("Pandemic Day") + # changes x-axis label
+  ylab("CT Result") + # changes y-axis label 
+  labs(color = "Drive Thru Indicator") + # changes legend label
+  theme_bw() + # changes plot theme to black and white
+  theme(plot.title = element_text(hjust = 0.5), # centers plot title
+        legend.position="bottom") +  # moves legend to bottom 
+  facet_wrap(~gender)
+```
+
+
+
+## {{< fa book-open >}} Learn more
+
+-   In addition to `facet_wrap()`, there is a similar option called `facet_grid()`
+
+-   To learn more about faceting, including the differences between these two functions, check out [this link](https://ggplot2.tidyverse.org/articles/faq-faceting.html)
+
+-   To learn more about the different ggplot themes that are available, check out [this link](https://ggplot2.tidyverse.org/reference/ggtheme.html)
+
+## {{< fa rocket >}} Coding Challenge 2:
+
+::: r-fit-text
+Your turn!
+
+Look in the `data_types_and_viz_exercises.rmd` file to find your second coding
+challenge.
+:::
+
+```{r echo=FALSE}
+countdown(minutes = 3, seconds = 00)
+```
+
+::: notes
+We'll just work on this for a couple minutes and if you don't finish
+during that time, no problem, just pause wherever you are.
+:::
+
+## Aside: "color" vs. "fill"
+
+<br> 
+
+`scale_color_manual()`: used to color lines and points 
+
+
+`scale_fill_manual()`: used to color fillable objects (e.g. histograms)
+
+<br> 
+
+**Note:** We will also need to modify the code for the legend title from
+`labs(color = "Label Text")` to `labs(fill = "Label Text")` 
+
+::: notes
+So far, we have been using scale_color_manual to specify colors for the scatterplot points. This is also the option we would use if we were making a line graph, and interested in specifying line color. However, ggplot has another option, called scale_fill_manual, which is used to color fillable objects like histograms. When we swich from "color" to "fill" we will also have to slightly modify our labs() function as noted here. 
+
+This can be a little confusing - but next we will walk through another example that uses the fill options.
+:::
+
+## Example 3: Histogram (color by variable)
+
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|3-4|6-8|"
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             fill = gender) # note: using "fill" not "color"
+       ) + 
+  geom_histogram(# adds the histograms to the graph
+    bins = 10, # number of bins 
+    color = "black"# color of bin outline 
+    ) 
+```
+
+::: notes
+In this next example, we are making a histogram instead of a scatterplot, of the number of patients by pandemic day. Instead of specifying the color option, we now need to use the fill option. To build the histogram, we use the geom_histogram option.
+:::
+
+## Changing the color of the bars
+
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|10-11|"
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             fill = gender) # note: using "fill" not "color"
+       ) + 
+  geom_histogram(# adds the histograms to the graph
+    bins = 10, # number of bins 
+    color = "black"# color of bin outline 
+    ) +
+  scale_fill_manual(values = c("female" = 'lightgrey', # sets colors for each level
+                                "male" = 'darkgrey'))
+  
+```
+
+::: notes
+To change the color of the histogram bars, we need to use the scale_fill_manual() option instead of scale_color_manual()
+:::
+
+## Modifying plot titles, labels, and theme
+
+```{r}
+#| output-location: fragment
+#| code-line-numbers: "|12-18|"
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             fill = gender) # note: using "fill" not "color"
+       ) + 
+  geom_histogram(# adds the histograms to the graph
+    bins = 10, # number of bins 
+    color = "black"# color of bin outline 
+    ) +
+  scale_fill_manual(values = c("female" = 'lightgrey', # sets colors for each level
+                                "male" = 'darkgrey')) + 
+  ggtitle("Number of Patients by Pandemic Day") + # adds title to plot
+  xlab("Pandemic Day") + # changes x-axis label
+  ylab("Number of Patients") + # changes y-axis label 
+  labs(fill = "Patient Gender") + # changes legend label (note this says "fill")
+  theme_bw() + # changes plot theme to black and white
+  theme(plot.title = element_text(hjust = 0.5), # centers plot title
+        legend.position="bottom") # moves legend to bottom 
+```
+
+::: notes
+We can also customize the output using many of the same options from the previous example. 
+:::
+
+
+## Exporting a Visualization
+
+The `ggsave()` function is a convenient option for exporting a ggplot object: 
+
+. . .
+
+
+```{r, eval = FALSE}
+ggsave(filename = "Figure_Name.png", 
+       plot = last_plot(),
+       path = NULL) # Will default to your working directory 
+```
+
+. . .
+
+<br> 
+
+There are lots of options regarding plot specifications like dimensions 
+and resolution - learn more [here!](https://ggplot2.tidyverse.org/reference/ggsave.html)
+
+::: notes
+Finally, you will likely need to export any figure you make so that it can be included in a presentation or publication. The ggsave function is a convenient and flexible way to do this. You can run this code right after a ggplot figure is created.
+:::
+
+## {{< fa rocket >}} Coding Challenge 3: Homework! 
+
+Try to recreate this figure: 
+
+![](media/Data_Types_and_Viz_Coding_Challenge_3_Figure.png){.absolute
+top="220" left="0" width="800" fig-alt="examplefigure."}
+
+## {{< fa rocket >}} Coding Challenge 3: Homework! 
+
+Don't struggle in silence!
+
+::: incremental
+-   Ask questions and share tips on the CHOPR slack
+-   Come to [R Office Hours](https://bit.ly/chopROfficeHours) to show
+    off your progress and get help
+-   There's a solution available in `data_types_and_viz_solutions.Rmd`, but
+    you'll learn a lot more if you try it yourself first
+:::
+
+## What we covered
+
+::: incremental
+-   A review of the data types that are available in R
+-   Converting variables from one data type to another
+-   Creating flexible scatterplots and histograms of data using ggplot
+-   Exporting ggplot figures 
+:::
+
+::: notes
+That's a lot! So don't expect to remember everything --- you have the
+slides and all the example code to go back to. My goal for you all is
+for you to come away with a general impression of data types and how to go about
+creating visualizations in R, and to know where there's some code for you
+to copy as a starting place.
+:::
+
+# Shameless Plug
+
+Have funding for your research project and interested in working with an experienced biostatistician or data scientist to analyze your data?
+<br>
+<br>
+
+. . .
+
+The Data Science and Biostatistics Unit (DSBU) is DBHi’s and CHOP Research Institute’s centralized service unit for biostatistics and data science analysis support. Reach out to Alexis Zavez (zaveza\@chop.edu) or Keith Baxelbaum (baxelbaumk\@chop.edu) for more info! 
+
+# Thank you!
+
+
