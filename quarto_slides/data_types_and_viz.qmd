@@ -371,11 +371,9 @@ While today we will be focusing on ggpplot, base R figures are also very flexibl
 
 ## Data Types and Visualizations in R
 
-Option 1:  Work in the cloud: 
-<https://posit.cloud/content/6126628>
+Option 1: Work in the cloud: [https://posit.cloud/content/7522885](https://posit.cloud/content/7522885)
 
-Option 2:  Work on your computer:
-<https://github.com/arcus/education_r_environment>
+Option 2: Work on your computer: [https://github.com/arcus/r102](https://github.com/arcus/r102)
 
 ::: notes
 Time to start coding! By far the best way to learn R is to practice, so
