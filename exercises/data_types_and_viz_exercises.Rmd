@@ -135,7 +135,7 @@ ggplot(data = covid_testing, # dataset to use for plot
                    mapping = aes( # list of aesthetic mappings to use for plot
                              x = pan_day, # x-axis variable
                              y = ct_result, # y-axis variable
-                             color = as.factor(drive_thru_ind))) # color variable + 
+                             color = as.factor(drive_thru_ind)))+ # color variable 
   geom_point() + 
   scale_color_manual(values = c("0" = 'blue', # sets colors for each level
                                 "1" = 'red')) + 
@@ -152,7 +152,7 @@ ggplot(data = covid_testing, # dataset to use for plot
                    mapping = aes( # list of aesthetic mappings to use for plot
                              x = pan_day, # x-axis variable
                              y = ct_result, # y-axis variable
-                             color = as.factor(drive_thru_ind))) # color variable + 
+                             color = as.factor(drive_thru_ind))) + # color variable
   geom_point() + 
   scale_color_manual(values = c("0" = 'blue', # sets colors for each level
                                 "1" = 'red')) + 
