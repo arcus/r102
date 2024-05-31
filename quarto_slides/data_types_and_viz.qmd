@@ -50,9 +50,11 @@ We're looking for more volunteers to lead appointments! Get in touch: hartmanr1@
 
 ::: notes
 We have regular office hours appointments available to get R help. 
-We're offering two kinds of appointments: one-on-one, if you want individual help, or open appointments that are more of a community conversation about whatever R questions people bring up that day. The open appointments can be particularly valuable to attend if you want to hear other people's questions about R but maybe don't have a project of your own that you're troubleshooting at the moment. 
+We're offering two kinds of appointments: one-on-one, if you want individual help, or open appointments that are more of a community conversation about whatever R questions people bring up that day. 
+
 We set up a calendar online where you can book an appointment. 
-[click] And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
+
+And if you like this idea and you're an experienced R user yourself, consider joining us to offer appointments! It's just whatever times work for you, so we can set up a schedule around whatever other work you've got going on. Reach out to me via email or slack for details.  
 :::
 
 ## Recap: Previous R102 Sessions
@@ -90,15 +92,7 @@ and recordings there as well as they become available.
 # R 102: <br> Data Types and Visualizations 
 
 ::: notes
-Okay! So this talk is a quick dip into some 102-level R. In other words,
-if you've had a little exposure to R before, such as through an Intro to
-R for Clinical Data workshop, this is hopefully the right level for you
-now. If you're completely brand new to R, first of all: Welcome! You may
-find it tricky to actively follow along with the code today since I'm
-going to skim over some of the initial steps, but go ahead and give it a
-try, or just listen and watch if that feels more like the right speed.
-
-Our topic is Data Types and Visualizations in R. Data visualizations are a key component of any exploratory data analysis. We'll also discuss how different variable types determine the visualizations that are possible.
+Our topic today is Data Types and Visualizations in R. Data visualizations are a key component of any exploratory data analysis. We'll also discuss how different variable types determine the visualizations that are possible.
 
 Please feel free to put any questions in the chat - we have a few additional team members who will try to answer your questions during the talk.
 If there is extra time, we can also stop and talk about
@@ -594,7 +588,11 @@ baseplot +
 Click [here](https://r-graph-gallery.com/ggplot2-package.html) for the full list of geom_ options
 
 ::: notes
-In order to generate a visualization, we'll need to specify another layer in our ggplot. For example, if we want to create a scatterplot we would use a geom_point layer to add data points. In addition to geom_point, there are many other options including geom_line (line graph) and geom_histogram (histogram). A full list of geom_ options and examples is available at this link. Depending on your R settings, you may see a warning message when running this bit of code which says "Removed 209 rows containing missing values or values outside the scale range." This is because 209 individuals are missing values for the ct_result variable on the y axis. 
+In order to generate a visualization, we'll need to specify another layer in our ggplot. For example, if we want to create a scatterplot we would use a geom_point layer to add data points. [click]
+
+In addition to geom_point, there are many other options including geom_line (line graph) and geom_histogram (histogram). A full list of geom_ options and examples is available at this link. 
+
+Note: Depending on your R settings, you may see a warning message when running this bit of code which says "Removed 209 rows containing missing values or values outside the scale range." This is because 209 individuals are missing values for the ct_result variable on the y axis. 
 :::
 
 ## Changing the color of the points
@@ -608,7 +606,7 @@ baseplot +
 ```
 
 ::: notes
-GGplot is very customizable. Each of the geom_ layers has several argument to customize colors, sizes, and shapes. In this example, we use the color argument to set all of the points to red. 
+GGplot is very customizable. Each of the geom_ layers has several arguments to customize colors, sizes, and shapes. In this example, we use the color argument to set all of the points to red. 
 :::
 
 ## Example 2: Scatterplot (color by variable)
@@ -640,9 +638,9 @@ str(covid_testing$drive_thru_ind)
 ```
 
 ::: notes
-Instead of having all of points in a single color, we may want to color the points by a different variable in the dataset. One way to do this is to add a color argument to the first section of ggplot code. This will result in points colored by drive_thru_ind. [click]
+Instead of having all of points in a single color, we may want to color the points by a different variable in the dataset. One way to do this is to add a color argument to the first section of ggplot code.[click] This will result in points colored by drive_thru_ind. [click]
 
-You may have noticed that drive_thru_ind is a binary variable which only takes on two values: 0 or 1. However, the legend in our scatterplot represents drive_thru_ind on a continuous 0 to 1 scale, rather than binary. [click]
+You may have noticed that drive_thru_ind is a binary variable which only takes on two values: 0 or 1. [click] However, the legend in our scatterplot represents drive_thru_ind on a continuous 0 to 1 scale, rather than binary. [click]
 
 This is because drive_thru_ind is coded as a numeric variable in our dataset.
 :::
@@ -687,7 +685,7 @@ ggplot(data = covid_testing, # dataset to use for plot
 ```
 
 ::: notes
-Next, we'll talk about changing some of the aesthetic aspects of the plot. For example, we may want to specify the colors for the points. This can be done by adding the scale_color_manual layer to the ggplot code. Here, we specify that 0's should colored blue while 1's should be colored red. [click] 
+Next, we'll talk about changing some of the aesthetic aspects of the plot. For example, we may want to specify the colors for the points. This can be done by adding the scale_color_manual layer to the ggplot code.[click] Here, we specify that 0's should colored blue while 1's should be colored red. [click] 
 
 In addition, you might find that the default axis labels and default legend title "as.factor()" are not ideal. We can change these in the next slide.  
 :::
@@ -716,6 +714,7 @@ ggplot(data = covid_testing, # dataset to use for plot
 ::: notes
 To make these changes, and add a title to our figure, we can add several other ggplot options to our code to specify title, axis labels, and the legend label. [click]
 
+[click]
 As I mentioned earlier, ggplot has a lot of custom options. For example, we may want the title to be in the center of the plot or we may want to use another theme/style for our figure. We can change these on the next slide.
 
 :::
@@ -745,7 +744,8 @@ ggplot(data = covid_testing, # dataset to use for plot
 ```
 
 ::: notes
-There are countless theme options available within ggplot. Today, we are just going to look at one theme, the black and white theme, by adding theme_bw() to our code. We can also add additional theme options like centering the plot title and moving the legend to the bottom. 
+There are several theme options available within ggplot. Today, we are just going to look at one theme, the black and white theme, by adding theme_bw() to our code.[click] 
+We can also add additional theme options like centering the plot title and moving the legend to the bottom. 
 :::
 
 ## Using facet_wrap
@@ -822,16 +822,18 @@ during that time, no problem, just pause wherever you are.
 `labs(color = "Label Text")` to `labs(fill = "Label Text")` 
 
 ::: notes
-So far, we have been using scale_color_manual to specify colors for the scatterplot points. This is also the option we would use if we were making a line graph, and interested in specifying line color. However, ggplot has another option, called scale_fill_manual, which is used to color fillable objects like histograms. When we swich from "color" to "fill" we will also have to slightly modify our labs() function as noted here. 
+So far, we have been using scale_color_manual to specify colors for the scatterplot points. This is also the option we would use if we were making a line graph, and interested in specifying line color. However, ggplot has another option, called scale_fill_manual, which is used to color fillable objects like histograms. 
 
-This can be a little confusing - but next we will walk through another example that uses the fill options.
+It's important to note that when we swich from "color" to "fill" we will also have to slightly modify our code for the legend as noted here. 
+
+This can be a little confusing - so next we will walk through an example that uses the fill options.
 :::
 
 ## Example 3: Histogram (color by variable)
 
 ```{r}
 #| output-location: fragment
-#| code-line-numbers: "|3-4|6-8|"
+#| code-line-numbers: "|4|6-8|"
 ggplot(data = covid_testing, # dataset to use for plot
                    mapping = aes( # list of aesthetic mappings to use for plot
                              x = pan_day, # x-axis variable
@@ -844,7 +846,7 @@ ggplot(data = covid_testing, # dataset to use for plot
 ```
 
 ::: notes
-In this next example, we are making a histogram instead of a scatterplot, of the number of patients by pandemic day. Instead of specifying the color option, we now need to use the fill option. To build the histogram, we use the geom_histogram option.
+In this next example, we are making a histogram instead of a scatterplot, representing the number of patients by pandemic day. We'd like to color the bars of the histogram by patient genderr. Instead of specifying the color option, we now need to use the fill option.[click] To build the histogram, we use the geom_histogram layer.
 :::
 
 ## Changing the color of the bars
@@ -921,7 +923,7 @@ There are lots of options regarding plot specifications like dimensions
 and resolution - learn more [here!](https://ggplot2.tidyverse.org/reference/ggsave.html)
 
 ::: notes
-Finally, you will likely need to export any figure you make so that it can be included in a presentation or publication. The ggsave function is a convenient and flexible way to do this. You can run this code right after a ggplot figure is created.
+Finally, you will likely need to export any figure you make so that it can be included in a presentation or publication. The ggsave function is a convenient and flexible way to do this. You can run this code right after a ggplot figure is created and a figure will be exported to the directory of your choice.
 :::
 
 ## {{< fa rocket >}} Coding Challenge 3: Homework! 
@@ -954,10 +956,7 @@ Don't struggle in silence!
 
 ::: notes
 That's a lot! So don't expect to remember everything --- you have the
-slides and all the example code to go back to. My goal for you all is
-for you to come away with a general impression of data types and how to go about
-creating visualizations in R, and to know where there's some code for you
-to copy as a starting place.
+slides and all the example code to go back to. But hopefully you now have a general impression of data types and how to go about creating ggplot visualizations in R. In addition, you now have some code to copy and use as a starting place.
 :::
 
 # Shameless Plug
