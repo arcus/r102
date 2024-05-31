@@ -38,7 +38,7 @@ r102 <- r102_raw |>
 r102 |> 
   dplyr::filter(select_workshops___jun == 1, 
                 stop_emails___stop != 1,
-                date > lubridate::ymd_hms("2024-05-21 16:30:00")) |> 
+                date > lubridate::ymd_hms("2024-05-31 08:30:00")) |> 
   dplyr::pull(email) |> 
   unique() |> 
   paste0(collapse = "; ")
