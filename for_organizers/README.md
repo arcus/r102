@@ -5,7 +5,7 @@ Still, feel free to look around and learn... or get this workshop off the ground
 ## Our posit.cloud project
 
 There is a posit.cloud project for this repository, created on Rose Hartman's account (google login).
-Updates made in this repository are **not** automatically refelcted in the posit.cloud project. 
+Updates made in this repository are **not** automatically reflected in the posit.cloud project. 
 To update the project, Rose needs to log in as the owner, and then go to the git panel in RStudio and pull the recent changes. 
 
 ## Our slide decks on QuartoPub
