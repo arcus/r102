@@ -1,0 +1,290 @@
+---
+title: "Data Types and Visualizations"
+output: github_document
+---
+
+## Load packages
+
+```{r}
+library(tidyverse)
+library(medicaldata) 
+library(ggplot2)
+```
+
+## The data
+
+```{r}
+head(covid_testing)
+```
+
+```{r}
+# To learn more about this dataset
+?covid_testing
+```
+
+## CODING CHALLENGE 1
+
+**Your turn!**
+
+Identify the variable types for the following variables:
+1. Subject ID, 
+2. Age,
+3. Gender,
+4. Whether the specimen was collected via a drive-thru site, 
+5. Cycle at which threshold reached during PCR 
+
+
+If you're not sure what the column names are for those variables, check the [code book for this dataset](https://htmlpreview.github.io/?https://github.com/higgi13425/medicaldata/blob/master/man/codebooks/covid_testing_codebook.html))
+
+```{r}
+# Subject ID
+
+# Age
+
+# Gender
+
+# Whether the specimen was collected via a drive-thru site
+
+# Cycle at which threshold reached during PCR
+
+```
+
+
+** ---------------------------------------------- **
+** STOP HERE!  Go back to the module to continue. **
+** ---------------------------------------------- **
+
+## Using `str()`
+
+Now use `str()` to get the variable type for all of the variables in the dataset
+
+```{r}
+str(covid_testing)
+```
+
+## Example 1: Scatterplot (single color)
+
+```{r}
+baseplot <- ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result # y-axis variable
+                             ))
+baseplot
+```
+
+
+```{r}
+baseplot + 
+  geom_point() # adds the points to the scatterplot
+```
+
+### Changing the color of the points
+```{r}
+baseplot + 
+  geom_point(  # adds the points to the scatterplot
+    color = "red" # sets the color of the points to "red"
+    )
+```
+
+## Example 2: Scatterplot (color by variable)
+
+```{r}
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = drive_thru_ind # color variable
+                             )
+       ) + 
+  geom_point() # adds the points to the scatterplot
+```
+
+### Converting drive_thru_ind to a factor
+
+```{r}
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = as.factor(drive_thru_ind) # color variable
+                             )
+       ) + 
+  geom_point() # adds the points to the scatterplot
+```
+
+### Changing the color of the points
+
+```{r}
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = as.factor(drive_thru_ind) # color variable
+                             )
+       ) + 
+  geom_point() + # adds the points to the scatterplot
+  scale_color_manual(values = c("0" = 'blue', # sets colors for each level
+                                "1" = 'red'))
+```
+
+### Adding plot titles and labels
+
+```{r}
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = as.factor(drive_thru_ind)))+ # color variable 
+  geom_point() + 
+  scale_color_manual(values = c("0" = 'blue', # sets colors for each level
+                                "1" = 'red')) + 
+  ggtitle("CT Results by Pandemic Day") + # adds title to plot
+  xlab("Pandemic Day") + # changes x-axis label
+  ylab("CT Result") + # changes y-axis label
+  labs(color = "Drive Thru Indicator") # changes legend label
+```
+
+### Changing plot placement and theme 
+
+```{r}
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = as.factor(drive_thru_ind))) + # color variable
+  geom_point() + 
+  scale_color_manual(values = c("0" = 'blue', # sets colors for each level
+                                "1" = 'red')) + 
+  ggtitle("CT Results by Pandemic Day") + # adds title to plot
+  xlab("Pandemic Day") + # changes x-axis label
+  ylab("CT Result") + # changes y-axis label 
+  labs(color = "Drive Thru Indicator") +  # changes legend label
+  theme_bw() + # changes plot theme to black and white
+  theme(plot.title = element_text(hjust = 0.5), # centers plot title
+        legend.position="bottom") # moves legend to bottom 
+```
+
+### Using facet_wrap
+
+```{r}
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             y = ct_result, # y-axis variable
+                             color = as.factor(drive_thru_ind) # color variable
+                             )
+       ) + 
+  geom_point() + 
+  scale_color_manual(values = c("0" = 'blue', # sets colors for each level
+                                "1" = 'red')) + 
+  ggtitle("CT Results by Pandemic Day") + # adds title to plot
+  xlab("Pandemic Day") + # changes x-axis label
+  ylab("CT Result") + # changes y-axis label 
+  labs(color = "Drive Thru Indicator") + # changes legend label
+  theme_bw() + # changes plot theme to black and white
+  theme(plot.title = element_text(hjust = 0.5), # centers plot title
+        legend.position="bottom") +  # moves legend to bottom 
+  facet_wrap(~gender)
+```
+
+## CODING CHALLENGE 2
+
+**Your turn!** 
+
+Create a scatterplot with "Time elapsed between receive time and verification time" on the y-axis and "Pandemic Day" on the x-axis. 
+
+Additionally,
+1. Color the points on the graph by demographic group. 
+2. Add appropriate labels to the title, x-axis, y-axis, and legend.
+3. Change the legend colors to "red","orange","green","blue", and "purple."
+4. Put the legend on the left-hand side of the graph
+
+Reminder: Codebook for the covid_testing dataset is available [here](https://htmlpreview.github.io/?https://github.com/higgi13425/medicaldata/blob/master/man/codebooks/covid_testing_codebook.html)
+
+```{r}
+
+
+
+```
+
+** ---------------------------------------------- **
+** STOP HERE!  Go back to the module to continue. **
+** ---------------------------------------------- **
+
+## Example 3: Histogram (color by variable)
+
+```{r}
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             fill = gender) # note: using "fill" not "color"
+       ) + 
+  geom_histogram(# adds the histograms to the graph
+    bins = 10, # number of bins 
+    color = "black"# color of bin outline 
+    ) 
+```
+
+## Changing the color of the bars
+
+```{r}
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             fill = gender) # note: using "fill" not "color"
+       ) + 
+  geom_histogram(# adds the histograms to the graph
+    bins = 10, # number of bins 
+    color = "black"# color of bin outline 
+    ) +
+  scale_fill_manual(values = c("female" = 'lightgrey', # sets colors for each level
+                                "male" = 'darkgrey'))
+```
+
+## Modifying plot titles, labels, and theme
+
+```{r}
+ggplot(data = covid_testing, # dataset to use for plot
+                   mapping = aes( # list of aesthetic mappings to use for plot
+                             x = pan_day, # x-axis variable
+                             fill = gender) # note: using "fill" not "color"
+       ) + 
+  geom_histogram(# adds the histograms to the graph
+    bins = 10, # number of bins 
+    color = "black"# color of bin outline 
+    ) +
+  scale_fill_manual(values = c("female" = 'lightgrey', # sets colors for each level
+                                "male" = 'darkgrey')) + 
+  ggtitle("Number of Patients by Pandemic Day") + # adds title to plot
+  xlab("Pandemic Day") + # changes x-axis label
+  ylab("Number of Patients") + # changes y-axis label 
+  labs(fill = "Patient Gender") + # changes legend label (note this says "fill")
+  theme_bw() + # changes plot theme to black and white
+  theme(plot.title = element_text(hjust = 0.5), # centers plot title
+        legend.position="bottom") # moves legend to bottom 
+```
+
+## CODING CHALLENGE 3
+
+**Your turn!**
+
+Using the same covid_testing dataset, use ggplot to recreate the "Testing Results by Patient Age" figure in the presentation. 
+
+You can also try saving the figure to a directory of your choice.
+
+Reminder: Codebook for the covid_testing dataset is available [here](https://htmlpreview.github.io/?https://github.com/higgi13425/medicaldata/blob/master/man/codebooks/covid_testing_codebook.html)
+
+```{r}
+
+
+
+
+```
+
+There are lots of examples of things to try here 
+https://r-graph-gallery.com/ggplot2-package.html
+
+** ---------------------------------------------- **
+** THE END!  Thank you for participating!         **
+** ---------------------------------------------- **
