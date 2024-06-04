@@ -51,6 +51,7 @@ Use this form to [register to attend one or more workshop sessions](https://redc
 - **Data Types and Visualizations**
   * Date: 2024-06-03 12pm-1pm ET
   * Follow along with the [Data Types and Visualizations slides](https://rosemhartman.quarto.pub/r102/quarto_slides/data_types_and_viz.html#/title-slide) 
+  * Watch the [recording of the Data Types and Visualizations workshop](https://www.youtube.com/watch?v=NltknJ9u0Cg)
 
 For all of the talks, you can [work hands-on with the code and see solutions in our Posit.cloud project](https://posit.cloud/content/7522885)
 
