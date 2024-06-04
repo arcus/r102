@@ -1,7 +1,7 @@
 R102 Workshop Analysis
 ================
 Rose Hartman
-2024-06-03
+2024-06-04
 
 ``` r
 library(ggplot2)
@@ -116,6 +116,7 @@ r102 <- r102_raw |>
          ggplot2_2
          ) |> 
   # combine data from duplicate entries (people who registered more than once with the same email)
+  # note that we go with the "max" across the duplicates for each field
   group_by(email) |> 
   summarise(
     across(starts_with("attend_"), attend_max),
@@ -237,7 +238,7 @@ ggsave("prepost_03_all.png",
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 309 rows containing non-finite outside the scale range
+    ## Warning: Removed 313 rows containing non-finite outside the scale range
     ## (`stat_count()`).
 
 ![](prepost_03_all.png)
@@ -291,7 +292,7 @@ ggsave("prepost_04_all.png",
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 280 rows containing non-finite outside the scale range
+    ## Warning: Removed 284 rows containing non-finite outside the scale range
     ## (`stat_count()`).
 
 ![](prepost_04_all.png)
@@ -330,7 +331,7 @@ afterward, t(27) = 3.29, p = .003.
 
 202 signups.
 
-25 responses on post-workshop survey.
+26 responses on post-workshop survey.
 
 All available responses at pre and post:
 
@@ -345,7 +346,7 @@ ggsave("prepost_05_all.png",
        height = 4, width = 7, units = "in")
 ```
 
-    ## Warning: Removed 285 rows containing non-finite outside the scale range
+    ## Warning: Removed 288 rows containing non-finite outside the scale range
     ## (`stat_count()`).
 
 ![](prepost_05_all.png)
@@ -378,11 +379,11 @@ may_test <- t.test(r102$tidyr_2, r102$tidyr, paired = TRUE)
 
 We saw significant improvement from pre to post after the Reshaping Data
 with tidyr session, with respondents reporting higher ability afterward,
-t(19) = 2.94, p = .008.
+t(20) = 2.55, p = .019.
 
 ## Data types and viz
 
-225 signups.
+227 signups.
 
 0 responses on post-workshop survey.
 

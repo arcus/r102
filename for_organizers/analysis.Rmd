@@ -99,6 +99,7 @@ r102 <- r102_raw |>
          ggplot2_2
          ) |> 
   # combine data from duplicate entries (people who registered more than once with the same email)
+  # note that we go with the "max" across the duplicates for each field
   group_by(email) |> 
   summarise(
     across(starts_with("attend_"), attend_max),
