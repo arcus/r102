@@ -1,0 +1,338 @@
+---
+title: "Linear Regression in R <br> Annotated Output"
+author: "Rose Hartman"
+institute: "Arcus Education, DBHi"
+date: ""
+---
+
+-   Use keyboard arrow keys to
+    -   advance ( → ) and
+    -   go back ( ← )
+-   Type "s" to see speaker notes
+-   Type "?" to see other keyboard shortcuts
+
+```{r echo = FALSE}
+library(countdown)
+```
+
+## Join the CHOP R User Group
+
+::: {.columns .v-center-container}
+::: {.column width="50%"}
+![](media/chopr.png){fig-alt="CHOPR hex sticker logo" width="100%"}
+:::
+
+::: {.column width="50%"}
+- Friendly help troubleshooting your R code
+- Announcements for upcoming talks, workshops, and conferences
+:::
+:::
+
+Link to join: [https://bit.ly/chopRusers](https://bit.ly/chopRusers)
+
+::: notes
+Just a few announcements before we get started. 
+For anyone here today that isn't already part of the CHOP R User group, I strongly encourage you to join (it is also open to Penn folks). The CHOP R User group has more than 500 members from all departments. This is great place to network with other R users, get help with coding problems, and learn about new packages, webinars, and conferences. We also have semi-regular meetings and workshops, like this one. 
+
+:::
+
+## Come to R Office Hours!
+
+- Set up a meeting to get live help with your R code from our most experienced useRs
+- Office hours appointments can be one-on-one or open to the community
+
+Link to calendar: [https://bit.ly/chopROfficeHours](https://bit.ly/chopROfficeHours)
+
+::: aside
+We're looking for more volunteers to lead appointments! Get in touch: hartmanr1@chop.edu
+:::
+
+::: notes
+We also have regular office hours appointments available to get R help. 
+We set up a calendar online where you can book an appointment. 
+:::
+
+## Coming soon! 
+
+This talk is the latest in a series called **R102: MasteRing the Fundamentals** 
+
+<br>
+
+We don't have a session scheduled for giving this talk live yet, this is just a draft still. 
+
+<br> 
+
+Learn more about this new series, including dates and titles for each session: 
+<br>
+[https://arcus.github.io/r102/](https://arcus.github.io/r102/)
+
+
+::: notes
+Today's talk is part of a series called **R102: MasteRing the Fundamentals**.
+These workshops are intended as a continuation of the popular Intro to R for Clinical Data workshop we offer a few times a year. 
+We're designing these talks with beginners in mind, so if you're trying to figure out how to get started with R, or how to start applying it in your own work, these talks are for you!
+To see the schedule of talks, check out the website for the series. We'll also post links to slides and recordings there as well as they become available.
+::: 
+
+# Linear Regression in R: Annotated Output
+
+::: notes
+Okay! So this talk is a quick dip into some 102-level R. In other words, if you've had a little exposure to R before, such as through an Intro to R for Clinical Data workshop, this is hopefully the right level for you now. 
+If you're completely brand new to R, first of all: Welcome! You may find it tricky to actively follow along with the code today since I'm going to skim over some of the initial steps, but go ahead and give it a try, or just listen and watch if that feels more like the right speed. 
+
+Our topic today is linear regression, also called "ordinary least squares (OLS) regression" or sometimes just "the general linear model (GLM)". 
+When people say "regression" or "regression model" without any qualifier, this is usually what they're talking about.
+It's one of the most widely used statistical models in basically every field and an excellent tool to have at your disposal.
+
+In particular, we're going to dive into some "annotated output"; that means we'll run a regression in R, and then we'll break it down and talk together about each piece of information R spits back at you.
+If you've ever run a model in R yourself, or watched someone do it during a workshop, only to find yourself staring blankly at the output and thinking "wait, what?" then I think you'll find this really helpful. 
+
+If you have questions during the talk, feel free to put them in the chat. We have several very friendly R experts on the call today helping out, so they may be able to chime in and answer your questions, otherwise I can.
+:::
+
+## What we're covering today
+
+::: {.incremental}
+* Stuff
+* NOT other
+:::
+
+## What is linear regression good for?
+
+::: {.incremental}
+
+* A single outcome variable that is **continuous**
+* One or more predictor variables, continuous or categorical
+* The **assumptions** of the general linear model are met -- we'll come back to this
+
+:::
+
+::: notes
+Okay, so when might you want to use a linear regression model?
+[CLICK]
+When you're thinking about which statistical test to use, you're going to need to pay careful attention to which of your variables are *outcomes* vs. *predictors*, and which are *continuous* vs. *categorical*.
+As a quick review, categorical variables are variables that have discrete levels, like "what treatment did the patient receive, drug or placebo" or "which department did this encounter take place in". 
+With categorical variables, there is no meaning to data in between the levels -- there's no such thing as a patient receiving something halfway between drug and placebo, or having an encounter in something a little more than primary care but a little less than oncology. 
+For continuous variables, they're on a scale, and it would be possible to observe data at any point on that scale. 
+So something like birth weight would be continuous -- a baby might be born at 7 lbs, or 7.5 lbs, or 7.05 lbs, those all make sense and any value in between them would also make sense. 
+
+[CLICK]
+
+assumption!!
+
+:::
+
+## {{< fa book-open >}} Learn more
+
+check out [link](url).
+
+::: notes
+
+I've got a few of these "learn more" slides thrown in throughout the presentation. They include links to resources I like for learning more about the topics we're covering. I won't click through to any of these resources now, but you have access to the slides so feel free to go back and review these links later if you like!
+This link here is to ... 
+
+:::
+
+
+## Working with missing values in R
+
+Two options:
+
+1. Work in the cloud: [https://posit.cloud/content/7522885](https://posit.cloud/content/7522885)
+2. Work on your computer: [https://github.com/arcus/r102](https://github.com/arcus/r102)
+
+::: notes
+
+Okay, enough preamble, it's time to start coding! 
+By far the best way to learn R is to practice, so work through this code yourself as you follow along.
+
+This link will take you to Posit Cloud, which gives you a way to work with the code right in your browser without having to install anything on your machine. You will need to create a free account if you don't already have one. I'll click that link now, and log in with a different account than the one I used to create it so you can see what it looks like. It will take a few minutes to load.
+
+You can also get all of the code for this talk directly from our GitHub and download it to work on your own machine. If you want to go this route, go to our GitHub repo and then find this green "Code" button. If click it you'll see you have several options, one of which is downloading a zip file -- click that and it will download all the files you need for this talk. Once it's done downloading, double click it to unzip the file. If you're comfortable using git, you can also clone the repo, or fork it if you'd like a personal copy. And if you don't know what cloning and forking are, no worries! Just use the zip file. 
+
+:::
+
+## {{< fa book-open >}} Learn more
+
+::: {.columns .v-center-container}
+::: {.column width="50%"}
+![](https://www.tidyverse.org/images/hex-tidyverse.png){fig-alt="tidyverse hex sticker logo."}
+:::
+::: {.column width="50%"}
+Learn more about the tidyverse packages on the [tidyverse website](https://www.tidyverse.org/)!
+:::
+:::
+
+::: notes
+First, we need to load the `tidyverse` packages, since we'll be using several functions that come in the `tidyverse`, as well as a built-in dataset that comes with `tidyverse`.
+
+I'll also pause here for a moment to invite anyone that is having trouble getting access to the code, either with that Posit Cloud link or by downloading the files, to let us know in the chat. 
+We've got a couple very friendly R experts on the call, so one of them can help you troubleshoot. 
+If you have the code pulled up and ready to go, please thumbs up the comment I'm putting the chat to let me know you're ready to move on. 
+:::
+
+## Load packages
+
+Only if needed:
+
+```{r eval=FALSE}
+install.packages("tidyverse")
+```
+
+<br>
+Each R session:
+
+```{r}
+library(tidyverse)
+```
+
+<br>
+
+Open the file `annotated_output_lm_exercises.rmd` in the `exercises` folder.
+
+::: notes
+If you're running this on your own computer rather than in the cloud instance we set up, you may need to run `install.packages` first if you haven't ever used the `tidyverse` packages before. If you're working in the cloud, then it's already been installed for you.
+
+Either way, the library command here is written out for you in the first chunk of the file `annotated_output_lm_exercises.rmd`. 
+I'll go ahead and open that file now in my posit cloud instance, and click the green arrow to run that line.
+:::
+
+## The data
+
+In the console or in the exercises rmd file, run the following command:
+
+```{r echo=FALSE}
+# converting this to a plain data frame here because the tibble formatting wasn't working well on the slides
+msleep <- as.data.frame(msleep)
+```
+
+
+```{r}
+#| output-location: fragment
+head(msleep) 
+```
+
+
+::: notes
+This command is also written out for you in the `missing_values_exercises.rmd` file, in the next code chunk.
+
+Let's take a look at the data.
+[CLICK]
+You should see the first six rows of the msleep data frame, which look like this. 
+Note that this is one of the example datasets that comes built-in when you install the `tidyverse` package, so it's already available to you without you having to read it in or download anything.
+
+For those of you that have worked in R before, you know importing data is a whole thing, so we're definitely skipping over a potentially tricky bit by using built-in data, but we only have so much time today and I wanted to be able to put as much time as possible towards actually working with the missing values. So we're just merrily skipping past all the importing and tidying that would normally happen.
+:::
+
+## About these data
+
+To learn more about this dataset:
+
+```{r eval=FALSE}
+?msleep
+```
+
+::: notes
+You can look up help documentation for built-in datasets, just like there's help documentation for functions. 
+
+:::
+
+
+## {{< fa circle-question >}} Troubleshooting
+
+If you make a mistake modifying the data, how can you undo it?
+
+If this were a dataset we read in from an external file (like a .csv), you could just read it in again to get a fresh copy. 
+But how do you get a fresh copy of a built-in dataset? 
+
+. . .
+
+To reset the data to its original state, run `rm(msleep)` in the console. This will delete your current version of the data from R's environment, and you'll just be left with the original clean copy from the `ggplot2` package.
+
+::: notes
+Remember: If you run `rm(msleep)` to reset the data, you'll need to re-run any changes you made to the data that you want to keep, like converting columns to factor above. 
+:::
+
+
+
+## {{< fa rocket >}} Coding Challenge 1
+
+<br>
+
+**Your turn!**
+
+<br>
+
+Look in the `exercises/annotated_output_lm_exercises.rmd` file to find your first coding challenge. 
+
+
+```{r echo=FALSE}
+countdown(minutes = 2, seconds = 00)
+```
+
+::: notes
+We'll just work on this for a couple minutes and if you don't finish during that time, no sweat, just pause wherever you are and we'll take a look at the solutions together. 
+
+I'll put a little comment in the chat now, and when you're finished working on this coding challenge, thumbs up that comment to let me know you're ready to move on.
+
+I also want to create another opportunity here for anyone that's having trouble getting access to the files, or having trouble loading the Posit cloud project, to drop and note in the chat so we can help!
+:::
+
+
+## {{< fa heart >}} A little encouragement...
+
+**Are these functions new to you? No problem!**
+
+You don't need to understand the underlying statistics for any of these functions to work through the R code and learn from the missingness examples.
+
+::: notes
+So if you haven't made a correlation matrix before, or you've never heard of principal components analysis, no worries! That's probably the case for most of the folks here today, so know you're in good company.
+We're not going to talk about what these tests are for or what they mean, we're just using them as examples to see different ways of handling missing values.
+
+If you want to learn more about these functions and what they do, click through the links above for explanations and tutorials.
+:::
+
+
+
+## {{< fa rocket >}} Check your understanding!
+
+<br>
+
+**True or False**: The output from R functions usually tells you how missing data were handled.
+
+{{< fa thumbs-up >}} True!
+
+{{< fa thumbs-down >}} False!
+
+::: notes
+Okay! Now we're going to jump into some quick quiz questions to check your understanding. Give me a thumbs-up reaction in Teams if you think this is true and thumbs down if you think it's false: The output from R functions usually tells you how missing data were handled.
+
+False! 
+Although some functions, like `geom_point`, provide a warning when dropping missing values, many functions in R do not. We saw an example of this with the `prcomp` function.
+:::
+
+
+## What we covered
+
+::: {.incremental}
+- Stuff
+:::
+
+::: notes
+That's a lot! 
+So don't expect to remember everything --- you have the slides and all the example code to go back to. My goal for you all is for you to come away with a general impression of ..., and to be forewarned about some of the "gotchas" you might encounter. And now you have a resource to come back to if, for example, you find yourself wrestling with ... and you want some clear examples to refresh your memory.  
+:::
+
+# Additional resources
+
+
+
+# Practice opportunity
+
+Want to go through this material again? It's posted as [an interactive tutorial online](https://bit.ly/DART_r_missing_values) as part of [DART (Data and Analytics for Research Training)](https://arcus.github.io/education_modules/)!
+
+# Thank you! Questions?
+
+```{r eval=FALSE}
+filter(topics, is.na(understanding))
+```
